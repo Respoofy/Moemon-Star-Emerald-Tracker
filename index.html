@@ -1,78 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Game Encounter & Trainer Tracker</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: #e0e0e0;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-  }
-  header {
-    background: linear-gradient(45deg, #1f1f1f, #2a2a2a);
-    color: #fff;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-  }
-  h1 { margin:0; font-size:2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-  .container { padding:1rem; max-width:1200px; margin:auto; }
-  .search-container { margin-bottom:1rem; text-align:center; }
-  .search-box {
-    padding:12px 20px; font-size:16px; border:none; border-radius:25px; width:90%;
-    max-width:300px; background:#1f1f1f; color:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.4); outline:none;
-  }
-  .location, .trainer {
-    background: #1e1e1e; border-radius: 15px; margin-bottom: 1.5rem;
-    border: 2px solid #333; box-shadow: 0 8px 25px rgba(0,0,0,0.4); transition: all 0.3s ease;
-  }
-  .caught { background: linear-gradient(135deg, #1b3a1b, #264d26); border-color: #28a745; }
-  .dropdown-header {
-    cursor: pointer; padding: 1rem; font-size: 1.5em; text-align: left;
-    border-bottom: 3px solid #444; background:#2b2b2b; color:#fff; display:flex; justify-content:space-between; align-items:center;
-    user-select:none;
-  }
-  .dropdown-content { display:none; padding:1rem; background:#222; max-height:400px; overflow-y:auto; }
-  .dropdown-content.show { display:block; }
-  h3 {
-    color: #ddd; margin-bottom:0.5rem; font-size:1.2em; background:linear-gradient(90deg,#444,#555);
-    padding: 8px 15px; border-radius:8px; display:inline-block;
-  }
-  table { width:100%; border-collapse:collapse; margin-top:0.5rem; border-radius:10px; overflow:hidden; }
-  th, td { border:1px solid #333; padding:12px; text-align:left; }
-  th { background:#333; color:#fff; font-weight:bold; }
-  td { background:#2a2a2a; color:#eee; }
-  tr:nth-child(even) td { background:#242424; }
-  tr:hover td { background:#333; }
-  input[type="checkbox"] { transform:scale(1.2); margin-left:10px; }
-  .stats { background:#1f1f1f; border-radius:15px; padding:1rem; margin-bottom:1rem; text-align:center; }
-  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1rem; }
-  .stat-item { background:linear-gradient(135deg,#333,#444); color:#fff; padding:1rem; border-radius:10px; font-weight:bold; }
-  .hidden { display:none; }
-  .tab-buttons { text-align:center; margin-bottom:1rem; }
-  .tab-buttons button {
-    padding:10px 20px; margin:0 5px; border:none; border-radius:10px; background:#444; color:white; cursor:pointer; font-size:16px; transition: background 0.3s;
-  }
-  .tab-buttons button:hover { background:#666; }
-  .tab-buttons button.active { background:#28a745; }
-  select, button#resetButton {
-    background:#333; color:#fff; border:1px solid #555; padding:8px 12px; border-radius:8px; font-size:14px;
-  }
-  select:focus, button#resetButton:hover { background:#444; }
-  @media (max-width: 600px) {
-    body { font-size:16px; }
-    .dropdown-header { font-size:1.3em; padding:12px; }
-    h3 { font-size:1em; padding:6px 12px; }
-    table th, table td { padding:8px; font-size:14px; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Moemon Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(45deg, #1f1f1f, #2a2a2a);
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    h1 { margin:0; font-size:2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .container { padding:1rem; max-width:1200px; margin:auto; }
+    .search-container { margin-bottom:1rem; text-align:center; }
+    .search-box {
+      padding:12px 20px; font-size:16px; border:none; border-radius:25px;
+      width:300px; background:#1f1f1f; color:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.4);
+      outline:none;
+    }
+    .location, .trainer {
+      background:#1e1e1e; border-radius:15px; margin-bottom:1.5rem;
+      border:2px solid #333; box-shadow:0 8px 25px rgba(0,0,0,0.4);
+      transition:all 0.3s ease;
+    }
+    .caught { background: linear-gradient(135deg, #1b3a1b, #264d26); border-color: #28a745; }
+    .dropdown-header {
+      cursor:pointer; padding:1rem; font-size:1.5em; text-align:center;
+      border-bottom:3px solid #444; background:#2b2b2b; color:#fff;
+    }
+    .dropdown-content { display:none; padding:1rem; background:#222; }
+    .dropdown-content.show { display:block; }
+    h3 {
+      color:#ddd; margin-bottom:0.5rem; font-size:1.2em;
+      background: linear-gradient(90deg, #444, #555); padding:8px 15px;
+      border-radius:8px; display:inline-block;
+    }
+    table { width:100%; border-collapse:collapse; margin-top:0.5rem; border-radius:10px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
+    th, td { border:1px solid #333; padding:12px; text-align:left; }
+    th { background:#333; color:#fff; font-weight:bold; }
+    td { background:#2a2a2a; color:#eee; }
+    tr:nth-child(even) td { background:#242424; }
+    tr:hover td { background:#333; }
+    input[type="checkbox"] { transform: scale(1.2); margin-left:10px; }
+    .stats { background:#1f1f1f; border-radius:15px; padding:1rem; margin-bottom:1rem; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
+    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1rem; }
+    .stat-item { background:linear-gradient(135deg, #333, #444); color:#fff; padding:1rem; border-radius:10px; font-weight:bold; }
+    .hidden { display:none; }
+    .tab-buttons { text-align:center; margin-bottom:1rem; }
+    .tab-buttons button {
+      padding:10px 20px; margin:0 5px; border:none; border-radius:10px;
+      background:#444; color:white; cursor:pointer; font-size:16px; transition: background 0.3s ease;
+    }
+    .tab-buttons button:hover { background:#666; }
+    .tab-buttons button.active { background:#28a745; }
+    select, button#resetButton { background:#333; color:#fff; border:1px solid #555; padding:8px 12px; border-radius:8px; font-size:14px; }
+    select:focus, button#resetButton:hover { background:#444; }
+    /* Duplicate styling */
+    .duplicate td { background:#555 !important; color:#aaa; }
+  </style>
 </head>
 <body>
-<header><h1>Game Encounter & Trainer Tracker</h1></header>
+<header><h1>Moemon Tracker</h1></header>
 <div class="container">
   <div class="search-container">
     <input type="text" id="searchBox" class="search-box" placeholder="Search locations, trainers, or Pokémon...">
@@ -1936,9 +1933,9 @@ encounters["Flower Path (Field)"] = {
     trainers["Rival (Route 103)"] = {
   levelCap: 16, // Next gym leader: Roxanne (Nosepass Lvl 16)
   teams: {
-    "Treecko": [{name: "Torchic", level: 6, item: "?"}],
-    "Mudkip": [{name: "Treecko", level: 6, item: "?"}],
-    "Torchic": [{name: "Mudkip", level: 6, item: "?"}]
+    "Treecko": [{name: "Torchic", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}],
+    "Mudkip": [{name: "Treecko", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}],
+    "Torchic": [{name: "Mudkip", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}]
   }
 };
 
@@ -2758,116 +2755,136 @@ trainers["Carmine (Dreaded Den)"] = {
   ]
 };
 
-  let allPokemon = [], allTrainers = [];
-let selectedStarter = document.getElementById("starterChoice").value;
+  let selectedStarter = document.getElementById("starterChoice").value;
 
-function initializeAllPokemon() {
-  allPokemon=[];
-  for(const location in encounters)
-    for(const method in encounters[location])
-      encounters[location][method].forEach(p=>allPokemon.push({name:p.name,location,method}));
-}
-function initializeAllTrainers() {
-  allTrainers=[];
-  for(const trainer in trainers) allTrainers.push(trainer);
-}
+  function loadTracker(show="encounters") {
+    const container = document.getElementById("tracker");
+    container.innerHTML = "";
 
-function loadTracker(show="encounters") {
-  const container = document.getElementById("tracker"); container.innerHTML="";
-  if(show==="encounters"){
-    for(const location in encounters){
-      const div=document.createElement("div"); div.className="location";
-      const header=document.createElement("div"); header.className="dropdown-header";
-      header.textContent=location; 
-      const arrow=document.createElement("span"); arrow.textContent=" ▶"; header.appendChild(arrow);
+    if(show==="encounters"){
+      for(const location in encounters){
+        const div=document.createElement("div"); div.className="location";
+        const header=document.createElement("div"); header.className="dropdown-header"; header.textContent=location;
+        const content=document.createElement("div"); content.className="dropdown-content";
 
-      const content=document.createElement("div"); content.className="dropdown-content";
-      for(const method in encounters[location]){
-        const section=document.createElement("div"); section.className="encounter-section";
-        const methodTitle=document.createElement("h3"); methodTitle.textContent=method; section.appendChild(methodTitle);
-        const table=document.createElement("table"); table.innerHTML=`<tr><th>Pokémon</th><th>Caught?</th></tr>`;
-        encounters[location][method].forEach(p=>{
-          const row=document.createElement("tr");
-          const key=`${location}-${method}-${p.name}`;
-          const saved=localStorage.getItem(key)==="true";
-          row.innerHTML=`<td>${p.name}</td><td><input type="checkbox" ${saved?"checked":""}></td>`;
-          row.querySelector("input").addEventListener("change",()=>{localStorage.setItem(key,row.querySelector("input").checked);updateLocationHighlight(location);updateStats();});
-          table.appendChild(row);
-        });
-        section.appendChild(table); content.appendChild(section);
+        for(const method in encounters[location]){
+          const section=document.createElement("div"); section.className="encounter-section";
+          const methodTitle=document.createElement("h3"); methodTitle.textContent=method; section.appendChild(methodTitle);
+
+          const table=document.createElement("table");
+          table.innerHTML=`<tr><th>Pokémon</th><th>Caught?</th></tr>`;
+          encounters[location][method].forEach(p=>{
+            const row=document.createElement("tr");
+            const key=`${location}-${method}-${p.name}`;
+            const saved=localStorage.getItem(key)==="true";
+            row.innerHTML=`<td>${p.name}</td><td><input type="checkbox" ${saved?"checked":""}></td>`;
+            const checkbox=row.querySelector("input");
+            checkbox.addEventListener("change",()=>{
+              localStorage.setItem(key, checkbox.checked);
+              updateLocationHighlight(location);
+              updateStats();
+              markDuplicates();
+            });
+            table.appendChild(row);
+          });
+          section.appendChild(table);
+          content.appendChild(section);
+        }
+        header.addEventListener("click",()=>content.classList.toggle("show"));
+        div.appendChild(header); div.appendChild(content); container.appendChild(div);
+        updateLocationHighlight(location);
       }
-      header.addEventListener("click",()=>{ content.classList.toggle("show"); arrow.textContent=content.classList.contains("show")?" ▼":" ▶"; });
-      div.appendChild(header); div.appendChild(content); container.appendChild(div); updateLocationHighlight(location);
+    } else if(show==="trainers"){
+      for(const trainer in trainers){
+        const div=document.createElement("div"); div.className="trainer";
+        const header=document.createElement("div"); header.className="dropdown-header";
+        const checkboxId=`chk-${trainer.replace(/\s+/g,'-')}`;
+        const saved=localStorage.getItem(checkboxId)==="true";
+        header.innerHTML=`<input type="checkbox" id="${checkboxId}" ${saved?"checked":""}> ${trainer} - Level Cap: ${trainers[trainer].levelCap||"N/A"}`;
+        const content=document.createElement("div"); content.className="dropdown-content";
+
+        let team=trainers[trainer].team || trainers[trainer].teams?.[selectedStarter] || [];
+        const table=document.createElement("table");
+        table.innerHTML=`<tr><th>Pokémon</th><th>Level</th><th>Held Item</th></tr>`;
+        team.forEach(p=>{ const row=document.createElement("tr"); row.innerHTML=`<td>${p.name}</td><td>${p.level}</td><td>${p.item}</td>`; table.appendChild(row); });
+        content.appendChild(table);
+        header.addEventListener("click",()=>{ if(event.target.tagName!=="INPUT") content.classList.toggle("show"); });
+        div.appendChild(header); div.appendChild(content); container.appendChild(div);
+
+        const checkbox=document.getElementById(checkboxId);
+        checkbox.addEventListener("change",()=>{
+          localStorage.setItem(checkboxId, checkbox.checked);
+          div.classList.toggle("caught", checkbox.checked);
+        });
+        div.classList.toggle("caught", saved);
+      }
     }
-  } else if(show==="trainers"){
-    for(const trainer in trainers){
-      const div=document.createElement("div"); div.className="trainer";
-      const header=document.createElement("div"); header.className="dropdown-header";
-      const checkboxId=`chk-${trainer.replace(/\s+/g,'-')}`;
-      const saved=localStorage.getItem(checkboxId)==="true";
-      header.innerHTML=`<input type="checkbox" id="${checkboxId}" ${saved?"checked":""}> ${trainer} - Level Cap: ${trainers[trainer].levelCap||"N/A"}`;
-      const arrow=document.createElement("span"); arrow.textContent=" ▶"; header.appendChild(arrow);
-
-      const content=document.createElement("div"); content.className="dropdown-content";
-      let team = trainers[trainer].team || trainers[trainer].teams?.[selectedStarter] || [];
-      const table=document.createElement("table"); table.innerHTML=`<tr><th>Pokémon</th><th>Level</th><th>Held Item</th></tr>`;
-      team.forEach(p=>{ const row=document.createElement("tr"); row.innerHTML=`<td>${p.name}</td><td>${p.level}</td><td>${p.item}</td>`; table.appendChild(row); });
-      content.appendChild(table);
-
-      header.addEventListener("click",(e)=>{ if(e.target.tagName!=="INPUT"){ content.classList.toggle("show"); arrow.textContent=content.classList.contains("show")?" ▼":" ▶"; } });
-
-      div.appendChild(header); div.appendChild(content); container.appendChild(div);
-      const checkbox=document.getElementById(checkboxId);
-      checkbox.addEventListener("change",()=>{ localStorage.setItem(checkboxId, checkbox.checked); div.classList.toggle("caught", checkbox.checked); });
-      div.classList.toggle("caught", saved);
-    }
+    updateStats();
+    markDuplicates();
   }
-  updateStats();
-}
 
-function updateLocationHighlight(location){
-  const div=[...document.querySelectorAll(".location")].find(d=>d.querySelector(".dropdown-header").textContent.includes(location));
-  if(!div) return;
-  const checkboxes=div.querySelectorAll("input[type=checkbox]");
-  div.classList.toggle("caught", Array.from(checkboxes).some(cb=>cb.checked));
-}
-
-function updateStats(){
-  let totalPokemon=0, caughtPokemon=0, locationsWithCaught=0;
-  for(const location in encounters){
-    let locCaught=false;
-    for(const method in encounters[location]){
-      encounters[location][method].forEach(p=>{
-        totalPokemon++;
-        if(localStorage.getItem(`${location}-${method}-${p.name}`)==="true"){ caughtPokemon++; locCaught=true; }
-      });
-    }
-    if(locCaught) locationsWithCaught++;
+  function updateLocationHighlight(location){
+    const div=[...document.querySelectorAll(".location")].find(d=>d.querySelector(".dropdown-header").textContent===location);
+    if(!div) return;
+    const checkboxes=div.querySelectorAll("input[type=checkbox]");
+    let anyChecked=Array.from(checkboxes).some(cb=>cb.checked);
+    div.classList.toggle("caught", anyChecked);
   }
-  document.getElementById("totalPokemon").textContent=totalPokemon;
-  document.getElementById("caughtPokemon").textContent=caughtPokemon;
-  document.getElementById("progressPercent").textContent=totalPokemon>0?Math.round(caughtPokemon/totalPokemon*100)+"%":"0%";
-  document.getElementById("locationsCompleted").textContent=locationsWithCaught+"/"+Object.keys(encounters).length;
-}
 
-function setupSearch(){
-  document.getElementById("searchBox").addEventListener("input",(e)=>{
-    const searchTerm=e.target.value.toLowerCase();
-    document.querySelectorAll(".location,.trainer").forEach(item=>{
-      item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(searchTerm));
+  function updateStats(){
+    let total=0, caught=0, locCaught=0;
+    for(const loc in encounters){
+      let locHas=false;
+      for(const method in encounters[loc]){
+        encounters[loc][method].forEach(p=>{
+          total++;
+          if(localStorage.getItem(`${loc}-${method}-${p.name}`)==="true"){ caught++; locHas=true; }
+        });
+      }
+      if(locHas) locCaught++;
+    }
+    document.getElementById("totalPokemon").textContent=total;
+    document.getElementById("caughtPokemon").textContent=caught;
+    document.getElementById("progressPercent").textContent=total>0?Math.round((caught/total)*100)+"%":"0%";
+    document.getElementById("locationsCompleted").textContent=locCaught+"/"+Object.keys(encounters).length;
+  }
+
+  function markDuplicates(){
+    const caughtSet=new Set();
+    const allRows=document.querySelectorAll(".location table tr");
+    allRows.forEach(row=>{
+      const nameCell=row.querySelector("td:first-child");
+      if(!nameCell) return;
+      const checkbox=row.querySelector("input[type=checkbox]");
+      if(checkbox.checked) caughtSet.add(nameCell.textContent);
     });
-  });
-}
+    allRows.forEach(row=>{
+      const nameCell=row.querySelector("td:first-child");
+      if(!nameCell) return;
+      const checkbox=row.querySelector("input[type=checkbox]");
+      const pokeName=nameCell.textContent;
+      if(caughtSet.has(pokeName) && !checkbox.checked) row.classList.add("duplicate");
+      else row.classList.remove("duplicate");
+    });
+  }
 
-function resetTracker(){ localStorage.clear(); loadTracker(document.getElementById("encounterTab").classList.contains("active")?"encounters":"trainers"); }
+  function setupSearch(){
+    document.getElementById("searchBox").addEventListener("input",(e)=>{
+      const term=e.target.value.toLowerCase();
+      const items=document.querySelectorAll(".location,.trainer");
+      items.forEach(item=>{ const text=item.textContent.toLowerCase(); item.classList.toggle("hidden", !text.includes(term)); });
+    });
+  }
 
-document.getElementById("starterChoice").addEventListener("change", e=>{ selectedStarter=e.target.value; loadTracker("trainers"); });
-document.getElementById("encounterTab").addEventListener("click",()=>{ document.getElementById("encounterTab").classList.add("active"); document.getElementById("trainerTab").classList.remove("active"); loadTracker("encounters"); });
-document.getElementById("trainerTab").addEventListener("click",()=>{ document.getElementById("trainerTab").classList.add("active"); document.getElementById("encounterTab").classList.remove("active"); loadTracker("trainers"); });
-document.getElementById("resetButton").addEventListener("click",resetTracker);
+  function resetTracker(){ localStorage.clear(); loadTracker(document.getElementById("encounterTab").classList.contains("active")?"encounters":"trainers"); }
 
-initializeAllPokemon(); initializeAllTrainers(); loadTracker(); setupSearch();
+  document.getElementById("starterChoice").addEventListener("change", e=>{ selectedStarter=e.target.value; loadTracker("trainers"); });
+  document.getElementById("encounterTab").addEventListener("click",()=>{ document.getElementById("encounterTab").classList.add("active"); document.getElementById("trainerTab").classList.remove("active"); loadTracker("encounters"); });
+  document.getElementById("trainerTab").addEventListener("click",()=>{ document.getElementById("trainerTab").classList.add("active"); document.getElementById("encounterTab").classList.remove("active"); loadTracker("trainers"); });
+  document.getElementById("resetButton").addEventListener("click",resetTracker);
+
+  loadTracker();
+  setupSearch();
 </script>
 </body>
-
 </html>
