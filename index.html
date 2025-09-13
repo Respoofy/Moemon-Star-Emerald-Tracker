@@ -1936,9 +1936,9 @@ encounters["Flower Path (Field)"] = {
     trainers["Rival (Route 103)"] = {
   levelCap: 16, // Next gym leader: Roxanne (Nosepass Lvl 16)
   teams: {
-    "Treecko": [{name: "Torchic", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}],
-    "Mudkip": [{name: "Treecko", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}],
-    "Torchic": [{name: "Mudkip", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}]
+    "Treecko": [{name: "Torchic", level: 6, item: "?"}],
+    "Mudkip": [{name: "Treecko", level: 6, item: "?"}],
+    "Torchic": [{name: "Mudkip", level: 6, item: "?"}]
   }
 };
 
@@ -2869,4 +2869,5 @@ document.getElementById("resetButton").addEventListener("click",resetTracker);
 initializeAllPokemon(); initializeAllTrainers(); loadTracker(); setupSearch();
 </script>
 </body>
+
 </html>
