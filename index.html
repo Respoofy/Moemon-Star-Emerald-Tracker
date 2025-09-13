@@ -1,0 +1,2872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Game Encounter & Trainer Tracker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(45deg, #1f1f1f, #2a2a2a);
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  }
+  h1 { margin:0; font-size:2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+  .container { padding:1rem; max-width:1200px; margin:auto; }
+  .search-container { margin-bottom:1rem; text-align:center; }
+  .search-box {
+    padding:12px 20px; font-size:16px; border:none; border-radius:25px; width:90%;
+    max-width:300px; background:#1f1f1f; color:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.4); outline:none;
+  }
+  .location, .trainer {
+    background: #1e1e1e; border-radius: 15px; margin-bottom: 1.5rem;
+    border: 2px solid #333; box-shadow: 0 8px 25px rgba(0,0,0,0.4); transition: all 0.3s ease;
+  }
+  .caught { background: linear-gradient(135deg, #1b3a1b, #264d26); border-color: #28a745; }
+  .dropdown-header {
+    cursor: pointer; padding: 1rem; font-size: 1.5em; text-align: left;
+    border-bottom: 3px solid #444; background:#2b2b2b; color:#fff; display:flex; justify-content:space-between; align-items:center;
+    user-select:none;
+  }
+  .dropdown-content { display:none; padding:1rem; background:#222; max-height:400px; overflow-y:auto; }
+  .dropdown-content.show { display:block; }
+  h3 {
+    color: #ddd; margin-bottom:0.5rem; font-size:1.2em; background:linear-gradient(90deg,#444,#555);
+    padding: 8px 15px; border-radius:8px; display:inline-block;
+  }
+  table { width:100%; border-collapse:collapse; margin-top:0.5rem; border-radius:10px; overflow:hidden; }
+  th, td { border:1px solid #333; padding:12px; text-align:left; }
+  th { background:#333; color:#fff; font-weight:bold; }
+  td { background:#2a2a2a; color:#eee; }
+  tr:nth-child(even) td { background:#242424; }
+  tr:hover td { background:#333; }
+  input[type="checkbox"] { transform:scale(1.2); margin-left:10px; }
+  .stats { background:#1f1f1f; border-radius:15px; padding:1rem; margin-bottom:1rem; text-align:center; }
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1rem; }
+  .stat-item { background:linear-gradient(135deg,#333,#444); color:#fff; padding:1rem; border-radius:10px; font-weight:bold; }
+  .hidden { display:none; }
+  .tab-buttons { text-align:center; margin-bottom:1rem; }
+  .tab-buttons button {
+    padding:10px 20px; margin:0 5px; border:none; border-radius:10px; background:#444; color:white; cursor:pointer; font-size:16px; transition: background 0.3s;
+  }
+  .tab-buttons button:hover { background:#666; }
+  .tab-buttons button.active { background:#28a745; }
+  select, button#resetButton {
+    background:#333; color:#fff; border:1px solid #555; padding:8px 12px; border-radius:8px; font-size:14px;
+  }
+  select:focus, button#resetButton:hover { background:#444; }
+  @media (max-width: 600px) {
+    body { font-size:16px; }
+    .dropdown-header { font-size:1.3em; padding:12px; }
+    h3 { font-size:1em; padding:6px 12px; }
+    table th, table td { padding:8px; font-size:14px; }
+  }
+</style>
+</head>
+<body>
+<header><h1>Game Encounter & Trainer Tracker</h1></header>
+<div class="container">
+  <div class="search-container">
+    <input type="text" id="searchBox" class="search-box" placeholder="Search locations, trainers, or Pokémon...">
+  </div>
+  <div class="tab-buttons">
+    <button id="encounterTab" class="active">Encounters</button>
+    <button id="trainerTab">Trainers</button>
+  </div>
+  <div class="stats">
+    <h2>Progress Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-item"><div>Total Pokémon</div><div id="totalPokemon">0</div></div>
+      <div class="stat-item"><div>Caught</div><div id="caughtPokemon">0</div></div>
+      <div class="stat-item"><div>Progress</div><div id="progressPercent">0%</div></div>
+      <div class="stat-item"><div>Locations Completed</div><div id="locationsCompleted">0</div></div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-bottom:1rem;">
+    <label for="starterChoice">Your Starter: </label>
+    <select id="starterChoice">
+      <option value="Treecko">Treecko</option>
+      <option value="Torchic">Torchic</option>
+      <option value="Mudkip">Mudkip</option>
+    </select>
+  </div>
+  <div style="text-align:center; margin-bottom:1rem;">
+    <button id="resetButton">Reset Tracker</button>
+  </div>
+  <div id="tracker"></div>
+</div>
+
+<script>
+  // === DATA ===
+  const encounters = {};
+    encounters["Route 98"] = {
+  "Walking": [
+    {name: "Sunkern"},
+    {name: "Hoppip"},
+    {name: "Cherubi"},
+    {name: "Nymble"},
+    {name: "Sewaddle"},
+    {name: "Combee"},
+    {name: "Scyther"},
+    {name: "Turtwig"}
+  ],
+  "Surf": [
+    {name: "Magikarp"},
+    {name: "Basculin Blue"},
+    {name: "Oshawott"},
+    {name: "Basculin Red"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"}
+  ],
+  "Good Rod": [
+    {name: "Basculin Red"},
+    {name: "Basculin Blue"},
+    {name: "Finneon"}
+  ],
+  "Super Rod": [
+    {name: "Basculin White"}
+  ]
+};
+
+encounters["Route 99"] = {
+  "Surf": [
+    {name: "Clauncher"},
+    {name: "Buizel"},
+    {name: "Tentacool"}
+  ],
+  "Old Rod": [
+    {name: "Luvdisc"}
+  ],
+  "Good Rod": [
+    {name: "Qwilfish"}
+  ],
+  "Super Rod": [
+    {name: "Qwilfish"},
+    {name: "Pyukumuku"}
+  ]
+};
+
+encounters["Route 100"] = {
+  "Walking": [
+    {name: "Panpour"},
+    {name: "Pancham"},
+    {name: "Munna"},
+    {name: "Slowpoke"},
+    {name: "Pachirisu"},
+    {name: "Sigilyph"},
+    {name: "Togepi"},
+    {name: "Mudkip"}
+  ],
+  "Surf": [
+    {name: "Surskit"},
+    {name: "Slowpoke"},
+    {name: "Slowbro"},
+    {name: "Sigilyph"}
+  ],
+  "Old Rod": [
+    {name: "Shelmet"}
+  ],
+  "Good Rod": [
+    {name: "Shelmet"},
+    {name: "Tadbulb"}
+  ],
+  "Super Rod": [
+    {name: "Shelmet"},
+    {name: "Tadbulb"},
+    {name: "Bellibolt"},
+    {name: "Phione"}
+  ]
+};
+
+encounters["Route 101"] = {
+  "Walking": [
+    {name: "Wurmple"},
+    {name: "Poochyena"},
+    {name: "Weedle"},
+    {name: "Lillipup"},
+    {name: "Purrloin"},
+    {name: "Zigzagoon"},
+    {name: "Pawmi"}
+  ],
+  "Surf": [
+    {name: "Magikarp"},
+    {name: "Basculin Blue"},
+    {name: "Oshawott"},
+    {name: "Basculin Red"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"}
+  ],
+  "Good Rod": [
+    {name: "Basculin Red"},
+    {name: "Basculin Blue"},
+    {name: "Finneon"}
+  ],
+  "Super Rod": [
+    {name: "Basculin White"}
+  ]
+};
+
+encounters["Route 101 (East)"] = {
+  "Walking": [
+    {name: "Pidgey"},
+    {name: "Zigzagoon"},
+    {name: "Caterpie"},
+    {name: "Sentret"},
+    {name: "Spearow"},
+    {name: "Pichu"}
+  ]
+};
+
+encounters["Route 102 (North)"] = {
+  "Walking": [
+    {name: "Meowth"},
+    {name: "Weedle"},
+    {name: "Lotad"},
+    {name: "Bidoof"},
+    {name: "Igglybuff"},
+    {name: "Ralts"}
+  ],
+  "Surf": [
+    {name: "Azurill"},
+    {name: "Goldeen"},
+    {name: "Surskit"},
+    {name: "Azumarill"}
+  ],
+  "Old Rod": [
+    {name: "Tympole"},
+    {name: "Goldeen"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Goldeen"},
+    {name: "Corphish"}
+  ],
+  "Super Rod": [
+    {name: "Corphish"}
+  ]
+};
+
+encounters["Route 102 (South)"] = {
+  "Walking": [
+    {name: "Poochyena"},
+    {name: "Caterpie"},
+    {name: "Seedot"},
+    {name: "Rattata"},
+    {name: "Gothita"},
+    {name: "Glameow"},
+    {name: "Stunky"},
+    {name: "Burmy"}
+  ],
+  "Surf": [
+    {name: "Azurill"},
+    {name: "Goldeen"},
+    {name: "Surskit"},
+    {name: "Azumarill"}
+  ],
+  "Old Rod": [
+    {name: "Goldeen"},
+    {name: "Tympole"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Basculin Red"}
+  ],
+  "Super Rod": [
+    {name: "Basculin Red"}
+  ]
+};
+
+encounters["Route 103"] = {
+  "Walking": [
+    {name: "Sentret"},
+    {name: "Patrat"},
+    {name: "Lillipup"},
+    {name: "Poochyena"},
+    {name: "Teddiursa"},
+    {name: "Hoothoot"},
+    {name: "Shellos"},
+    {name: "Ducklett"}
+  ],
+  "Surf": [
+    {name: "Magikarp"},
+    {name: "Basculin Blue"},
+    {name: "Oshawott"},
+    {name: "Basculin Red"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"}
+  ],
+  "Good Rod": [
+    {name: "Basculin Red"},
+    {name: "Basculin Blue"},
+    {name: "Finneon"}
+  ],
+  "Super Rod": [
+    {name: "Basculin White"}
+  ]
+};
+
+encounters["Route 104"] = {
+  "Walking": [
+    {name: "Bunnelby"},
+    {name: "Dewspider"},
+    {name: "Azurill"},
+    {name: "Pidove"},
+    {name: "Taillow"},
+    {name: "Wingull"},
+    {name: "Corsola"}
+  ],
+  "Surf": [
+    {name: "Wingull"},
+    {name: "Pelipper"},
+    {name: "Wishiwashi"}
+  ],
+  "Old Rod": [
+    {name: "Luvdisc"},
+    {name: "Magikarp"}
+  ],
+  "Good Rod": [
+    {name: "Wishiwashi"},
+    {name: "Magikarp"}
+  ],
+  "Super Rod": [
+    {name: "Magikarp"},
+    {name: "Wishiwashi"}
+  ]
+};
+
+encounters["Route 105"] = {
+  "Surf": [
+    {name: "Seel"},
+    {name: "Shellder"},
+    {name: "Bergmite"},
+    {name: "Wishiwashi"},
+    {name: "Cryogonal"}
+  ],
+  "Old Rod": [
+    {name: "Shellder"}
+  ],
+  "Good Rod": [
+    {name: "Binacle"},
+    {name: "Wishiwashi"}
+  ],
+  "Super Rod": [
+    {name: "Binacle"},
+    {name: "Wishiwashi"},
+    {name: "Barbaracle"}
+  ]
+};
+
+encounters["Route 106"] = {
+  "Surf": [
+    {name: "Binacle"},
+    {name: "Wimpod"},
+    {name: "Krabby"},
+    {name: "Luvdisc"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Luvdisc"},
+    {name: "Binacle"}
+  ],
+  "Good Rod": [
+    {name: "Luvdisc"},
+    {name: "Binacle"},
+    {name: "Wimpod"}
+  ],
+  "Super Rod": [
+    {name: "Wailmer"},
+    {name: "Clamperl"}
+  ]
+};
+
+encounters["Route 107"] = {
+  "Surf": [
+    {name: "Clauncher"},
+    {name: "Buizel"},
+    {name: "Floatzel"}
+  ],
+  "Old Rod": [
+    {name: "Luvdisc"},
+    {name: "Tentacool"}
+  ],
+  "Good Rod": [
+    {name: "Qwilfish"},
+    {name: "Tentacool"},
+    {name: "Alomomola"}
+  ],
+  "Super Rod": [
+    {name: "Alomomola"},
+    {name: "Qwilfish"},
+    {name: "Clamperl"}
+  ]
+};
+
+encounters["Route 108"] = {
+  "Surf": [
+    {name: "Alomomola"},
+    {name: "Frillish"}
+  ],
+  "Old Rod": [
+    {name: "Luvdisc"},
+    {name: "Finneon"}
+  ],
+  "Good Rod": [
+    {name: "Alomomola"},
+    {name: "Finneon"}
+  ],
+  "Super Rod": [
+    {name: "Frillish"},
+    {name: "Dhelmise"}
+  ]
+};
+
+encounters["Route 109"] = {
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Wingull"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Tentacool"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Tentacool"},
+    {name: "Corsola"}
+  ],
+  "Super Rod": [
+    {name: "Mareanie"},
+    {name: "Wailmer"},
+    {name: "Wailord"}
+  ]
+};
+
+encounters["Route 110"] = {
+  "Walking": [
+    {name: "Trubbish"},
+    {name: "Electrike"},
+    {name: "Plusle"},
+    {name: "Minun"},
+    {name: "Oddish"},
+    {name: "Gulpin"},
+    {name: "Helioptile"},
+    {name: "Chatot"},
+    {name: "Tadbulb"}
+  ],
+  "Surf": [
+    {name: "Tynamo"},
+    {name: "Grimer Alolan"},
+    {name: "Tadbulb"},
+    {name: "Wattrel"}
+  ],
+  "Old Rod": [
+    {name: "Tynamo"},
+    {name: "Chinchou"}
+  ],
+  "Good Rod": [
+    {name: "Tynamo"},
+    {name: "Chinchou"},
+    {name: "Mantyke"}
+  ],
+  "Super Rod": [
+    {name: "Tynamo"},
+    {name: "Eelektrik"},
+    {name: "Chinchou"},
+    {name: "Lanturn"},
+    {name: "Mantine"}
+  ]
+};
+
+encounters["Route 111"] = {
+  "Surf": [
+    {name: "Marill"},
+    {name: "Krabby"},
+    {name: "Skiploom"},
+    {name: "Hoppip"},
+    {name: "Goldeen"}
+  ],
+  "Old Rod": [
+    {name: "Krabby"},
+    {name: "Crabrawler"}
+  ],
+  "Good Rod": [
+    {name: "Krabby"},
+    {name: "Crabrawler"},
+    {name: "Kingler"}
+  ],
+  "Super Rod": [
+    {name: "Whiscash"},
+    {name: "Crabrawler"},
+    {name: "Barboach"},
+    {name: "Kingler"}
+  ]
+};
+
+encounters["Route 112"] = {
+  "Walking": [
+    {name: "Numel"},
+    {name: "Ponyta"},
+    {name: "Tyrogue"},
+    {name: "Pansear"},
+    {name: "Throh"},
+    {name: "Burmy"},
+    {name: "Charcadet"}
+  ]
+};
+
+encounters["Route 113"] = {
+  "Walking": [
+    {name: "Spinda"},
+    {name: "Slugma"},
+    {name: "Klefki"},
+    {name: "Chingling"},
+    {name: "Sandshrew"},
+    {name: "Bouffalant"},
+    {name: "Skarmory"},
+    {name: "Scorbunny"}
+  ]
+};
+
+encounters["Route 114"] = {
+  "Walking": [
+    {name: "Swablu"},
+    {name: "Yamask Galarian"},
+    {name: "Skorupi"},
+    {name: "Buneary"},
+    {name: "Drifloon"},
+    {name: "Zangoose"},
+    {name: "Seviper"},
+    {name: "Lombre"},
+    {name: "Nuzleaf"}
+  ],
+  "Surf": [
+    {name: "Lotad"},
+    {name: "Inkay"},
+    {name: "Stunfisk"},
+    {name: "Lombre"}
+  ],
+  "Old Rod": [
+    {name: "Barboach"},
+    {name: "Inkay"}
+  ],
+  "Good Rod": [
+    {name: "Inkay"},
+    {name: "Barboach"},
+    {name: "Wishiwashi"}
+  ],
+  "Super Rod": [
+    {name: "Barboach"},
+    {name: "Inkay"},
+    {name: "Whiscash"},
+    {name: "Wishiwashi"}
+  ]
+};
+
+encounters["Route 115"] = {
+  "Walking": [
+    {name: "Swablu"},
+    {name: "Taillow"},
+    {name: "Meditite"},
+    {name: "Clefairy"},
+    {name: "Jigglypuff"},
+    {name: "Gligar"},
+    {name: "Misdreavus"}
+  ],
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Wingull"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Tentacool"},
+    {name: "Magikarp"}
+  ],
+  "Good Rod": [
+    {name: "Tentacool"},
+    {name: "Magikarp"},
+    {name: "Wailmer"}
+  ],
+  "Super Rod": [
+    {name: "Wailmer"},
+    {name: "Dratini"}
+  ]
+};
+
+encounters["Route 116"] = {
+  "Walking": [
+    {name: "Shinx"},
+    {name: "Ekans"},
+    {name: "Nincada"},
+    {name: "Abra"},
+    {name: "Skitty"},
+    {name: "Taillow"},
+    {name: "Joltik"},
+    {name: "Skiddo"}
+  ]
+};
+
+encounters["Route 117"] = {
+  "Walking": [
+    {name: "Budew"},
+    {name: "Oddish"},
+    {name: "Volbeat"},
+    {name: "Illumise"},
+    {name: "Bellsprout"},
+    {name: "Ledyba"},
+    {name: "Rattata Alolan"},
+    {name: "Pichu"},
+    {name: "Deerling"},
+    {name: "Flabebe"}
+  ],
+  "Surf": [
+    {name: "Marill"},
+    {name: "Goldeen"}
+  ],
+  "Old Rod": [
+    {name: "Remoraid"}
+  ],
+  "Good Rod": [
+    {name: "Remoraid"},
+    {name: "Corphish"}
+  ],
+  "Super Rod": [
+    {name: "Corphish"},
+    {name: "Octillery"},
+    {name: "Crawdaunt"}
+  ]
+};
+
+encounters["Route 118"] = {
+  "Surf": [
+    {name: "Finneon"},
+    {name: "Wattrel"},
+    {name: "Wingull"},
+    {name: "Mantine"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Finneon"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Finneon"},
+    {name: "Carvanha"}
+  ],
+  "Super Rod": [
+    {name: "Sharpedo"},
+    {name: "Gyarados"},
+    {name: "Carvanha"},
+    {name: "Lumineon"}
+  ]
+};
+
+encounters["Route 119"] = {
+  "Walking": [
+    {name: "Fomantis"},
+    {name: "Weepinbell"},
+    {name: "Exeggcute"},
+    {name: "Mankey"},
+    {name: "Yanma"},
+    {name: "Tropius"},
+    {name: "Passimian"},
+    {name: "Oranguru"},
+    {name: "Hatenna"},
+    {name: "Kecleon"}
+  ],
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Psyduck"},
+    {name: "Carvanha"},
+    {name: "Golduck"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Tentacool"}
+  ],
+  "Good Rod": [
+    {name: "Psyduck"},
+    {name: "Tentacool"},
+    {name: "Carvanha"}
+  ],
+  "Super Rod": [
+    {name: "Carvanha"},
+    {name: "Psyduck"}
+  ]
+};
+
+encounters["Route 120"] = {
+  "Walking": [
+    {name: "Cutiefly"},
+    {name: "Snubbull"},
+    {name: "Venipede"},
+    {name: "Foongus"},
+    {name: "Ditto"},
+    {name: "Staravia"},
+    {name: "Absol"},
+    {name: "Shuckle"},
+    {name: "Snivy"}
+  ],
+  "Surf": [
+    {name: "Marill"},
+    {name: "Remoraid"},
+    {name: "Wooper"},
+    {name: "Quaxly"},
+    {name: "Quagsire"}
+  ],
+  "Old Rod": [
+    {name: "Tympole"},
+    {name: "Remoraid"}
+  ],
+  "Good Rod": [
+    {name: "Tympole"},
+    {name: "Remoraid"},
+    {name: "Wooper"}
+  ],
+  "Super Rod": [
+    {name: "Wooper"},
+    {name: "Remoraid"},
+    {name: "Octillery"},
+    {name: "Sobble"}
+  ]
+};
+
+encounters["Route 121"] = {
+  "Walking": [
+    {name: "Mareep"},
+    {name: "Shuppet"},
+    {name: "Growlithe"},
+    {name: "Farfetchd"},
+    {name: "Furret"},
+    {name: "Meowth"},
+    {name: "Furfrou"},
+    {name: "Murkrow"},
+    {name: "Mr Mime"},
+    {name: "Chikorita"}
+  ],
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Psyduck"},
+    {name: "Carvanha"},
+    {name: "Golduck"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Carvanha"},
+    {name: "Tentacool"}
+  ],
+  "Good Rod": [
+    {name: "Psyduck"},
+    {name: "Corsola"},
+    {name: "Carvanha"}
+  ],
+  "Super Rod": [
+    {name: "Corsola"},
+    {name: "Psyduck"},
+    {name: "Sharpedo"}
+  ]
+};
+
+encounters["Route 122"] = {
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Psyduck"},
+    {name: "Carvanha"},
+    {name: "Golduck"}
+  ],
+  "Old Rod": [
+    {name: "Carvanha"},
+    {name: "Tentacool"}
+  ],
+  "Good Rod": [
+    {name: "Psyduck"},
+    {name: "Carvanha"},
+    {name: "Corsola Galarian"}
+  ],
+  "Super Rod": [
+    {name: "Corsola Galarian"},
+    {name: "Psyduck"}
+  ]
+};
+
+encounters["Route 123"] = {
+  "Walking": [
+    {name: "Swirlix"},
+    {name: "Drowzee"},
+    {name: "Nymble"},
+    {name: "Lickitung"},
+    {name: "Mareep"},
+    {name: "Petilil"},
+    {name: "Munchlax"},
+    {name: "Smeargle"},
+    {name: "Rowlet"}
+  ],
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Psyduck"},
+    {name: "Carvanha"},
+    {name: "Golduck"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Carvanha"},
+    {name: "Tentacool"}
+  ],
+  "Good Rod": [
+    {name: "Psyduck"},
+    {name: "Corsola Galarian"},
+    {name: "Carvanha"}
+  ],
+  "Super Rod": [
+    {name: "Corsola Galarian"},
+    {name: "Psyduck"},
+    {name: "Sharpedo"}
+  ]
+};
+
+encounters["Route 124"] = {
+  "Surf": [
+    {name: "Wattrel"},
+    {name: "Wingull"},
+    {name: "Tentacool"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Luvdisc"},
+    {name: "Carvanha"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Carvanha"},
+    {name: "Staryu"}
+  ],
+  "Super Rod": [
+    {name: "Tentacool"},
+    {name: "Wailmer"},
+    {name: "Sharpedo"},
+    {name: "Tentacruel"}
+  ]
+};
+
+encounters["Route 125"] = {
+  "Surf": [
+    {name: "Buizel"},
+    {name: "Bergmite"},
+    {name: "Lapras"},
+    {name: "Floatzel"}
+  ],
+  "Old Rod": [
+    {name: "Shellder"},
+    {name: "Slowpoke"}
+  ],
+  "Good Rod": [
+    {name: "Slowpoke"},
+    {name: "Shellder"},
+    {name: "Wailmer"}
+  ],
+  "Super Rod": [
+    {name: "Sharpedo"},
+    {name: "Slowbro"},
+    {name: "Shellder"},
+    {name: "Wailmer"}
+  ]
+};
+
+encounters["Route 126"] = {
+  "Surf": [
+    {name: "Tynamo"},
+    {name: "Jellicent"},
+    {name: "Wingull"},
+    {name: "Corsola"},
+    {name: "Kilowatrel"}
+  ],
+  "Underwater": [
+    {name: "Clamperl"},
+    {name: "Chinchou"},
+    {name: "Relicanth"},
+    {name: "Lanturn"}
+  ],
+  "Old Rod": [
+    {name: "Finneon"},
+    {name: "Carvanha"}
+  ],
+  "Good Rod": [
+    {name: "Carvanha"},
+    {name: "Tynamo"},
+    {name: "Tentacool"}
+  ],
+  "Super Rod": [
+    {name: "Sharpedo"},
+    {name: "Tentacruel"},
+    {name: "Mareanie"},
+    {name: "Lumineon"},
+    {name: "Eelektrik"}
+  ]
+};
+
+encounters["Route 127"] = {
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Wattrel"},
+    {name: "Jellicent"},
+    {name: "Mantine"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Finneon"}
+  ],
+  "Good Rod": [
+    {name: "Carvanha"},
+    {name: "Staryu"},
+    {name: "Goldeen"}
+  ],
+  "Super Rod": [
+    {name: "Mantyke"},
+    {name: "Tentacruel"},
+    {name: "Wailmer"},
+    {name: "Gyarados"},
+    {name: "Seaking"}
+  ]
+};
+
+encounters["Route 128"] = {
+  "Surf": [
+    {name: "Ducklett"},
+    {name: "Finneon"},
+    {name: "Buizel"},
+    {name: "Swanna"},
+    {name: "Floatzel"}
+  ],
+  "Old Rod": [
+    {name: "Finneon"},
+    {name: "Corsola"}
+  ],
+  "Good Rod": [
+    {name: "Carvanha"},
+    {name: "Staryu"},
+    {name: "Corsola"}
+  ],
+  "Super Rod": [
+    {name: "Luvdisc"},
+    {name: "Wailmer"},
+    {name: "Lumineon"},
+    {name: "Popplio"},
+    {name: "Wailord"}
+  ]
+};
+
+encounters["Route 129"] = {
+  "Surf": [
+    {name: "Magikarp"},
+    {name: "Remoraid"},
+    {name: "Taillow"},
+    {name: "Swellow"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Staryu"}
+  ],
+  "Good Rod": [
+    {name: "Mareanie"},
+    {name: "Remoraid"},
+    {name: "Staryu"}
+  ],
+  "Super Rod": [
+    {name: "Mareanie"},
+    {name: "Tatsugiri"},
+    {name: "Dondozo"}
+  ]
+};
+
+encounters["Route 130"] = {
+  "Surf": [
+    {name: "Remoraid"},
+    {name: "Magikarp"},
+    {name: "Taillow"},
+    {name: "Swellow"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Staryu"}
+  ],
+  "Good Rod": [
+    {name: "Mareanie"},
+    {name: "Remoraid"},
+    {name: "Staryu"}
+  ],
+  "Super Rod": [
+    {name: "Mareanie"},
+    {name: "Tatsugiri"},
+    {name: "Dondozo"}
+  ]
+};
+
+encounters["Route 131"] = {
+  "Surf": [
+    {name: "Igglybuff"},
+    {name: "Magikarp"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Clauncher"}
+  ],
+  "Good Rod": [
+    {name: "Clauncher"},
+    {name: "Feebas"}
+  ],
+  "Super Rod": [
+    {name: "Feebas"},
+    {name: "Clawitzer"},
+    {name: "Tatsugiri"},
+    {name: "Dondozo"}
+  ]
+};
+
+encounters["Route 132"] = {
+  "Surf": [
+    {name: "Skrelp"},
+    {name: "Igglybuff"},
+    {name: "Hoppip"},
+    {name: "Spearow"},
+    {name: "Fearow"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Igglybuff"},
+    {name: "Skrelp"}
+  ],
+  "Good Rod": [
+    {name: "Wishiwashi"},
+    {name: "Feebas"},
+    {name: "Skrelp"}
+  ],
+  "Super Rod": [
+    {name: "Skrelp"},
+    {name: "Feebas"},
+    {name: "Mareanie"}
+  ]
+};
+
+encounters["Route 133"] = {
+  "Surf": [
+    {name: "Skrelp"},
+    {name: "Igglybuff"},
+    {name: "Spearow"}
+  ],
+  "Old Rod": [
+    {name: "Skrelp"},
+    {name: "Magikarp"}
+  ],
+  "Good Rod": [
+    {name: "Feebas"},
+    {name: "Wishiwashi"}
+  ],
+  "Super Rod": [
+    {name: "Feebas"},
+    {name: "Skrelp"},
+    {name: "Mareanie"}
+  ]
+};
+
+encounters["Route 134"] = {
+  "Surf": [
+    {name: "Pidgey"},
+    {name: "Wingull"},
+    {name: "Surskit"},
+    {name: "Masquerain"},
+    {name: "Drifloon"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Shelmet"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Shelmet"}
+  ],
+  "Super Rod": [
+    {name: "Dhelmise"},
+    {name: "Shelmet"},
+    {name: "Mareanie"}
+  ]
+};
+
+encounters["Route 135"] = {
+  "Walking": [
+    {name: "Bonsly"},
+    {name: "Flabebe"},
+    {name: "Cleffa"},
+    {name: "Miltank"},
+    {name: "Wynaut"},
+    {name: "Pichu"},
+    {name: "Happiny"},
+    {name: "Oricorio Baile"},
+    {name: "Riolu"},
+    {name: "Fenniken"}
+  ],
+  "Surf": [
+    {name: "Mantyke"},
+    {name: "Chingling"},
+    {name: "Totodile"},
+    {name: "Mantine"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Finneon"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Finneon"},
+    {name: "Poliwag"}
+  ],
+  "Super Rod": [
+    {name: "Poliwhirl"},
+    {name: "Gyarados"},
+    {name: "Lumineon"},
+    {name: "Mantine"}
+  ]
+};
+
+encounters["Petalburg Woods (South)"] = {
+  "Walking": [
+    {name: "Pidgey"},
+    {name: "Spinarak"},
+    {name: "Stufful"},
+    {name: "Shroomish"},
+    {name: "Metapod"},
+    {name: "Cascoon"},
+    {name: "Minccino"},
+    {name: "Taillow"},
+    {name: "Slakoth"}
+  ]
+};
+
+encounters["Petalburg Woods (East)"] = {
+  "Walking": [
+    {name: "Aipom"},
+    {name: "Scatterbug"},
+    {name: "Dedenne"},
+    {name: "Paras"},
+    {name: "Kakuna"},
+    {name: "Silcoon"},
+    {name: "Cottonee"},
+    {name: "Morelull"}
+  ],
+  "Surf": [
+    {name: "Surskit"},
+    {name: "Masquerain"}
+  ],
+  "Old Rod": [
+    {name: "Goldeen"},
+    {name: "Barboach"}
+  ],
+  "Good Rod": [
+    {name: "Barboach"},
+    {name: "Qwilfish"}
+  ],
+  "Super Rod": [
+    {name: "Whiscash"},
+    {name: "Qwilfish"},
+    {name: "Barboach"}
+  ]
+};
+
+encounters["Petalburg Woods (Big Tree Area)"] = {
+  "Walking": [
+    {name: "Pineco"},
+    {name: "Burmy Plant Cloak"},
+    {name: "Scatterbug"},
+    {name: "Kakuna"},
+    {name: "Metapod"},
+    {name: "Komala"},
+    {name: "Treecko"},
+    {name: "Deerling Summer"}
+  ]
+};
+
+encounters["Petalburg Clearing"] = {
+  "Walking": [
+    {name: "Deerling Spring"},
+    {name: "Floette Orange"},
+    {name: "Hoppip"},
+    {name: "Roselia"},
+    {name: "Sunkern"},
+    {name: "Combee"},
+    {name: "Cherubi"},
+    {name: "Sewaddle"},
+    {name: "Cottonee"},
+    {name: "Chespin"}
+  ]
+};
+
+encounters["Ferroshore Cave (Top Floor)"] = {
+  "Walking": [
+    {name: "Ferroseed"},
+    {name: "Woobat"},
+    {name: "Cubone"},
+    {name: "Machop"},
+    {name: "Vanillite"},
+    {name: "Smoochum"},
+    {name: "Mawile"},
+    {name: "Carbink"}
+  ],
+  "Surf": [
+    {name: "Shellder"},
+    {name: "Bergmite"}
+  ],
+  "Old Rod": [
+    {name: "Shellder"}
+  ],
+  "Good Rod": [
+    {name: "Tynamo"},
+    {name: "Shellder"}
+  ],
+  "Super Rod": [
+    {name: "Shellder"},
+    {name: "Tynamo"},
+    {name: "Cloyster"}
+  ]
+};
+
+encounters["Ferroshore Cave (Bottom Floor)"] = {
+  "Walking": [
+    {name: "Ferroseed"},
+    {name: "Shellos"},
+    {name: "Smoochum"},
+    {name: "Woobat"},
+    {name: "Cubone"},
+    {name: "Vanillite"},
+    {name: "Drilbur"}
+  ]
+};
+
+encounters["Rusturf Tunnel"] = {
+  "Walking": [
+    {name: "Whismur"},
+    {name: "Geodude Alolan"}
+  ]
+};
+
+encounters["Granite Cave (First Floor)"] = {
+  "Walking": [
+    {name: "Zubat"},
+    {name: "Makuhita"},
+    {name: "Timburr"},
+    {name: "Onix"},
+    {name: "Geodude"},
+    {name: "Abra"},
+    {name: "Axew"}
+  ]
+};
+
+encounters["Granite Cave (Second Floor)"] = {
+  "Walking": [
+    {name: "Zubat"},
+    {name: "Aron"},
+    {name: "Klink"},
+    {name: "Sableye"},
+    {name: "Roggenrola"},
+    {name: "Abra"},
+    {name: "Rockruff"},
+    {name: "Nosepass"},
+    {name: "Diglett"}
+  ]
+};
+
+encounters["Altering Cave"] = {
+  "Walking": [
+    {name: "Unown"}
+  ]
+};
+
+encounters["Mauville Game Corner"] = {
+  "Coins": [
+    {name: "Gastly"},
+    {name: "Eevee"},
+    {name: "Snorunt"},
+    {name: "Vulpix"},
+    {name: "Porygon"},
+    {name: "Gible"},
+    {name: "Bagon"},
+    {name: "Deino"}
+  ],
+  "Ticket Exclusive": [
+    {name: "Honedge"},
+    {name: "Meltan"},
+    {name: "Spiritomb"}
+  ]
+};
+
+encounters["New Mauville"] = {
+  "Walking": [
+    {name: "Voltorb"},
+    {name: "Magnemite"},
+    {name: "Elekid"},
+    {name: "Charjabug"},
+    {name: "Pikachu"},
+    {name: "Klang"},
+    {name: "Rotom"},
+    {name: "Elgyem"},
+    {name: "Porygon"},
+    {name: "Electabuzz"},
+    {name: "Electrode"},
+    {name: "Magneton"}
+  ]
+};
+
+encounters["Desert (Route 111)"] = {
+  "Sand": [
+    {name: "Sandshrew"},
+    {name: "Trapinch"},
+    {name: "Scraggy"},
+    {name: "Sandygast"},
+    {name: "Baltoy"},
+    {name: "Cacnea"},
+    {name: "Vullaby"},
+    {name: "Burmy"},
+    {name: "Sandile"},
+    {name: "Hippopotas"}
+  ]
+};
+
+encounters["Fiery Path"] = {
+  "Walking": [
+    {name: "Salandit"},
+    {name: "Koffing"},
+    {name: "Diglett"},
+    {name: "Torkoal"},
+    {name: "Slugma"},
+    {name: "Grimer"}
+  ]
+};
+
+encounters["Jagged Pass"] = {
+  "Walking": [
+    {name: "Heatmor"},
+    {name: "Spoink"},
+    {name: "Natu"},
+    {name: "Magby"},
+    {name: "Torkoal"},
+    {name: "Sawk"},
+    {name: "Larvesta"},
+    {name: "Torchic"}
+  ]
+};
+
+encounters["Magma Hideout"] = {
+  "Walking": [
+    {name: "Graveler"},
+    {name: "Torkoal"},
+    {name: "Charcadet"},
+    {name: "Darumaka"},
+    {name: "Roggenrola"},
+    {name: "Slugma"},
+    {name: "Growlithe Hisuian"},
+    {name: "Magmar"},
+    {name: "Camerupt"},
+    {name: "Tepig"}
+  ]
+};
+
+encounters["Snowfall Forest (Route 114)"] = {
+  "Walking": [
+    {name: "Sneasel"},
+    {name: "Snover"},
+    {name: "Cryogonal"},
+    {name: "Meditite"},
+    {name: "Sandshrew Alolan"},
+    {name: "Swinub"},
+    {name: "Vulpix Alolan"},
+    {name: "Mr Mime Galarian"},
+    {name: "Zorua Hisuian"},
+    {name: "Crabominable"}
+  ]
+};
+
+encounters["Snowfall Forest House"] = {
+  "Walking": [
+    {name: "Gastly"},
+    {name: "Misdreavus"},
+    {name: "Snorunt"},
+    {name: "Litwick"},
+    {name: "Haunter"},
+    {name: "Glalie"},
+    {name: "Froslass"}
+  ]
+};
+
+encounters["Meteor Falls"] = {
+  "Walking": [
+    {name: "Minior"},
+    {name: "Zubat"},
+    {name: "Noibat"},
+    {name: "Lunatone"},
+    {name: "Solrock"},
+    {name: "Cleffa"},
+    {name: "Goomy"}
+  ],
+  "Surf": [
+    {name: "Zubat"},
+    {name: "Woobat"},
+    {name: "Solrock"},
+    {name: "Lunatone"},
+    {name: "Minior"}
+  ],
+  "Old Rod": [
+    {name: "Magikarp"},
+    {name: "Horsea"}
+  ],
+  "Good Rod": [
+    {name: "Magikarp"},
+    {name: "Horsea"},
+    {name: "Dratini"}
+  ],
+  "Super Rod": [
+    {name: "Gyarados"},
+    {name: "Seadra"},
+    {name: "Dratini"}
+  ]
+};
+
+encounters["Meteor Falls (Waterfall Area First Floor)"] = {
+  "Walking": [
+    {name: "Clefairy"},
+    {name: "Druddigon"},
+    {name: "Noibat"},
+    {name: "Nidorina"},
+    {name: "Nidorino"},
+    {name: "Deino"},
+    {name: "Drampa"}
+  ],
+  "Surf": [
+    {name: "Noibat"},
+    {name: "Seadra"},
+    {name: "Dratini"}
+  ],
+  "Old Rod": [
+    {name: "Horsea"}
+  ],
+  "Good Rod": [
+    {name: "Dratini"}
+  ],
+  "Super Rod": [
+    {name: "Seadra"},
+    {name: "Dratini"},
+    {name: "Dragonair"}
+  ]
+};
+
+encounters["Meteor Falls (Waterfall Area Second Floor)"] = {
+  "Walking": [
+    {name: "Gible"},
+    {name: "Bagon"},
+    {name: "Druddigon"},
+    {name: "Turtonator"},
+    {name: "Axew"},
+    {name: "Goomy"},
+    {name: "Deino"},
+    {name: "Gabite"},
+    {name: "Fraxure"}
+  ],
+  "Surf": [
+    {name: "Skrelp"},
+    {name: "Dragonair"},
+    {name: "Dratini"}
+  ],
+  "Old Rod": [
+    {name: "Feebas"},
+    {name: "Skrelp"}
+  ],
+  "Good Rod": [
+    {name: "Skrelp"},
+    {name: "Dratini"}
+  ],
+  "Super Rod": [
+    {name: "Skrelp"},
+    {name: "Dratini"},
+    {name: "Dragonair"},
+    {name: "Dragalge"}
+  ]
+};
+
+encounters["Scorched Slab"] = {
+  "Walking": [
+    {name: "Heatmor"},
+    {name: "Durant"},
+    {name: "Dunsparce"},
+    {name: "Darumaka"},
+    {name: "Mawile"},
+    {name: "Magmar"},
+    {name: "Electabuzz"},
+    {name: "Cyndaquil"}
+  ],
+  "Surf": [
+    {name: "Wooper Paldean"},
+    {name: "Remoraid"}
+  ],
+  "Old Rod": [
+    {name: "Tympole"},
+    {name: "Remoraid"}
+  ],
+  "Good Rod": [
+    {name: "Wooper"},
+    {name: "Remoraid"}
+  ],
+  "Super Rod": [
+    {name: "Wooper"},
+    {name: "Remoraid"}
+  ]
+};
+
+encounters["Safari Zone (Area 1)"] = {
+  "Walking": [
+    {name: "Girafarig"},
+    {name: "Doduo"},
+    {name: "Nidorino"},
+    {name: "Nidorina"},
+    {name: "Natu"},
+    {name: "Carnivine"},
+    {name: "Dedenne"},
+    {name: "Wobbuffet"},
+    {name: "Pikachu"},
+    {name: "Chimchar"}
+  ],
+  "Surf": [
+    {name: "Psyduck"}
+  ],
+  "Old Rod": [
+    {name: "Tympole"},
+    {name: "Goldeen"}
+  ],
+  "Good Rod": [
+    {name: "Tympole"},
+    {name: "Goldeen"},
+    {name: "Horsea"}
+  ],
+  "Super Rod": [
+    {name: "Horsea"},
+    {name: "Goldeen"},
+    {name: "Palpitoad"},
+    {name: "Seaking"},
+    {name: "Seadra"}
+  ]
+};
+
+encounters["Safari Zone (Area 2)"] = {
+  "Walking": [
+    {name: "Blitzle"},
+    {name: "Tangela"},
+    {name: "Venonat"},
+    {name: "Togedemaru"},
+    {name: "Rellor"},
+    {name: "Voltorb Hisuian"},
+    {name: "Charcadet"},
+    {name: "Chansey"},
+    {name: "Exeggutor Alolan"}
+  ]
+};
+
+encounters["Safari Zone (Area 3)"] = {
+  "Walking": [
+    {name: "Rhyhorn"},
+    {name: "Croagunk"},
+    {name: "Tauros"},
+    {name: "Pancham"},
+    {name: "Jangmo-o"},
+    {name: "Skiddo"},
+    {name: "Farfetchd Galarian"},
+    {name: "Audino"},
+    {name: "Beldum"},
+    {name: "Pinsir"}
+  ],
+  "Surf": [
+    {name: "Tentacool"},
+    {name: "Psyduck"},
+    {name: "Carvanha"},
+    {name: "Golduck"},
+    {name: "Pelipper"}
+  ],
+  "Old Rod": [
+    {name: "Feebas"},
+    {name: "Krabby"}
+  ],
+  "Good Rod": [
+    {name: "Feebas"},
+    {name: "Krabby"},
+    {name: "Dratini"}
+  ],
+  "Super Rod": [
+    {name: "Feebas"},
+    {name: "Krabby"},
+    {name: "Dratini"},
+    {name: "Milotic"},
+    {name: "Dragonair"}
+  ]
+};
+
+encounters["Safari Zone (Area 4)"] = {
+  "Walking": [
+    {name: "Phanpy"},
+    {name: "Maractus"},
+    {name: "Rufflet"},
+    {name: "Vullaby"},
+    {name: "Larvitar"},
+    {name: "Heracross"}
+  ],
+  "Rock Smash": [
+    {name: "Dwebble"}
+  ]
+};
+
+encounters["Safari Zone (Area 5)"] = {
+  "Walking": [
+    {name: "Sunkern"},
+    {name: "Hoppip"},
+    {name: "Kangaskhan"},
+    {name: "Pachirisu"},
+    {name: "Aipom"},
+    {name: "Ariados"},
+    {name: "Noctowl"},
+    {name: "Snubbull"},
+    {name: "Stantler"},
+    {name: "Gligar"}
+  ],
+  "Surf": [
+    {name: "Wooper"},
+    {name: "Ducklett"},
+    {name: "Swanna"},
+    {name: "Quagsire"}
+  ],
+  "Old Rod": [
+    {name: "Staryu"},
+    {name: "Goldeen"}
+  ],
+  "Good Rod": [
+    {name: "Staryu"},
+    {name: "Goldeen"},
+    {name: "Remoraid"}
+  ],
+  "Super Rod": [
+    {name: "Goldeen"},
+    {name: "Starmie"},
+    {name: "Remoraid"},
+    {name: "Octillery"}
+  ]
+};
+
+encounters["Safari Zone (Area 6)"] = {
+  "Walking": [
+    {name: "Staravia"},
+    {name: "Houndour"},
+    {name: "Solosis"},
+    {name: "Hawlucha"},
+    {name: "Ledyba"},
+    {name: "Emolga"},
+    {name: "Teddiursa"},
+    {name: "Miltank"}
+  ]
+};
+
+encounters["Mt Pyre (First Floor)"] = {
+  "Walking": [
+    {name: "Shuppet"},
+    {name: "Gastly"},
+    {name: "Misdreavus"}
+  ]
+};
+
+encounters["Mt Pyre (Second Floor)"] = {
+  "Walking": [
+    {name: "Shuppet"},
+    {name: "Gastly"},
+    {name: "Misdreavus"},
+    {name: "Duskull"}
+  ]
+};
+
+encounters["Mt Pyre (Third Floor)"] = {
+  "Walking": [
+    {name: "Shuppet"},
+    {name: "Gastly"},
+    {name: "Misdreavus"},
+    {name: "Litwick"},
+    {name: "Duskull"}
+  ]
+};
+
+encounters["Mt Pyre (Fourth Floor)"] = {
+  "Walking": [
+    {name: "Shuppet"},
+    {name: "Gastly"},
+    {name: "Misdreavus"},
+    {name: "Golett"},
+    {name: "Litwick"},
+    {name: "Duskull"}
+  ]
+};
+
+encounters["Mt Pyre (Fifth Floor)"] = {
+  "Walking": [
+    {name: "Shuppet"},
+    {name: "Gastly"},
+    {name: "Duskull"},
+    {name: "Golett"},
+    {name: "Litwick"},
+    {name: "Yamask"},
+    {name: "Fuecoco"}
+  ]
+};
+
+encounters["Mt Pyre (Sixth Floor)"] = {
+  "Walking": [
+    {name: "Shuppet"},
+    {name: "Gastly"},
+    {name: "Duskull"},
+    {name: "Golett"},
+    {name: "Litwick"},
+    {name: "Yamask"},
+    {name: "Haunter"},
+    {name: "Mimikyu"}
+  ]
+};
+
+encounters["Mt Pyre (Outside)"] = {
+  "Walking": [
+    {name: "Fletchling"},
+    {name: "Vulpix"},
+    {name: "Drowzee"},
+    {name: "Munna"},
+    {name: "Phantump"},
+    {name: "Castform"}
+  ]
+};
+
+encounters["Mt Pyre (Summit)"] = {
+  "Walking": [
+    {name: "Munna"},
+    {name: "Chingling"},
+    {name: "Bronzor"},
+    {name: "Castform"},
+    {name: "Vulpix"},
+    {name: "Drowzee"}
+  ]
+};
+
+encounters["Shoal Cave"] = {
+  "Walking": [
+    {name: "Cubchoo"},
+    {name: "Spheal"},
+    {name: "Woobat"},
+    {name: "Slowpoke"},
+    {name: "Octillery"},
+    {name: "Wimpod"},
+    {name: "Vanillite"},
+    {name: "Jynx"},
+    {name: "Piplup"}
+  ],
+  "Surf": [
+    {name: "Bergmite"},
+    {name: "Cryogonal"},
+    {name: "Seel"},
+    {name: "Spheal"},
+    {name: "Lapras"}
+  ],
+  "Old Rod": [
+    {name: "Shellder"},
+    {name: "Seel"}
+  ],
+  "Good Rod": [
+    {name: "Seel"},
+    {name: "Shellder"},
+    {name: "Wailmer"}
+  ],
+  "Super Rod": [
+    {name: "Sharpedo"},
+    {name: "Slowbro"},
+    {name: "Shellder"},
+    {name: "Wailmer"}
+  ]
+};
+
+encounters["Shoal Cave (Ice Area)"] = {
+  "Walking": [
+    {name: "Snorunt"},
+    {name: "Spheal"},
+    {name: "Vanillite"},
+    {name: "Sandshrew Alolan"},
+    {name: "Vulpix Alolan"},
+    {name: "Cryogonal"},
+    {name: "Glalie"},
+    {name: "Piplup"}
+  ]
+};
+
+encounters["Victory Road (First Floor)"] = {
+  "Walking": [
+    {name: "Golbat"},
+    {name: "Hariyama"},
+    {name: "Lairon"},
+    {name: "Loudred"},
+    {name: "Mienfoo"},
+    {name: "Pawniard"},
+    {name: "Dreepy"},
+    {name: "Medicham"},
+    {name: "Deino"},
+    {name: "Litten"},
+    {name: "Druddigon"}
+  ]
+};
+
+encounters["Victory Road (Second Floor)"] = {
+  "Walking": [
+    {name: "Pawmo"},
+    {name: "Hawlucha"},
+    {name: "Rhyhorn"},
+    {name: "Klang"},
+    {name: "Mienfoo"},
+    {name: "Pawniard"},
+    {name: "Dreepy"},
+    {name: "Diggersby"},
+    {name: "Mawile"},
+    {name: "Litten"},
+    {name: "Druddigon"}
+  ]
+};
+
+encounters["Victory Road (Third Floor)"] = {
+  "Walking": [
+    {name: "Bouffalant"},
+    {name: "Gastrodon"},
+    {name: "Mawile"},
+    {name: "Golisopod"},
+    {name: "Mienfoo"},
+    {name: "Turtonator"},
+    {name: "Dreepy"},
+    {name: "Beldum"},
+    {name: "Scrafty"},
+    {name: "Litten"},
+    {name: "Druddigon"}
+  ],
+  "Surf": [
+    {name: "Crawdaunt"},
+    {name: "Whiscash"},
+    {name: "Pyukumuku"},
+    {name: "Sealeo"},
+    {name: "Elgyem"}
+  ],
+  "Old Rod": [
+    {name: "Feebas"},
+    {name: "Wimpod"}
+  ],
+  "Good Rod": [
+    {name: "Wimpod"},
+    {name: "Feebas"},
+    {name: "Barboach"}
+  ],
+  "Super Rod": [
+    {name: "Whiscash"},
+    {name: "Crawdaunt"},
+    {name: "Pyukumuku"}
+  ]
+};
+
+encounters["Flower Path (Cave)"] = {
+  "Walking": [
+    {name: "Dugtrio"},
+    {name: "Glalie"},
+    {name: "Steelix"},
+    {name: "Swoobat"},
+    {name: "Gastrodon"},
+    {name: "Toxicroak"},
+    {name: "Medicham"},
+    {name: "Carbink"},
+    {name: "Beartic"}
+  ],
+  "Surf": [
+    {name: "Quagsire"},
+    {name: "Gastrodon"}
+  ],
+  "Old Rod": [
+    {name: "Wooper"},
+    {name: "Carvanha"}
+  ],
+  "Good Rod": [
+    {name: "Wooper"},
+    {name: "Carvanha"}
+  ],
+  "Super Rod": [
+    {name: "Quagsire"},
+    {name: "Malamar"},
+    {name: "Sharpedo"}
+  ]
+};
+
+encounters["Flower Path (Field)"] = {
+  "Walking": [
+    {name: "Audino"},
+    {name: "Dunsparce"},
+    {name: "Lurantis"},
+    {name: "Furret"},
+    {name: "Cherrim"},
+    {name: "Combee"},
+    {name: "Murkrow"},
+    {name: "Vespiquen"},
+    {name: "Sprigatito"},
+    {name: "Mothim"},
+    {name: "Wormadam"},
+    {name: "Ddunsparce"}
+  ]
+};
+
+    const trainers = {};
+    trainers["Rival (Route 103)"] = {
+  levelCap: 16, // Next gym leader: Roxanne (Nosepass Lvl 16)
+  teams: {
+    "Treecko": [{name: "Torchic", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}],
+    "Mudkip": [{name: "Treecko", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}],
+    "Torchic": [{name: "Mudkip", level: 6, item: "?"}, {name: "Taillow", level: 6, item: "?"}]
+  }
+};
+
+trainers["Green (Route 102)"] = {
+  levelCap: 16, // Next gym leader: Roxanne (Nosepass Lvl 16)
+  team: [
+    {name: "Vulpix Kantonian", level: 8, item: "?"},
+    {name: "Nidoran Female", level: 8, item: "?"},
+    {name: "Bulbasaur", level: 8, item: "?"}
+  ]
+};
+
+trainers["Wally (Petalburg Woods)"] = {
+  levelCap: 16, // Next gym leader: Roxanne (Nosepass Lvl 16)
+  team: [
+    {name: "Fletchling", level: 8, item: "?"},
+    {name: "Azurill", level: 8, item: "?"},
+    {name: "Ralts", level: 8, item: "?"}
+  ]
+};
+
+trainers["Ash (Route 115)"] = {
+  levelCap: 16, // Next gym leader: Roxanne (Nosepass Lvl 16)
+  team: [
+    {name: "Riolu", level: 11, item: "?"},
+    {name: "Treecko", level: 11, item: "?"},
+    {name: "Pikachu", level: 12, item: "?"}
+  ]
+};
+
+trainers["Roxanne (Rustboro City Gym Leader)"] = {
+  levelCap: 16, // Next gym leader: Brawly (Hariyama Lvl 20)
+  team: [
+    {name: "Archen", level: 14, item: "?"},
+    {name: "Omanyte", level: 14, item: "?"},
+    {name: "Tyrunt", level: 14, item: "?"},
+    {name: "Anorith", level: 14, item: "?"},
+    {name: "Lileep", level: 14, item: "?"},
+    {name: "Nosepass", level: 16, item: "?"}
+  ]
+};
+
+trainers["Rival (Rustboro City)"] = {
+  levelCap: 20, // Next gym leader: Brawly (Hariyama Lvl 20)
+  teams: {
+    "Mudkip": [{name: "Taillow", level: 16, item: "?"}, {name: "Treecko", level: 16, item: "?"}],
+    "Torchic": [{name: "Taillow", level: 16, item: "?"}, {name: "Mudkip", level: 16, item: "?"}],
+    "Treecko": [{name: "Taillow", level: 16, item: "?"}, {name: "Torchic", level: 16, item: "?"}]
+  }
+};
+
+trainers["Brawly (Dewford City Gym Leader)"] = {
+  levelCap: 20, // Next gym leader: Wattson (Manectric Lvl 28)
+  team: [
+    {name: "Machop", level: 17, item: "?"},
+    {name: "Meditite", level: 17, item: "?"},
+    {name: "Pancham", level: 17, item: "?"},
+    {name: "Scraggy", level: 17, item: "?"},
+    {name: "Mienfoo", level: 17, item: "?"},
+    {name: "Hariyama", level: 20, item: "?"}
+  ]
+};
+
+trainers["Green (Slateport City)"] = {
+  levelCap: 28, // Next gym leader: Wattson (Manectric Lvl 28)
+  team: [
+    {name: "Vulpix Kantonian", level: 21, item: "?"},
+    {name: "Nidorina", level: 22, item: "?"},
+    {name: "Gastly", level: 21, item: "?"},
+    {name: "Ivysaur", level: 24, item: "?"}
+  ]
+};
+
+trainers["Rival (Route 110)"] = {
+  levelCap: 28, // Next gym leader: Wattson (Manectric Lvl 28)
+  teams: {
+    "Mudkip": [
+      {name: "Swellow", level: 22, item: "?"},
+      {name: "Ponyta", level: 22, item: "?"},
+      {name: "Wailmer", level: 22, item: "?"},
+      {name: "Grovyle", level: 24, item: "?"}
+    ],
+    "Torchic": [
+      {name: "Swellow", level: 22, item: "?"},
+      {name: "Shroomish", level: 22, item: "?"},
+      {name: "Ponyta", level: 22, item: "?"},
+      {name: "Marshtomp", level: 24, item: "?"}
+    ],
+    "Treecko": [
+      {name: "Swellow", level: 22, item: "?"},
+      {name: "Wailmer", level: 22, item: "?"},
+      {name: "Shroomish", level: 22, item: "?"},
+      {name: "Combusken", level: 24, item: "?"}
+    ]
+  }
+};
+
+trainers["Ash (Mauville City)"] = {
+  levelCap: 28, // Next gym leader: Wattson (Manectric Lvl 28)
+  team: [
+    {name: "Riolu", level: 23, item: "?"},
+    {name: "Grovyle", level: 23, item: "?"},
+    {name: "Frogadier", level: 23, item: "?"},
+    {name: "Pikachu", level: 25, item: "?"}
+  ]
+};
+
+trainers["Wally (Mauville City)"] = {
+  levelCap: 28, // Next gym leader: Wattson (Manectric Lvl 28)
+  team: [
+    {name: "Fletchinder", level: 23, item: "?"},
+    {name: "Gible", level: 23, item: "?"},
+    {name: "Marill", level: 23, item: "?"},
+    {name: "Kirlia", level: 25, item: "?"}
+  ]
+};
+
+trainers["Wattson (Mauville City Gym Leader)"] = {
+  levelCap: 28, // Next gym leader: Flannery (Torkoal Lvl 38)
+  team: [
+    {name: "Electrode", level: 26, item: "?"},
+    {name: "Magneton", level: 26, item: "?"},
+    {name: "Flaaffy", level: 26, item: "?"},
+    {name: "Rotom", level: 26, item: "?"},
+    {name: "Luxio", level: 26, item: "?"},
+    {name: "Manectric", level: 28, item: "?"}
+  ]
+};
+
+trainers["Green (Route 113)"] = {
+  levelCap: 38, // Next gym leader: Flannery (Torkoal Lvl 38)
+  team: [
+    {name: "Ninetales Kantonian", level: 30, item: "?"},
+    {name: "Nidorina", level: 31, item: "?"},
+    {name: "Clefable", level: 32, item: "?"},
+    {name: "Haunter", level: 32, item: "?"},
+    {name: "Venusaur", level: 34, item: "?"}
+  ]
+};
+
+trainers["Magma Admin Tabitha (Mt. Chimney)"] = {
+  levelCap: 38, // Next gym leader: Flannery (Torkoal Lvl 38)
+  team: [
+    {name: "Mightyena", level: 33, item: "?"},
+    {name: "Weezing", level: 33, item: "?"},
+    {name: "Snorlax", level: 33, item: "?"},
+    {name: "Darmanitan", level: 35, item: "?"}
+  ]
+};
+
+trainers["Magma Leader Maxie (Mt. Chimney)"] = {
+  levelCap: 38, // Next gym leader: Flannery (Torkoal Lvl 38)
+  team: [
+    {name: "Golbat", level: 34, item: "?"},
+    {name: "Houndoom", level: 34, item: "?"},
+    {name: "Pupitar", level: 34, item: "?"},
+    {name: "Lampent", level: 34, item: "?"},
+    {name: "Camerupt", level: 36, item: "?"}
+  ]
+};
+
+trainers["Wally (Route 112)"] = {
+  levelCap: 38, // Next gym leader: Flannery (Torkoal Lvl 38)
+  team: [
+    {name: "Roselia", level: 37, item: "?"},
+    {name: "Fletchinder", level: 37, item: "?"},
+    {name: "Azumarill", level: 37, item: "?"},
+    {name: "Gabite", level: 37, item: "?"},
+    {name: "Gallade", level: 39, item: "?"}
+  ]
+};
+
+trainers["Flannery (Lavaridge City Gym Leader)"] = {
+  levelCap: 38, // Next gym leader: Norman (Slaking Lvl 42)
+  team: [
+    {name: "Ninetales Kantonian", level: 36, item: "?"},
+    {name: "Houndoom", level: 36, item: "?"},
+    {name: "Magmortar", level: 36, item: "?"},
+    {name: "Magcargo", level: 36, item: "?"},
+    {name: "Camerupt", level: 36, item: "?"},
+    {name: "Torkoal", level: 38, item: "?"}
+  ]
+};
+
+trainers["Norman (Petalburg City Gym Leader)"] = {
+  levelCap: 42, // Next gym leader: Winona (Altaria Lvl 50)
+  team: [
+    {name: "Ambipom", level: 40, item: "?"},
+    {name: "Exploud", level: 40, item: "?"},
+    {name: "Staraptor", level: 40, item: "?"},
+    {name: "Sawsbuck", level: 40, item: "?"},
+    {name: "Bouffalant", level: 40, item: "?"},
+    {name: "Slaking", level: 42, item: "?"}
+  ]
+};
+
+trainers["Ash (Route 119)"] = {
+  levelCap: 50, // Next gym leader: Winona (Altaria Lvl 50)
+  team: [
+    {name: "Torkoal", level: 42, item: "?"},
+    {name: "Sceptile Mega", level: 42, item: "?"},
+    {name: "Greninja", level: 42, item: "?"},
+    {name: "Lucario", level: 42, item: "?"},
+    {name: "Pikachu", level: 44, item: "?"}
+  ]
+};
+
+trainers["Aqua Admin Shelly (Weather Institute)"] = {
+  levelCap: 50, // Next gym leader: Winona (Altaria Lvl 50)
+  team: [
+    {name: "Liepard", level: 44, item: "?"},
+    {name: "Muk", level: 44, item: "?"},
+    {name: "Lapras", level: 44, item: "?"},
+    {name: "Roserade", level: 44, item: "?"},
+    {name: "Sharpedo", level: 44, item: "?"},
+    {name: "Gyarados Mega", level: 45, item: "?"}
+  ]
+};
+
+trainers["Rival (Route 119)"] = {
+  levelCap: 50, // Next gym leader: Winona (Altaria Lvl 50)
+  teams: {
+    "Mudkip": [
+      {name: "Swellow", level: 45, item: "?"},
+      {name: "Raichu", level: 45, item: "?"},
+      {name: "Rapidash", level: 45, item: "?"},
+      {name: "Wailord", level: 45, item: "?"},
+      {name: "Sceptile Mega", level: 47, item: "?"}
+    ],
+    "Torchic": [
+      {name: "Swellow", level: 45, item: "?"},
+      {name: "Raichu", level: 45, item: "?"},
+      {name: "Breloom", level: 45, item: "?"},
+      {name: "Rapidash", level: 45, item: "?"},
+      {name: "Swampert Mega", level: 47, item: "?"}
+    ],
+    "Treecko": [
+      {name: "Swellow", level: 45, item: "?"},
+      {name: "Raichu", level: 45, item: "?"},
+      {name: "Wailord", level: 45, item: "?"},
+      {name: "Breloom", level: 45, item: "?"},
+      {name: "Blaziken Mega", level: 47, item: "?"}
+    ]
+  }
+};
+
+trainers["Winona (Fortree City Gym Leader)"] = {
+  levelCap: 50, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  team: [
+    {name: "Skarmory", level: 48, item: "?"},
+    {name: "Honchkrow", level: 48, item: "?"},
+    {name: "Sigilyph", level: 48, item: "?"},
+    {name: "Gyarados", level: 48, item: "?"},
+    {name: "Talonflame", level: 48, item: "?"},
+    {name: "Altaria Mega", level: 50, item: "?"}
+  ]
+};
+
+trainers["Wally (Route 120)"] = {
+  levelCap: 62, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  team: [
+    {name: "Roserade", level: 52, item: "?"},
+    {name: "Talonflame", level: 52, item: "?"},
+    {name: "Azumarill", level: 52, item: "?"},
+    {name: "Magnezone", level: 52, item: "?"},
+    {name: "Garchomp", level: 52, item: "?"},
+    {name: "Gallade Mega", level: 54, item: "?"}
+  ]
+};
+
+trainers["Rival (Lilycove City)"] = {
+  levelCap: 62, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  teams: {
+    "Mudkip": [
+      {name: "Swellow", level: 53, item: "?"},
+      {name: "Raichu", level: 53, item: "?"},
+      {name: "Sylveon", level: 53, item: "?"},
+      {name: "Rapidash", level: 53, item: "?"},
+      {name: "Wailord", level: 53, item: "?"},
+      {name: "Sceptile Mega", level: 55, item: "?"}
+    ],
+    "Torchic": [
+      {name: "Swellow", level: 53, item: "?"},
+      {name: "Raichu", level: 53, item: "?"},
+      {name: "Sylveon", level: 53, item: "?"},
+      {name: "Breloom", level: 53, item: "?"},
+      {name: "Rapidash", level: 53, item: "?"},
+      {name: "Swampert Mega", level: 55, item: "?"}
+    ],
+    "Treecko": [
+      {name: "Swellow", level: 53, item: "?"},
+      {name: "Raichu", level: 53, item: "?"},
+      {name: "Sylveon", level: 53, item: "?"},
+      {name: "Wailord", level: 53, item: "?"},
+      {name: "Breloom", level: 53, item: "?"},
+      {name: "Blaziken Mega", level: 55, item: "?"}
+    ]
+  }
+};
+
+trainers["Magma Admin Tabitha (Magma Hideout)"] = {
+  levelCap: 62, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  team: [
+    {name: "Mightyena", level: 49, item: "?"},
+    {name: "Weezing", level: 49, item: "?"},
+    {name: "Snorlax", level: 49, item: "?"},
+    {name: "Gigalith", level: 49, item: "?"},
+    {name: "Camerupt", level: 49, item: "?"},
+    {name: "Darmanitan", level: 49, item: "?"}
+  ]
+};
+
+trainers["Magma Leader Maxie (Magma Hideout)"] = {
+  levelCap: 62, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  team: [
+    {name: "Crobat", level: 50, item: "?"},
+    {name: "Houndoom", level: 50, item: "?"},
+    {name: "Claydol", level: 50, item: "?"},
+    {name: "Tyranitar", level: 50, item: "?"},
+    {name: "Chandelure", level: 50, item: "?"},
+    {name: "Camerupt Mega", level: 52, item: "?"}
+  ]
+};
+
+trainers["Aqua Admin Matt (Aqua Hideout)"] = {
+  levelCap: 62, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  team: [
+    {name: "Golduck", level: 55, item: "?"},
+    {name: "Barbaracle", level: 55, item: "?"},
+    {name: "Ferrothorn", level: 55, item: "?"},
+    {name: "Sharpedo", level: 55, item: "?"},
+    {name: "Nidoqueen", level: 55, item: "?"},
+    {name: "Blastoise Mega", level: 57, item: "?"}
+  ]
+};
+
+trainers["Ash (Mossdeep City)"] = {
+  levelCap: 62, // Next gym leader: Tate & Liza (Gallade/Gardevoir Lvl 62)
+  team: [
+    {name: "Torkoal", level: 56, item: "?"},
+    {name: "Charizard", level: 56, item: "?"},
+    {name: "Sceptile", level: 56, item: "?"},
+    {name: "Greninja", level: 56, item: "?"},
+    {name: "Lucario Mega", level: 56, item: "?"},
+    {name: "Pikachu", level: 58, item: "?"}
+  ]
+};
+
+trainers["Tate & Liza (Mossdeep City Gym Leaders)"] = {
+  levelCap: 62, // Next gym leader: Wallace (Gyarados/Milotic Lvl 68)
+  team: [
+    {name: "Solrock", level: 60, item: "?"},
+    {name: "Lunatone", level: 60, item: "?"},
+    {name: "Bronzong", level: 60, item: "?"},
+    {name: "Slowking", level: 60, item: "?"},
+    {name: "Gallade", level: 62, item: "?"},
+    {name: "Gardevoir Mega", level: 62, item: "?"}
+  ]
+};
+
+trainers["Magma Admin Tabitha and Magma Leader Maxie (Mossdeep Space Center)"] = {
+  levelCap: 68, // Next gym leader: Wallace (Gyarados/Milotic Lvl 68)
+  team: [
+    {name: "Crobat", level: 55, item: "?"},
+    {name: "Mightyena", level: 55, item: "?"},
+    {name: "Houndoom", level: 55, item: "?"},
+    {name: "Weezing", level: 55, item: "?"},
+    {name: "Darmanitan", level: 55, item: "?"},
+    {name: "Camerupt Mega", level: 55, item: "?"}
+  ]
+};
+
+trainers["Aqua Admin Shelly (Optional)"] = {
+  levelCap: 68, // Next gym leader: Wallace (Gyarados/Milotic Lvl 68)
+  team: [
+    {name: "Liepard", level: 57, item: "?"},
+    {name: "Muk", level: 57, item: "?"},
+    {name: "Lapras", level: 57, item: "?"},
+    {name: "Roserade", level: 57, item: "?"},
+    {name: "Sharpedo", level: 57, item: "?"},
+    {name: "Gyarados Mega", level: 59, item: "?"}
+  ]
+};
+
+trainers["Aqua Leader Archie"] = {
+  levelCap: 68, // Next gym leader: Wallace (Gyarados/Milotic Lvl 68)
+  team: [
+    {name: "Crobat", level: 58, item: "?"},
+    {name: "Tentacruel", level: 58, item: "?"},
+    {name: "Walrein", level: 58, item: "?"},
+    {name: "Dragonite", level: 58, item: "?"},
+    {name: "Eelektross", level: 58, item: "?"},
+    {name: "Sharpedo Mega", level: 60, item: "?"}
+  ]
+};
+
+trainers["Wallace (Sootopolis City Gym Leader)"] = {
+  levelCap: 68, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Politoed", level: 66, item: "?"},
+    {name: "Ludicolo", level: 66, item: "?"},
+    {name: "Kingdra", level: 66, item: "?"},
+    {name: "Starmie", level: 66, item: "?"},
+    {name: "Milotic", level: 68, item: "?"},
+    {name: "Gyarados Mega", level: 68, item: "?"}
+  ]
+};
+
+trainers["Wally (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Roserade", level: 70, item: "?"},
+    {name: "Talonflame", level: 70, item: "?"},
+    {name: "Azumarill", level: 70, item: "?"},
+    {name: "Magnezone", level: 70, item: "?"},
+    {name: "Garchomp", level: 70, item: "?"},
+    {name: "Gallade Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Albert (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Pidgeot Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Hope (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Scizor Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Samuel (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Tyranitar Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Shannon (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Lopunny Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Julie (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Ampharos Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Vito (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Lucario Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Caroline (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Banette Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Dianne (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Slowbro Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Felix (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Kangaskhan Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Owen (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Camerupt Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Michelle (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Butterfree Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Mitchell (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Blaziken Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Halle (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Charizard Mega X", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Quincy (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Beedrill Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Cooltrainer Katelynn (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Aggron Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Green (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Ninetales Kantonian", level: 70, item: "?"},
+    {name: "Vaporeon", level: 70, item: "?"},
+    {name: "Nidoqueen", level: 70, item: "?"},
+    {name: "Clefable", level: 70, item: "?"},
+    {name: "Gengar", level: 70, item: "?"},
+    {name: "Venusaur Mega", level: 70, item: "?"}
+  ]
+};
+
+trainers["Ash (Victory Road)"] = {
+  levelCap: 77, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Torkoal", level: 70, item: "?"},
+    {name: "Charizard", level: 70, item: "?"},
+    {name: "Sceptile", level: 70, item: "?"},
+    {name: "Lucario", level: 70, item: "?"},
+    {name: "Greninja Mega", level: 70, item: "?"},
+    {name: "Pikachu", level: 72, item: "?"}
+  ]
+};
+
+trainers["Sidney (Elite Four)"] = {
+  levelCap: 77, // Next: Elite Four Glacia (Glalie Lvl 78)
+  team: [
+    {name: "Weavile", level: 75, item: "?"},
+    {name: "Scrafty", level: 75, item: "?"},
+    {name: "Bisharp", level: 75, item: "?"},
+    {name: "Tyranitar", level: 75, item: "?"},
+    {name: "Greninja", level: 75, item: "?"},
+    {name: "Absol", level: 77, item: "?"}
+  ]
+};
+
+trainers["Phoebe (Elite Four)"] = {
+  levelCap: 78, // Next: Elite Four Glacia (Glalie Lvl 78)
+  team: [
+    {name: "Mismagius", level: 75, item: "?"},
+    {name: "Gengar", level: 75, item: "?"},
+    {name: "Sableye", level: 75, item: "?"},
+    {name: "Chandelure", level: 75, item: "?"},
+    {name: "Dusknoir", level: 75, item: "?"},
+    {name: "Banette Mega", level: 75, item: "?"}
+  ]
+};
+
+trainers["Glacia (Elite Four)"] = {
+  levelCap: 79, // Next: Elite Four Drake (Salamence Lvl 79)
+  team: [
+    {name: "Aurorus", level: 76, item: "?"},
+    {name: "Froslass", level: 76, item: "?"},
+    {name: "Jynx", level: 76, item: "?"},
+    {name: "Mamoswine", level: 76, item: "?"},
+    {name: "Walrein", level: 76, item: "?"},
+    {name: "Glalie Mega", level: 78, item: "?"}
+  ]
+};
+
+trainers["Drake (Elite Four)"] = {
+  levelCap: 87, // Next: Champion Steven (Metagross Lvl 87)
+  team: [
+    {name: "Hydreigon", level: 77, item: "?"},
+    {name: "Flygon", level: 77, item: "?"},
+    {name: "Haxorus", level: 77, item: "?"},
+    {name: "Kingdra", level: 77, item: "?"},
+    {name: "Dragalge", level: 77, item: "?"},
+    {name: "Salamence Mega", level: 79, item: "?"}
+  ]
+};
+
+trainers["Steven (Champion)"] = {
+  levelCap: 87, // No further gym leader, use Steven's highest level (Metagross Lvl 87)
+  team: [
+    {name: "Skarmory", level: 85, item: "?"},
+    {name: "Aggron", level: 85, item: "?"},
+    {name: "Claydol", level: 85, item: "?"},
+    {name: "Aerodactyl", level: 85, item: "?"},
+    {name: "Melmetal", level: 85, item: "?"},
+    {name: "Metagross Mega", level: 87, item: "?"}
+  ]
+};
+
+trainers["Rival (Surprise Battle)"] = {
+  levelCap: 87, // No further gym leader, use Steven's highest level (Metagross Lvl 87)
+  teams: {
+    "Mudkip": [
+      {name: "Swellow", level: 85, item: "?"},
+      {name: "Raichu", level: 85, item: "?"},
+      {name: "Sylveon", level: 85, item: "?"},
+      {name: "Rapidash", level: 85, item: "?"},
+      {name: "Wailord", level: 85, item: "?"},
+      {name: "Sceptile Mega", level: 87, item: "?"}
+    ],
+    "Torchic": [
+      {name: "Swellow", level: 85, item: "?"},
+      {name: "Raichu", level: 85, item: "?"},
+      {name: "Sylveon", level: 85, item: "?"},
+      {name: "Breloom", level: 85, item: "?"},
+      {name: "Rapidash", level: 85, item: "?"},
+      {name: "Swampert Mega", level: 87, item: "?"}
+    ],
+    "Treecko": [
+      {name: "Swellow", level: 85, item: "?"},
+      {name: "Raichu", level: 85, item: "?"},
+      {name: "Sylveon", level: 85, item: "?"},
+      {name: "Wailord", level: 85, item: "?"},
+      {name: "Breloom", level: 85, item: "?"},
+      {name: "Blaziken Mega", level: 87, item: "?"}
+    ]
+  }
+};
+
+trainers["Sidney (Elite Four Rematch)"] = {
+  levelCap: 88, // Next: Elite Four Phoebe Rematch (Banette Lvl 90)
+  team: [
+    {name: "Weavile", level: 86, item: "?"},
+    {name: "Scrafty", level: 86, item: "?"},
+    {name: "Bisharp", level: 86, item: "?"},
+    {name: "Tyranitar", level: 86, item: "?"},
+    {name: "Greninja", level: 86, item: "?"},
+    {name: "Absol", level: 88, item: "?"}
+  ]
+};
+
+trainers["Phoebe (Elite Four Rematch)"] = {
+  levelCap: 92, // Next: Elite Four Glacia Rematch (Glalie Lvl 92)
+  team: [
+    {name: "Mismagius", level: 88, item: "?"},
+    {name: "Gengar", level: 88, item: "?"},
+    {name: "Sableye", level: 88, item: "?"},
+    {name: "Chandelure", level: 88, item: "?"},
+    {name: "Dusknoir", level: 88, item: "?"},
+    {name: "Banette Mega", level: 90, item: "?"}
+  ]
+};
+
+trainers["Glacia (Elite Four Rematch)"] = {
+  levelCap: 94, // Next: Elite Four Drake Rematch (Salamence Lvl 94)
+  team: [
+    {name: "Aurorus", level: 88, item: "?"},
+    {name: "Froslass", level: 90, item: "?"},
+    {name: "Jynx", level: 90, item: "?"},
+    {name: "Mamoswine", level: 90, item: "?"},
+    {name: "Walrein", level: 90, item: "?"},
+    {name: "Glalie Mega", level: 92, item: "?"}
+  ]
+};
+
+trainers["Drake (Elite Four Rematch)"] = {
+  levelCap: 98, // Next: Champion Steven Rematch (Metagross Lvl 98)
+  team: [
+    {name: "Hydreigon", level: 92, item: "?"},
+    {name: "Flygon", level: 92, item: "?"},
+    {name: "Haxorus", level: 92, item: "?"},
+    {name: "Kingdra", level: 92, item: "?"},
+    {name: "Dragalge", level: 92, item: "?"},
+    {name: "Salamence Mega", level: 94, item: "?"}
+  ]
+};
+
+trainers["Steven (Elite Four Rematch)"] = {
+  levelCap: 98, // No further gym leader, use Steven's highest level (Metagross Lvl 98)
+  team: [
+    {name: "Skarmory", level: 96, item: "?"},
+    {name: "Aggron", level: 96, item: "?"},
+    {name: "Claydol", level: 96, item: "?"},
+    {name: "Aerodactyl", level: 96, item: "?"},
+    {name: "Melmetal", level: 96, item: "?"},
+    {name: "Metagross Mega", level: 98, item: "?"}
+  ]
+};
+
+trainers["Cynthia (Meteor Falls)"] = {
+  levelCap: 100, // No further gym leader, use Cynthia's highest level (Garchomp Lvl 100)
+  team: [
+    {name: "Spiritomb", level: 100, item: "?"},
+    {name: "Roserade", level: 100, item: "?"},
+    {name: "Togekiss", level: 100, item: "?"},
+    {name: "Lucario", level: 100, item: "?"},
+    {name: "Milotic", level: 100, item: "?"},
+    {name: "Garchomp", level: 100, item: "?"}
+  ]
+};
+
+trainers["Red (Mt. Silver)"] = {
+  levelCap: 100, // No further gym leader, use Red's highest level (Charizard Lvl 100)
+  team: [
+    {name: "Espeon", level: 100, item: "?"},
+    {name: "Snorlax", level: 100, item: "?"},
+    {name: "Lapras", level: 100, item: "?"},
+    {name: "Venusaur", level: 100, item: "?"},
+    {name: "Blastoise", level: 100, item: "?"},
+    {name: "Charizard Mega X", level: 100, item: "?"}
+  ]
+};
+
+trainers["Gold (Whirl Islands)"] = {
+  levelCap: 100, // No further gym leader, use Gold's highest level (Typhlosion Lvl 100)
+  team: [
+    {name: "Azumarill", level: 100, item: "?"},
+    {name: "Togekiss", level: 100, item: "?"},
+    {name: "Electivire", level: 100, item: "?"},
+    {name: "Magcargo", level: 100, item: "?"},
+    {name: "Gliscor", level: 100, item: "?"},
+    {name: "Typhlosion Johtonian", level: 100, item: "?"}
+  ]
+};
+
+trainers["Dawn (Spear Pillar)"] = {
+  levelCap: 100, // No further gym leader, use Dawn's highest level (Empoleon Lvl 100)
+  team: [
+    {name: "Alakazam", level: 100, item: "?"},
+    {name: "Clefable", level: 100, item: "?"},
+    {name: "Lopunny Mega", level: 100, item: "?"},
+    {name: "Tangrowth", level: 100, item: "?"},
+    {name: "Mamoswine", level: 100, item: "?"},
+    {name: "Empoleon", level: 100, item: "?"}
+  ]
+};
+
+trainers["N (N's Castle)"] = {
+  levelCap: 100, // No further gym leader, use N's highest level (Zekrom Lvl 100)
+  team: [
+    {name: "Arcanine Kantonian", level: 100, item: "?"},
+    {name: "Zekrom", level: 100, item: "?"},
+    {name: "Omastar", level: 100, item: "?"},
+    {name: "Zoroark", level: 100, item: "?"},
+    {name: "Sigilyph", level: 100, item: "?"},
+    {name: "Scizor Mega", level: 100, item: "?"}
+  ]
+};
+
+trainers["Serena (Kiloude City)"] = {
+  levelCap: 100, // No further gym leader, use Serena's highest level (Delphox Lvl 100)
+  team: [
+    {name: "Talonflame", level: 100, item: "?"},
+    {name: "Absol", level: 100, item: "?"},
+    {name: "Altaria Mega", level: 100, item: "?"},
+    {name: "Clefable", level: 100, item: "?"},
+    {name: "Jolteon", level: 100, item: "?"},
+    {name: "Delphox", level: 100, item: "?"}
+  ]
+};
+
+trainers["Lusamine (Aether Lab)"] = {
+  levelCap: 100, // No further gym leader, use Lusamine's highest level (Nihilego Lvl 100)
+  team: [
+    {name: "Clefable", level: 100, item: "?"},
+    {name: "Lilligant Unovian", level: 100, item: "?"},
+    {name: "Mismagius", level: 100, item: "?"},
+    {name: "Milotic", level: 100, item: "?"},
+    {name: "Pheromosa", level: 100, item: "?"},
+    {name: "Nihilego", level: 100, item: "?"}
+  ]
+};
+
+trainers["Marnie (Spikemuth)"] = {
+  levelCap: 100, // No further gym leader, use Marnie's highest level (Overqwil Lvl 100)
+  team: [
+    {name: "Liepard", level: 100, item: "?"},
+    {name: "Toxicroak", level: 100, item: "?"},
+    {name: "Scrafty", level: 100, item: "?"},
+    {name: "Grimmsnarl", level: 100, item: "?"},
+    {name: "Mawile Mega", level: 100, item: "?"},
+    {name: "Overqwil", level: 100, item: "?"}
+  ]
+};
+
+trainers["Nemona (Cabo Poco)"] = {
+  levelCap: 100, // No further gym leader, use Nemona's highest level (Meowscarada Lvl 100)
+  team: [
+    {name: "Lycanroc Midday", level: 100, item: "?"},
+    {name: "Goodra", level: 100, item: "?"},
+    {name: "Ddunsparce", level: 100, item: "?"},
+    {name: "Pawmot", level: 100, item: "?"},
+    {name: "Ribombee", level: 100, item: "?"},
+    {name: "Meowscarada", level: 100, item: "?"}
+  ]
+};
+
+trainers["Carmine (Dreaded Den)"] = {
+  levelCap: 100, // No further gym leader, use Carmine's highest level (Yanmega Lvl 100)
+  team: [
+    {name: "Mightyena", level: 100, item: "?"},
+    {name: "Ninetales Kantonian", level: 100, item: "?"},
+    {name: "Scrafty", level: 100, item: "?"},
+    {name: "Leavanny", level: 100, item: "?"},
+    {name: "Basculegion", level: 100, item: "?"},
+    {name: "Yanmega", level: 100, item: "?"}
+  ]
+};
+
+  let allPokemon = [], allTrainers = [];
+let selectedStarter = document.getElementById("starterChoice").value;
+
+function initializeAllPokemon() {
+  allPokemon=[];
+  for(const location in encounters)
+    for(const method in encounters[location])
+      encounters[location][method].forEach(p=>allPokemon.push({name:p.name,location,method}));
+}
+function initializeAllTrainers() {
+  allTrainers=[];
+  for(const trainer in trainers) allTrainers.push(trainer);
+}
+
+function loadTracker(show="encounters") {
+  const container = document.getElementById("tracker"); container.innerHTML="";
+  if(show==="encounters"){
+    for(const location in encounters){
+      const div=document.createElement("div"); div.className="location";
+      const header=document.createElement("div"); header.className="dropdown-header";
+      header.textContent=location; 
+      const arrow=document.createElement("span"); arrow.textContent=" ▶"; header.appendChild(arrow);
+
+      const content=document.createElement("div"); content.className="dropdown-content";
+      for(const method in encounters[location]){
+        const section=document.createElement("div"); section.className="encounter-section";
+        const methodTitle=document.createElement("h3"); methodTitle.textContent=method; section.appendChild(methodTitle);
+        const table=document.createElement("table"); table.innerHTML=`<tr><th>Pokémon</th><th>Caught?</th></tr>`;
+        encounters[location][method].forEach(p=>{
+          const row=document.createElement("tr");
+          const key=`${location}-${method}-${p.name}`;
+          const saved=localStorage.getItem(key)==="true";
+          row.innerHTML=`<td>${p.name}</td><td><input type="checkbox" ${saved?"checked":""}></td>`;
+          row.querySelector("input").addEventListener("change",()=>{localStorage.setItem(key,row.querySelector("input").checked);updateLocationHighlight(location);updateStats();});
+          table.appendChild(row);
+        });
+        section.appendChild(table); content.appendChild(section);
+      }
+      header.addEventListener("click",()=>{ content.classList.toggle("show"); arrow.textContent=content.classList.contains("show")?" ▼":" ▶"; });
+      div.appendChild(header); div.appendChild(content); container.appendChild(div); updateLocationHighlight(location);
+    }
+  } else if(show==="trainers"){
+    for(const trainer in trainers){
+      const div=document.createElement("div"); div.className="trainer";
+      const header=document.createElement("div"); header.className="dropdown-header";
+      const checkboxId=`chk-${trainer.replace(/\s+/g,'-')}`;
+      const saved=localStorage.getItem(checkboxId)==="true";
+      header.innerHTML=`<input type="checkbox" id="${checkboxId}" ${saved?"checked":""}> ${trainer} - Level Cap: ${trainers[trainer].levelCap||"N/A"}`;
+      const arrow=document.createElement("span"); arrow.textContent=" ▶"; header.appendChild(arrow);
+
+      const content=document.createElement("div"); content.className="dropdown-content";
+      let team = trainers[trainer].team || trainers[trainer].teams?.[selectedStarter] || [];
+      const table=document.createElement("table"); table.innerHTML=`<tr><th>Pokémon</th><th>Level</th><th>Held Item</th></tr>`;
+      team.forEach(p=>{ const row=document.createElement("tr"); row.innerHTML=`<td>${p.name}</td><td>${p.level}</td><td>${p.item}</td>`; table.appendChild(row); });
+      content.appendChild(table);
+
+      header.addEventListener("click",(e)=>{ if(e.target.tagName!=="INPUT"){ content.classList.toggle("show"); arrow.textContent=content.classList.contains("show")?" ▼":" ▶"; } });
+
+      div.appendChild(header); div.appendChild(content); container.appendChild(div);
+      const checkbox=document.getElementById(checkboxId);
+      checkbox.addEventListener("change",()=>{ localStorage.setItem(checkboxId, checkbox.checked); div.classList.toggle("caught", checkbox.checked); });
+      div.classList.toggle("caught", saved);
+    }
+  }
+  updateStats();
+}
+
+function updateLocationHighlight(location){
+  const div=[...document.querySelectorAll(".location")].find(d=>d.querySelector(".dropdown-header").textContent.includes(location));
+  if(!div) return;
+  const checkboxes=div.querySelectorAll("input[type=checkbox]");
+  div.classList.toggle("caught", Array.from(checkboxes).some(cb=>cb.checked));
+}
+
+function updateStats(){
+  let totalPokemon=0, caughtPokemon=0, locationsWithCaught=0;
+  for(const location in encounters){
+    let locCaught=false;
+    for(const method in encounters[location]){
+      encounters[location][method].forEach(p=>{
+        totalPokemon++;
+        if(localStorage.getItem(`${location}-${method}-${p.name}`)==="true"){ caughtPokemon++; locCaught=true; }
+      });
+    }
+    if(locCaught) locationsWithCaught++;
+  }
+  document.getElementById("totalPokemon").textContent=totalPokemon;
+  document.getElementById("caughtPokemon").textContent=caughtPokemon;
+  document.getElementById("progressPercent").textContent=totalPokemon>0?Math.round(caughtPokemon/totalPokemon*100)+"%":"0%";
+  document.getElementById("locationsCompleted").textContent=locationsWithCaught+"/"+Object.keys(encounters).length;
+}
+
+function setupSearch(){
+  document.getElementById("searchBox").addEventListener("input",(e)=>{
+    const searchTerm=e.target.value.toLowerCase();
+    document.querySelectorAll(".location,.trainer").forEach(item=>{
+      item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(searchTerm));
+    });
+  });
+}
+
+function resetTracker(){ localStorage.clear(); loadTracker(document.getElementById("encounterTab").classList.contains("active")?"encounters":"trainers"); }
+
+document.getElementById("starterChoice").addEventListener("change", e=>{ selectedStarter=e.target.value; loadTracker("trainers"); });
+document.getElementById("encounterTab").addEventListener("click",()=>{ document.getElementById("encounterTab").classList.add("active"); document.getElementById("trainerTab").classList.remove("active"); loadTracker("encounters"); });
+document.getElementById("trainerTab").addEventListener("click",()=>{ document.getElementById("trainerTab").classList.add("active"); document.getElementById("encounterTab").classList.remove("active"); loadTracker("trainers"); });
+document.getElementById("resetButton").addEventListener("click",resetTracker);
+
+initializeAllPokemon(); initializeAllTrainers(); loadTracker(); setupSearch();
+</script>
+</body>
+</html>
