@@ -1936,669 +1936,428 @@ encounters["Flower Path (Field)"] = {
 };
 
     const trainers = {};
-    trainers["Rival (Route 103)"] = {
-  levelCap: 16,
-  teams: {
-    "Treecko": [
-      {name: "Torchic", level: 6, item: null, ability: "Blaze", moves: ["Scratch", "Growl"]}
-      
-    ],
-    "Mudkip": [
-      {name: "Treecko", level: 6, item: null, ability: "Overgrow", moves: ["Leer", "Absorb"]}
-      
-    ],
-    "Torchic": [
-      {name: "Mudkip", level: 6, item: null, ability: "Torrent", moves: ["Tackle", "Growl"]}
-      
+    
+  trainers["Rival Leaf #1"] = {
+    levelCap: 16,
+    team: [
+      {name: "Vulpix", level: 8, item: null, ability: "Drought", moves: ["Ember", "Tail Whip", "Disable", "Quick Attack"]},
+      {name: "Nidoran-F", level: 8, item: null, ability: "Rivalry", moves: ["Growl", "Poison Sting", "Disable", "Quick Attack"]},
+      {name: "Bulbasaur", level: 8, item: "Oran Berry", ability: "Chlorophyll", moves: ["Tackle", "Growl", "Vine Whip", "Growth"]}
     ]
-  }
-};
-
-trainers["Green (Route 102)"] = {
-  levelCap: 16,
-  team: [
-    {name: "Vulpix", level: 8, item: null, ability: "Drought", moves: ["Ember", "Tail Whip", "Disable", "Quick Attack"]},
-    {name: "Nidoran Female", level: 8, item: null, ability: "Rivalry", moves: ["Growl", "Poison Sting", "Disable", "Quick Attack"]},
-    {name: "Bulbasaur", level: 8, item: "Oran Berry", ability: "Chlorophyll", moves: ["Tackle", "Growl", "Vine Whip", "Growth"]}
-  ]
-};
-
-trainers["Wally (Petalburg Woods)"] = {
-  levelCap: 16,
-  team: [
-    {name: "Fletchling", level: 8, item: "Oran Berry", ability: "Gale Wings", moves: ["Tackle", "Growl", "Quick Attack"]},
-    {name: "Azurill", level: 8, item: "Oran Berry", ability: "Huge Power", moves: ["Water Gun", "Tail Whip", "Bubble"]},
-    {name: "Ralts", level: 8, item: "Oran Berry", ability: "Trace", moves: ["Growl", "Confusion", "Double Team"]}
-  ]
-};
-
-trainers["Ash (Route 115)"] = {
-  levelCap: 16,
-  team: [
-    {name: "Riolu", level: 11, item: "Expert Belt", ability: "Prankster", moves: ["Quick Attack", "Metal Claw", "Vacuum Wave", "Feint"]},
-    {name: "Treecko", level: 11, item: "Eviolite", ability: "Overgrow", moves: ["Mega Drain", "Quick Attack", "Dragon Breath", "Bullet Seed"]},
-    {name: "Pikachu Starter", level: 12, item: "Focus Sash", ability: "Static", moves: ["Quick Attack", "Thunder Wave", "Double Team", "Shock Wave"]}
-  ]
-};
-
-trainers["Roxanne (Rustboro City Gym Leader)"] = {
-  levelCap: 16,
-  team: [
-    {name: "Archen", level: 14, item: "Sharp Beak", ability: "Defeatist", moves: ["Rock Tomb", "Wing Attack", "Double Team", "Quick Attack"]},
-    {name: "Omanyte", level: 14, item: "Mystic Water", ability: "Weak Armor", moves: ["Ancient Power", "Bubble Beam", "Icy Wind", "Tickle"]},
-    {name: "Tyrunt", level: 14, item: "Dragon Fang", ability: "Strong Jaw", moves: ["Rock Tomb", "Dragon Pulse", "Bite", "Stealth Rock"]},
-    {name: "Anorith", level: 14, item: "Silver Powder", ability: "Battle Armor", moves: ["Rock Tomb", "Bug Bite", "Aqua Jet", "Sandstorm"]},
-    {name: "Lileep", level: 14, item: "Miracle Seed", ability: "Storm Drain", moves: ["Rock Tomb", "Bullet Seed", "Acid", "Sandstorm"]},
-    {name: "Nosepass", level: 16, item: "Sitrus Berry", ability: "Sand Force", moves: ["Rock Tomb", "Magnitude", "Zap Cannon", "Lock-On"]}
-  ]
-};
-
-trainers["Rival (Rustboro City)"] = {
-  levelCap: 20,
-  teams: {
-    "Mudkip": [
+  },
+  trainers["Rival Wally #1"] = {
+    levelCap: 16,
+    team: [
+      {name: "Fletchling", level: 8, item: "Oran Berry", ability: "Gale Wings", moves: ["Tackle", "Growl", "Quick Attack"]},
+      {name: "Azurill", level: 8, item: "Oran Berry", ability: "Huge Power", moves: ["Water Gun", "Tail Whip", "Bubble"]},
+      {name: "Ralts", level: 8, item: "Oran Berry", ability: "Trace", moves: ["Growl", "Confusion", "Double Team"]}
+    ]
+  },
+  trainers["Rival Ash #1"] = {
+    levelCap: 16,
+    team: [
+      {name: "Riolu", level: 11, item: "Expert Belt", ability: "Prankster", moves: ["Quick Attack", "Metal Claw", "Vacuum Wave", "Feint"]},
+      {name: "Treecko", level: 11, item: "Eviolite", ability: "Overgrow", moves: ["Mega Drain", "Quick Attack", "Dragon Breath", "Bullet Seed"]},
+      {name: "Pikachu-Starter", level: 12, item: "Focus Sash", ability: "Static", moves: ["Quick Attack", "Thunder Wave", "Double Team", "Shock Wave"]}
+    ]
+  },
+  trainers["Gym Leader Roxanne"] = {
+    levelCap: 16,
+    team: [
+      {name: "Archen", level: 14, item: "Sharp Beak", ability: "Defeatist", moves: ["Rock Tomb", "Wing Attack", "Double Team", "Quick Attack"]},
+      {name: "Omanyte", level: 14, item: "Mystic Water", ability: "Weak Armor", moves: ["Ancient Power", "Bubble Beam", "Icy Wind", "Tickle"]},
+      {name: "Tyrunt", level: 14, item: "Dragon Fang", ability: "Strong Jaw", moves: ["Rock Tomb", "Dragon Pulse", "Bite", "Stealth Rock"]},
+      {name: "Anorith", level: 14, item: "Silver Powder", ability: "Battle Armor", moves: ["Rock Tomb", "Bug Bite", "Aqua Jet", "Sandstorm"]},
+      {name: "Lileep", level: 14, item: "Miracle Seed", ability: "Storm Drain", moves: ["Rock Tomb", "Bullet Seed", "Acid", "Sandstorm"]},
+      {name: "Nosepass", level: 16, item: "Sitrus Berry", ability: "Sand Force", moves: ["Rock Tomb", "Magnitude", "Zap Cannon", "Lock-On"]}
+    ]
+  },
+  trainers["Rival May #2"] = {
+    levelCap: 20,
+    team: [
       {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
       {name: "Treecko", level: 16, item: null, ability: "Overgrow", moves: ["Leer", "Absorb", "Quick Attack", "Mega Drain"]}
-    ],
-    "Torchic": [
-      {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
-      {name: "Mudkip", level: 16, item: null, ability: "Torrent", moves: ["Tackle", "Growl", "Water Gun"]}
-    ],
-    "Treecko": [
-      {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
-      {name: "Torchic", level: 16, item: null, ability: "Blaze", moves: ["Scratch", "Growl", "Ember"]}
     ]
-  }
-};
-
-trainers["Brawly (Dewford City Gym Leader)"] = {
-  levelCap: 20,
-  team: [
-    {name: "Machop", level: 17, item: "Berry Juice", ability: "No Guard", moves: ["Bulk Up", "Low Sweep", "Bullet Punch", "Rock Tomb"]},
-    {name: "Meditite", level: 17, item: "Black Belt", ability: "Pure Power", moves: ["Bullet Punch", "Force Palm", "Psyshock", "Shadow Ball"]},
-    {name: "Pancham", level: 17, item: "Muscle Band", ability: "Iron Fist", moves: ["Bulk Up", "Power-Up Punch", "Shadow Claw", "Aerial Ace"]},
-    {name: "Scraggy", level: 17, item: "Assault Vest", ability: "Intimidate", moves: ["Headbutt", "Drain Punch", "Feint Attack", "Fake Out"]},
-    {name: "Mienfoo", level: 17, item: "Wise Glasses", ability: "Inner Focus", moves: ["Calm Mind", "Fake Out", "Aura Sphere", "Hidden Power Dark"]},
-    {name: "Hariyama", level: 20, item: "Sitrus Berry", ability: "Sheer Force", moves: ["Bulk Up", "Arm Thrust", "Bullet Punch", "Smack Down"]}
-  ]
-};
-
-trainers["Green (Slateport City)"] = {
-  levelCap: 28,
-  team: [
-    {name: "Vulpix", level: 21, item: "Fire Gem", ability: "Flash Fire", moves: ["Spite", "Flamethrower", "Will-O-Wisp", "Hex"]},
-    {name: "Nidorina", level: 22, item: "Eviolite", ability: "Rivalry", moves: ["Double Kick", "Stomping Tantrum", "Poison Fang", "Toxic Spikes"]},
-    {name: "Gastly", level: 21, item: "Expert Belt", ability: "Levitate", moves: ["Hex", "Will-O-Wisp", "Venoshock", "Curse"]},
-    {name: "Ivysaur", level: 24, item: "Leftovers", ability: "Overgrow", moves: ["Magical Leaf", "Sleep Powder", "Venoshock", "Body Slam"]}
-  ]
-};
-
-trainers["Rival (Route 110)"] = {
-  levelCap: 28,
-  teams: {
-    "Mudkip": [
+  },
+  trainers["Gym Leader Brawly"] = {
+    levelCap: 20,
+    team: [
+      {name: "Machop", level: 17, item: "Berry Juice", ability: "No Guard", moves: ["Bulk Up", "Low Sweep", "Bullet Punch", "Rock Tomb"]},
+      {name: "Meditite", level: 17, item: "Black Belt", ability: "Pure Power", moves: ["Bullet Punch", "Force Palm", "Psyshock", "Shadow Ball"]},
+      {name: "Pancham", level: 17, item: "Muscle Band", ability: "Iron Fist", moves: ["Bulk Up", "Power-Up Punch", "Shadow Claw", "Aerial Ace"]},
+      {name: "Scraggy", level: 17, item: "Assault Vest", ability: "Intimidate", moves: ["Headbutt", "Drain Punch", "Feint Attack", "Fake Out"]},
+      {name: "Mienfoo", level: 17, item: "Wise Glasses", ability: "Inner Focus", moves: ["Calm Mind", "Fake Out", "Aura Sphere", "Hidden Power [Dark]"]},
+      {name: "Hariyama", level: 20, item: "Sitrus Berry", ability: "Sheer Force", moves: ["Bulk Up", "Arm Thrust", "Bullet Punch", "Smack Down"]}
+    ]
+  },
+  trainers["Rival Leaf #2"] = {
+    levelCap: 28,
+    team: [
+      {name: "Vulpix", level: 21, item: "Fire Gem", ability: "Flash Fire", moves: ["Spite", "Flamethrower", "Will-O-Wisp", "Hex"]},
+      {name: "Nidorina", level: 22, item: "Eviolite", ability: "Rivalry", moves: ["Double Kick", "Stomping Tantrum", "Poison Fang", "Toxic Spikes"]},
+      {name: "Gastly", level: 21, item: "Expert Belt", ability: "Levitate", moves: ["Hex", "Will-O-Wisp", "Venoshock", "Curse"]},
+      {name: "Ivysaur", level: 24, item: "Leftovers", ability: "Overgrow", moves: ["Magical Leaf", "Sleep Powder", "Venoshock", "Body Slam"]}
+    ]
+  },
+  trainers["Rival May #3"] = {
+    levelCap: 28,
+    team: [
       {name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double Team"]},
       {name: "Ponyta", level: 22, item: "Charcoal", ability: "Flame Body", moves: ["Flame Charge", "Double Kick", "Hypnosis", "Stomp"]},
       {name: "Wailmer", level: 22, item: "Mystic Water", ability: "Water Veil", moves: ["Water Pulse", "Rollout", "Body Slam", "Fissure"]},
       {name: "Grovyle", level: 24, item: "Sitrus Berry", ability: "Overgrow", moves: ["Grass Pledge", "Aerial Ace", "Dragon Breath", "Grass Whistle"]}
-    ],
-    "Torchic": [
-      {name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double Team"]},
-      {name: "Shroomish", level: 22, item: null, ability: "Effect Spore", moves: ["Mega Drain", "Stun Spore", "Headbutt"]},
-      {name: "Ponyta", level: 22, item: "Charcoal", ability: "Flame Body", moves: ["Flame Charge", "Double Kick", "Hypnosis", "Stomp"]},
-      {name: "Marshtomp", level: 24, item: "Sitrus Berry", ability: "Torrent", moves: ["Water Pulse", "Mud Shot", "Rock Tomb"]}
-    ],
-    "Treecko": [
-      {name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double Team"]},
-      {name: "Wailmer", level: 22, item: "Mystic Water", ability: "Water Veil", moves: ["Water Pulse", "Rollout", "Body Slam", "Fissure"]},
-      {name: "Shroomish", level: 22, item: null, ability: "Effect Spore", moves: ["Mega Drain", "Stun Spore", "Headbutt"]},
-      {name: "Combusken", level: 24, item: "Sitrus Berry", ability: "Blaze", moves: ["Double Kick", "Ember", "Quick Attack"]}
     ]
-  }
-};
-
-trainers["Ash (Mauville City)"] = {
-  levelCap: 28,
-  team: [
-    {name: "Riolu", level: 23, item: "Expert Belt", ability: "Prankster", moves: ["Quick Attack", "Metal Claw", "Brick Break", "Feint"]},
-    {name: "Grovyle", level: 23, item: "Eviolite", ability: "Sharpness", moves: ["Fury Cutter", "Quick Attack", "Dragon Breath", "Bullet Seed"]},
-    {name: "Frogadier", level: 23, item: "Life Orb", ability: "Protean", moves: ["Water Pulse", "Pound", "Mud Shot", "Icy Wind"]},
-    {name: "Pikachu Starter", level: 25, item: "Focus Sash", ability: "Analytic", moves: ["Quick Attack", "Thunder Wave", "Double Team", "Shock Wave"]}
-  ]
-};
-
-trainers["Wally (Mauville City)"] = {
-  levelCap: 28,
-  team: [
-    {name: "Fletchinder", level: 23, item: "Flying Gem", ability: "Gale Wings", moves: ["Flame Charge", "Acrobatics", "Roost", "Return"]},
-    {name: "Gible", level: 23, item: "Rocky Helmet", ability: "Rough Skin", moves: ["Dragon Rage", "Slash", "Dig", "Shadow Claw"]},
-    {name: "Marill", level: 23, item: "Leftovers", ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Aqua Ring", "Sing"]},
-    {name: "Kirlia", level: 25, item: "Sitrus Berry", ability: "Trace", moves: ["Psychic", "Draining Kiss", "Magical Leaf", "Shadow Sneak"]}
-  ]
-};
-
-trainers["Wattson (Mauville City Gym Leader)"] = {
-  levelCap: 28,
-  team: [
-    {name: "Electrode", level: 26, item: "Magnet", ability: "Aftermath", moves: ["Volt Switch", "Electro Ball", "Explosion", "Light Screen"]},
-    {name: "Magneton", level: 26, item: "Air Balloon", ability: "Analytic", moves: ["Volt Switch", "Mirror Shot", "Double Team", "Supersonic"]},
-    {name: "Flaaffy", level: 26, item: "Leftovers", ability: "Static", moves: ["Volt Switch", "Thunderbolt", "Thunder Wave", "Fire Punch"]},
-    {name: "Rotom", level: 26, item: "Spell Tag", ability: "Levitate", moves: ["Volt Switch", "Ominous Wind", "Thunder Wave", "Confuse Ray"]},
-    {name: "Luxio", level: 26, item: "Muscle Band", ability: "Guts", moves: ["Volt Switch", "Night Slash", "Ice Fang", "Baby-Doll Eyes"]},
-    {name: "Manectric", level: 28, item: "Sitrus Berry", ability: "Static", moves: ["Volt Switch", "Flame Burst", "Snarl", "Double Team"]}
-  ]
-};
-
-trainers["Green (Route 113)"] = {
-  levelCap: 38,
-  team: [
-    {name: "Ninetales", level: 30, item: "Fire Gem", ability: "Flash Fire", moves: ["Spite", "Flamethrower", "Will-O-Wisp", "Hex"]},
-    {name: "Nidorina", level: 31, item: null, ability: "Rivalry", moves: ["Double Kick", "Stomping Tantrum", "Poison Fang", "Toxic Spikes"]},
-    {name: "Clefable", level: 32, item: null, ability: "Magic Guard", moves: ["Moonblast", "Moonlight", "Calm Mind", "Thunder Wave"]},
-    {name: "Haunter", level: 32, item: null, ability: "Levitate", moves: ["Shadow Ball", "Sludge Bomb", "Hypnosis", "Dream Eater"]},
-    {name: "Venusaur", level: 34, item: null, ability: "Chlorophyll", moves: ["Giga Drain", "Sludge Bomb", "Synthesis", "Sleep Powder"]}
-  ]
-};
-
-trainers["Magma Admin Tabitha (Mt. Chimney)"] = {
-  levelCap: 38,
-  team: [
-    {name: "Mightyena", level: 33, item: null, ability: "Intimidate", moves: ["Crunch", "Swagger", "Sand Attack"]},
-    {name: "Weezing", level: 33, item: null, ability: "Levitate", moves: ["Sludge Bomb", "Smokescreen", "Toxic"]},
-    {name: "Snorlax", level: 33, item: null, ability: "Thick Fat", moves: ["Body Slam", "Yawn", "Rest"]},
-    {name: "Darmanitan", level: 35, item: null, ability: "Sheer Force", moves: ["Fire Punch", "Hammer Arm", "Flare Blitz"]}
-  ]
-};
-
-trainers["Magma Leader Maxie (Mt. Chimney)"] = {
-  levelCap: 38,
-  team: [
-    {name: "Golbat", level: 34, item: null, ability: "Inner Focus", moves: ["Air Slash", "Poison Fang", "Confuse Ray"]},
-    {name: "Houndoom", level: 34, item: null, ability: "Flash Fire", moves: ["Flamethrower", "Dark Pulse", "Nasty Plot"]},
-    {name: "Pupitar", level: 34, item: null, ability: "Shed Skin", moves: ["Rock Slide", "Dark Pulse", "Sandstorm"]},
-    {name: "Lampent", level: 34, item: null, ability: "Flash Fire", moves: ["Shadow Ball", "Flamethrower", "Will-O-Wisp"]},
-    {name: "Camerupt", level: 36, item: null, ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Yawn"]}
-  ]
-};
-
-trainers["Wally (Route 112)"] = {
-  levelCap: 38,
-  team: [
-    {name: "Roselia", level: 37, item: null, ability: "Poison Point", moves: ["Giga Drain", "Toxic", "Leech Seed"]},
-    {name: "Fletchinder", level: 37, item: null, ability: "Gale Wings", moves: ["Acrobatics", "Flame Charge", "Roost"]},
-    {name: "Azumarill", level: 37, item: null, ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Aqua Ring"]},
-    {name: "Gabite", level: 37, item: null, ability: "Rough Skin", moves: ["Dragon Claw", "Dig", "Sandstorm"]},
-    {name: "Gallade", level: 39, item: null, ability: "Justified", moves: ["Psycho Cut", "Close Combat", "Swords Dance"]}
-  ]
-};
-
-trainers["Flannery (Lavaridge City Gym Leader)"] = {
-  levelCap: 38,
-  team: [
-    {name: "Ninetales", level: 36, item: null, ability: "Flash Fire", moves: ["Flamethrower", "Will-O-Wisp", "Hex"]},
-    {name: "Houndoom", level: 36, item: null, ability: "Flash Fire", moves: ["Flamethrower", "Dark Pulse", "Nasty Plot"]},
-    {name: "Magmortar", level: 36, item: null, ability: "Flame Body", moves: ["Fire Blast", "Thunderbolt", "Focus Blast"]},
-    {name: "Magcargo", level: 36, item: null, ability: "Flame Body", moves: ["Lava Plume", "Rock Slide", "Shell Smash"]},
-    {name: "Camerupt", level: 36, item: null, ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Yawn"]},
-    {name: "Torkoal", level: 38, item: null, ability: "Drought", moves: ["Overheat", "Body Press", "Protect"]}
-  ]
-};
-
-trainers["Norman (Petalburg City Gym Leader)"] = {
-  levelCap: 42,
-  team: [
-    {name: "Ambipom", level: 40, item: null, ability: "Technician", moves: ["Double Hit", "Shadow Claw", "U-turn"]},
-    {name: "Exploud", level: 40, item: null, ability: "Scrappy", moves: ["Boomburst", "Crunch", "Ice Punch"]},
-    {name: "Staraptor", level: 40, item: null, ability: "Intimidate", moves: ["Brave Bird", "Close Combat", "U-turn"]},
-    {name: "Sawsbuck", level: 40, item: null, ability: "Chlorophyll", moves: ["Horn Leech", "Jump Kick", "Synthesis"]},
-    {name: "Bouffalant", level: 40, item: null, ability: "Reckless", moves: ["Head Charge", "Megahorn", "Earthquake"]},
-    {name: "Slaking", level: 42, item: null, ability: "Hyper Cutter", moves: ["Giga Impact", "Shadow Claw", "Hammer Arm"]}
-  ]
-};
-
-trainers["Ash (Route 119)"] = {
-  levelCap: 50,
-  team: [
-    {name: "Torkoal", level: 42, item: null, ability: "Drought", moves: ["Flamethrower", "Body Press", "Protect"]},
-    {name: "Sceptile Mega", level: 42, item: "Sceptilite", ability: "Lightning Rod", moves: ["Leaf Blade", "Dragon Claw", "Swords Dance"]},
-    {name: "Greninja", level: 42, item: null, ability: "Protean", moves: ["Hydro Pump", "Dark Pulse", "Ice Beam"]},
-    {name: "Lucario", level: 42, item: null, ability: "Justified", moves: ["Aura Sphere", "Flash Cannon", "Close Combat"]},
-    {name: "Pikachu Starter", level: 44, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Quick Attack"]}
-  ]
-};
-
-trainers["Aqua Admin Shelly (Weather Institute)"] = {
-  levelCap: 50,
-  team: [
-    {name: "Liepard", level: 44, item: null, ability: "Prankster", moves: ["Fake Out", "Sucker Punch", "Play Rough"]},
-    {name: "Muk", level: 44, item: null, ability: "Poison Touch", moves: ["Gunk Shot", "Shadow Sneak", "Toxic"]},
-    {name: "Lapras", level: 44, item: null, ability: "Water Absorb", moves: ["Surf", "Ice Beam", "Thunderbolt"]},
-    {name: "Roserade", level: 44, item: null, ability: "Poison Point", moves: ["Giga Drain", "Sludge Bomb", "Toxic"]},
-    {name: "Sharpedo", level: 44, item: null, ability: "Speed Boost", moves: ["Crunch", "Aqua Jet", "Poison Jab"]},
-    {name: "Gyarados Mega", level: 45, item: "Gyaradosite", ability: "Mold Breaker", moves: ["Dragon Dance", "Waterfall", "Crunch"]}
-  ]
-};
-
-trainers["Rival (Route 119)"] = {
-  levelCap: 50,
-  teams: {
-    "Mudkip": [
-      {name: "Swellow", level: 45, item: null, ability: "Guts", moves: ["Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 45, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast"]},
-      {name: "Rapidash", level: 45, item: null, ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Poison Jab"]},
-      {name: "Wailord", level: 45, item: null, ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam"]},
-      {name: "Sceptile Mega", level: 47, item: "Sceptilite", ability: "Lightning Rod", moves: ["Leaf Storm", "Dragon Pulse", "Focus Blast"]}
-    ],
-    "Torchic": [
-      {name: "Swellow", level: 45, item: null, ability: "Guts", moves: ["Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 45, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast"]},
-      {name: "Breloom", level: 45, item: null, ability: "Technician", moves: ["Sky Uppercut", "Giga Drain", "Rock Tomb"]},
-      {name: "Rapidash", level: 45, item: null, ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Poison Jab"]},
-      {name: "Swampert Mega", level: 47, item: "Swampertite", ability: "Damp", moves: ["Earthquake", "Waterfall", "Ice Punch"]}
-    ],
-    "Treecko": [
-      {name: "Swellow", level: 45, item: null, ability: "Guts", moves: ["Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 45, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast"]},
-      {name: "Wailord", level: 45, item: null, ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam"]},
-      {name: "Breloom", level: 45, item: null, ability: "Technician", moves: ["Sky Uppercut", "Giga Drain", "Rock Tomb"]},
-      {name: "Blaziken Mega", level: 47, item: "Blazikenite", ability: "Speed Boost", moves: ["Blaze Kick", "Sky Uppercut", "Swords Dance"]}
+  },
+  trainers["Rival Wally #2"] = {
+    levelCap: 28,
+    team: [
+      {name: "Fletchinder", level: 23, item: "Flying Gem", ability: "Gale Wings", moves: ["Flame Charge", "Acrobatics", "Roost", "Return"]},
+      {name: "Gible", level: 23, item: "Rocky Helmet", ability: "Rough Skin", moves: ["Dragon Rage", "Slash", "Dig", "Shadow Claw"]},
+      {name: "Marill", level: 23, item: "Leftovers", ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Aqua Ring", "Sing"]},
+      {name: "Kirlia", level: 25, item: "Sitrus Berry", ability: "Trace", moves: ["Psychic", "Draining Kiss", "Magical Leaf", "Shadow Sneak"]}
     ]
-  }
-};
-
-trainers["Winona (Fortree City Gym Leader)"] = {
-  levelCap: 50,
-  team: [
-    {name: "Skarmory", level: 48, item: null, ability: "Sturdy", moves: ["Spikes", "Steel Wing", "Roost"]},
-    {name: "Honchkrow", level: 48, item: null, ability: "Super Luck", moves: ["Night Slash", "Brave Bird", "Sucker Punch"]},
-    {name: "Sigilyph", level: 48, item: null, ability: "Magic Guard", moves: ["Psychic", "Air Slash", "Light Screen"]},
-    {name: "Gyarados", level: 48, item: null, ability: "Intimidate", moves: ["Waterfall", "Dragon Dance", "Crunch"]},
-    {name: "Talonflame", level: 48, item: null, ability: "Gale Wings", moves: ["Brave Bird", "Flare Blitz", "Roost"]},
-    {name: "Altaria Mega", level: 50, item: "Altarianite", ability: "Pixilate", moves: ["Dragon Pulse", "Hyper Voice", "Flamethrower"]}
-  ]
-};
-
-trainers["Wally (Route 120)"] = {
-  levelCap: 62,
-  team: [
-    {name: "Roserade", level: 52, item: null, ability: "Poison Point", moves: ["Giga Drain", "Sludge Bomb", "Toxic"]},
-    {name: "Talonflame", level: 52, item: null, ability: "Gale Wings", moves: ["Brave Bird", "Flare Blitz", "Roost"]},
-    {name: "Azumarill", level: 52, item: null, ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Superpower"]},
-    {name: "Magnezone", level: 52, item: null, ability: "Sturdy", moves: ["Thunderbolt", "Flash Cannon", "Light Screen"]},
-    {name: "Garchomp", level: 52, item: null, ability: "Rough Skin", moves: ["Dragon Claw", "Earthquake", "Swords Dance"]},
-    {name: "Gallade Mega", level: 54, item: "Galladite", ability: "Justified", moves: ["Psycho Cut", "Close Combat", "Swords Dance"]}
-  ]
-};
-
-trainers["Rival (Lilycove City)"] = {
-  levelCap: 62,
-  teams: {
-    "Mudkip": [
-      {name: "Swellow", level: 53, item: null, ability: "Guts", moves: ["Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 53, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast"]},
-      {name: "Sylveon", level: 53, item: null, ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball"]},
-      {name: "Rapidash", level: 53, item: null, ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Poison Jab"]},
-      {name: "Wailord", level: 53, item: null, ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam"]},
-      {name: "Sceptile Mega", level: 55, item: "Sceptilite", ability: "Lightning Rod", moves: ["Leaf Storm", "Dragon Pulse", "Focus Blast"]}
-    ],
-    "Torchic": [
-      {name: "Swellow", level: 53, item: null, ability: "Guts", moves: ["Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 53, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast"]},
-      {name: "Sylveon", level: 53, item: null, ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball"]},
-      {name: "Breloom", level: 53, item: null, ability: "Technician", moves: ["Sky Uppercut", "Giga Drain", "Rock Tomb"]},
-      {name: "Rapidash", level: 53, item: null, ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Poison Jab"]},
-      {name: "Swampert Mega", level: 55, item: "Swampertite", ability: "Damp", moves: ["Earthquake", "Waterfall", "Ice Punch"]}
-    ],
-    "Treecko": [
-      {name: "Swellow", level: 53, item: null, ability: "Guts", moves: ["Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 53, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast"]},
-      {name: "Sylveon", level: 53, item: null, ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball"]},
-      {name: "Wailord", level: 53, item: null, ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam"]},
-      {name: "Breloom", level: 53, item: null, ability: "Technician", moves: ["Sky Uppercut", "Giga Drain", "Rock Tomb"]},
-      {name: "Blaziken Mega", level: 55, item: "Blazikenite", ability: "Speed Boost", moves: ["Blaze Kick", "Sky Uppercut", "Swords Dance"]}
+  },
+  trainers["Gym Leader Wattson"] = {
+    levelCap: 28,
+    team: [
+      {name: "Electrode", level: 26, item: "Magnet", ability: "Aftermath", moves: ["Volt Switch", "Electro Ball", "Explosion", "Light Screen"]},
+      {name: "Magneton", level: 26, item: "Air Balloon", ability: "Analytic", moves: ["Volt Switch", "Mirror Shot", "Double Team", "Supersonic"]},
+      {name: "Flaaffy", level: 26, item: "Leftovers", ability: "Static", moves: ["Volt Switch", "Thunderbolt", "Thunder Wave", "Fire Punch"]},
+      {name: "Rotom", level: 26, item: "Spell Tag", ability: "Levitate", moves: ["Volt Switch", "Ominous Wind", "Thunder Wave", "Confuse Ray"]},
+      {name: "Luxio", level: 26, item: "Muscle Band", ability: "Guts", moves: ["Volt Switch", "Night Slash", "Ice Fang", "Baby-Doll Eyes"]},
+      {name: "Manectric", level: 28, item: "Sitrus Berry", ability: "Static", moves: ["Volt Switch", "Flame Burst", "Snarl", "Double Team"]}
     ]
-  }
-};
-
-trainers["Magma Admin Tabitha (Magma Hideout)"] = {
-  levelCap: 62,
-  team: [
-    {name: "Mightyena", level: 49, item: null, ability: "Intimidate", moves: ["Crunch", "Swagger", "Sand Attack"]},
-    {name: "Weezing", level: 49, item: null, ability: "Levitate", moves: ["Sludge Bomb", "Smokescreen", "Toxic"]},
-    {name: "Snorlax", level: 49, item: null, ability: "Thick Fat", moves: ["Body Slam", "Yawn", "Rest"]},
-    {name: "Gigalith", level: 49, item: null, ability: "Sturdy", moves: ["Stone Edge", "Earthquake", "Sandstorm"]},
-    {name: "Camerupt", level: 49, item: null, ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Yawn"]},
-    {name: "Darmanitan", level: 49, item: null, ability: "Sheer Force", moves: ["Fire Punch", "Hammer Arm", "Flare Blitz"]}
-  ]
-};
-
-trainers["Magma Leader Maxie (Magma Hideout)"] = {
-  levelCap: 62,
-  team: [
-    {name: "Crobat", level: 50, item: null, ability: "Inner Focus", moves: ["Air Slash", "Poison Fang", "Confuse Ray"]},
-    {name: "Houndoom", level: 50, item: null, ability: "Flash Fire", moves: ["Flamethrower", "Dark Pulse", "Nasty Plot"]},
-    {name: "Claydol", level: 50, item: null, ability: "Levitate", moves: ["Earth Power", "Psychic", "Light Screen"]},
-    {name: "Tyranitar", level: 50, item: null, ability: "Sand Stream", moves: ["Stone Edge", "Crunch", "Earthquake"]},
-    {name: "Chandelure", level: 50, item: null, ability: "Flash Fire", moves: ["Shadow Ball", "Flamethrower", "Energy Ball"]},
-    {name: "Camerupt Mega", level: 52, item: "Cameruptite", ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Yawn"]}
-  ]
-};
-
-trainers["Aqua Admin Matt (Aqua Hideout)"] = {
-  levelCap: 62,
-  team: [
-    {name: "Golduck", level: 55, item: null, ability: "Cloud Nine", moves: ["Hydro Pump", "Psychic", "Ice Beam"]},
-    {name: "Barbaracle", level: 55, item: null, ability: "Tough Claws", moves: ["Razor Shell", "Stone Edge", "X-Scissor"]},
-    {name: "Ferrothorn", level: 55, item: null, ability: "Iron Barbs", moves: ["Power Whip", "Iron Head", "Stealth Rock"]},
-    {name: "Sharpedo", level: 55, item: null, ability: "Speed Boost", moves: ["Crunch", "Aqua Jet", "Poison Jab"]},
-    {name: "Nidoqueen", level: 55, item: null, ability: "Sheer Force", moves: ["Earth Power", "Sludge Bomb", "Flamethrower"]},
-    {name: "Blastoise Mega", level: 57, item: "Blastoisinite", ability: "Mega Launcher", moves: ["Hydro Pump", "Dark Pulse", "Aura Sphere"]}
-  ]
-};
-
-trainers["Ash (Mossdeep City)"] = {
-  levelCap: 62,
-  team: [
-    {name: "Torkoal", level: 56, item: null, ability: "Drought", moves: ["Flamethrower", "Body Press", "Protect"]},
-    {name: "Charizard", level: 56, item: null, ability: "Solar Power", moves: ["Flamethrower", "Air Slash", "Dragon Claw"]},
-    {name: "Sceptile", level: 56, item: null, ability: "Overgrow", moves: ["Leaf Blade", "Dragon Claw", "Swords Dance"]},
-    {name: "Greninja", level: 56, item: null, ability: "Protean", moves: ["Hydro Pump", "Dark Pulse", "Ice Beam"]},
-    {name: "Lucario Mega", level: 56, item: "Lucarionite", ability: "Adaptability", moves: ["Aura Sphere", "Flash Cannon", "Close Combat"]},
-    {name: "Pikachu Starter", level: 58, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Quick Attack"]}
-  ]
-};
-
-trainers["Tate & Liza (Mossdeep City Gym Leaders)"] = {
-  levelCap: 62,
-  team: [
-    {name: "Solrock", level: 60, item: null, ability: "Levitate", moves: ["Psychic", "Flamethrower", "Rock Slide"]},
-    {name: "Lunatone", level: 60, item: null, ability: "Levitate", moves: ["Psychic", "Moonblast", "Rock Slide"]},
-    {name: "Bronzong", level: 60, item: null, ability: "Levitate", moves: ["Psychic", "Gyro Ball", "Light Screen"]},
-    {name: "Slowking", level: 60, item: null, ability: "Regenerator", moves: ["Psychic", "Surf", "Calm Mind"]},
-    {name: "Gallade", level: 62, item: null, ability: "Justified", moves: ["Psycho Cut", "Close Combat", "Swords Dance"]},
-    {name: "Gardevoir Mega", level: 62, item: "Gardevoirite", ability: "Pixilate", moves: ["Psychic", "Moonblast", "Thunderbolt"]}
-  ]
-};
-
-trainers["Magma Admin Tabitha and Magma Leader Maxie (Mossdeep Space Center)"] = {
-  levelCap: 68,
-  team: [
-    {name: "Crobat", level: 55, item: null, ability: "Inner Focus", moves: ["Air Slash", "Poison Fang", "Confuse Ray"]},
-    {name: "Mightyena", level: 55, item: null, ability: "Intimidate", moves: ["Crunch", "Swagger", "Sand Attack"]},
-    {name: "Houndoom", level: 55, item: null, ability: "Flash Fire", moves: ["Flamethrower", "Dark Pulse", "Nasty Plot"]},
-    {name: "Weezing", level: 55, item: null, ability: "Levitate", moves: ["Sludge Bomb", "Smokescreen", "Toxic"]},
-    {name: "Darmanitan", level: 55, item: null, ability: "Sheer Force", moves: ["Fire Punch", "Hammer Arm", "Flare Blitz"]},
-    {name: "Camerupt Mega", level: 55, item: "Cameruptite", ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Yawn"]}
-  ]
-};
-
-trainers["Aqua Admin Shelly (Optional)"] = {
-  levelCap: 68,
-  team: [
-    {name: "Liepard", level: 57, item: null, ability: "Prankster", moves: ["Fake Out", "Sucker Punch", "Play Rough"]},
-    {name: "Muk", level: 57, item: null, ability: "Poison Touch", moves: ["Gunk Shot", "Shadow Sneak", "Toxic"]},
-    {name: "Lapras", level: 57, item: null, ability: "Water Absorb", moves: ["Surf", "Ice Beam", "Thunderbolt"]},
-    {name: "Roserade", level: 57, item: null, ability: "Poison Point", moves: ["Giga Drain", "Sludge Bomb", "Toxic"]},
-    {name: "Sharpedo", level: 57, item: null, ability: "Speed Boost", moves: ["Crunch", "Aqua Jet", "Poison Jab"]},
-    {name: "Gyarados Mega", level: 59, item: "Gyaradosite", ability: "Mold Breaker", moves: ["Dragon Dance", "Waterfall", "Crunch"]}
-  ]
-};
-
-trainers["Aqua Leader Archie"] = {
-  levelCap: 68,
-  team: [
-    {name: "Crobat", level: 58, item: null, ability: "Inner Focus", moves: ["Air Slash", "Poison Fang", "Confuse Ray"]},
-    {name: "Tentacruel", level: 58, item: null, ability: "Liquid Ooze", moves: ["Scald", "Sludge Wave", "Toxic"]},
-    {name: "Walrein", level: 58, item: null, ability: "Ice Body", moves: ["Blizzard", "Surf", "Hail"]},
-    {name: "Dragonite", level: 58, item: null, ability: "Multiscale", moves: ["Dragon Claw", "Hurricane", "Thunder Punch"]},
-    {name: "Eelektross", level: 58, item: null, ability: "Levitate", moves: ["Thunderbolt", "Flamethrower", "Dragon Claw"]},
-    {name: "Sharpedo Mega", level: 60, item: "Sharpedonite", ability: "Strong Jaw", moves: ["Crunch", "Waterfall", "Poison Jab"]}
-  ]
-};
-
-trainers["Wallace (Sootopolis City Gym Leader)"] = {
-  levelCap: 68,
-  team: [
-    {name: "Politoed", level: 66, item: null, ability: "Drizzle", moves: ["Scald", "Ice Beam", "Focus Blast"]},
-    {name: "Ludicolo", level: 66, item: null, ability: "Rain Dish", moves: ["Hydro Pump", "Giga Drain", "Ice Beam"]},
-    {name: "Kingdra", level: 66, item: null, ability: "Sniper", moves: ["Hydro Pump", "Dragon Pulse", "Ice Beam"]},
-    {name: "Starmie", level: 66, item: null, ability: "Analytic", moves: ["Hydro Pump", "Psychic", "Thunderbolt"]},
-    {name: "Milotic", level: 68, item: null, ability: "Marvel Scale", moves: ["Scald", "Recover", "Ice Beam"]},
-    {name: "Gyarados Mega", level: 68, item: "Gyaradosite", ability: "Mold Breaker", moves: ["Dragon Dance", "Waterfall", "Crunch"]}
-  ]
-};
-
-trainers["Wally (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Roserade", level: 70, item: null, ability: "Poison Point", moves: ["Giga Drain", "Sludge Bomb", "Toxic"]},
-    {name: "Talonflame", level: 70, item: null, ability: "Gale Wings", moves: ["Brave Bird", "Flare Blitz", "Roost"]},
-    {name: "Azumarill", level: 70, item: null, ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Superpower"]},
-    {name: "Magnezone", level: 70, item: null, ability: "Sturdy", moves: ["Thunderbolt", "Flash Cannon", "Light Screen"]},
-    {name: "Garchomp", level: 70, item: null, ability: "Rough Skin", moves: ["Dragon Claw", "Earthquake", "Swords Dance"]},
-    {name: "Gallade Mega", level: 70, item: "Galladite", ability: "Justified", moves: ["Psycho Cut", "Close Combat", "Swords Dance"]}
-  ]
-};
-
-trainers["Cooltrainer Albert (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Pidgeot Mega", level: 70, item: "Pidgeotite", ability: "No Guard", moves: ["Hurricane", "U-turn", "Roost"]}
-  ]
-};
-
-trainers["Cooltrainer Hope (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Scizor Mega", level: 70, item: "Scizorite", ability: "Technician", moves: ["Bullet Punch", "Swords Dance", "X-Scissor"]}
-  ]
-};
-
-trainers["Cooltrainer Samuel (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Tyranitar Mega", level: 70, item: "Tyranitarite", ability: "Sand Stream", moves: ["Stone Edge", "Crunch", "Earthquake"]}
-  ]
-};
-
-trainers["Cooltrainer Shannon (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Lopunny Mega", level: 70, item: "Lopunnite", ability: "Scrappy", moves: ["High Jump Kick", "Return", "Fake Out"]}
-  ]
-};
-
-trainers["Cooltrainer Julie (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Ampharos Mega", level: 70, item: "Ampharosite", ability: "Mold Breaker", moves: ["Thunderbolt", "Dragon Pulse", "Focus Blast"]}
-  ]
-};
-
-trainers["Cooltrainer Vito (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Lucario Mega", level: 70, item: "Lucarionite", ability: "Adaptability", moves: ["Aura Sphere", "Flash Cannon", "Close Combat"]}
-  ]
-};
-
-trainers["Cooltrainer Caroline (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Banette Mega", level: 70, item: "Banettite", ability: "Cursed Body", moves: ["Shadow Sneak", "Will-O-Wisp", "Sucker Punch"]}
-  ]
-};
-
-trainers["Cooltrainer Dianne (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Slowbro Mega", level: 70, item: "Slowbronite", ability: "Shell Armor", moves: ["Scald", "Psychic", "Calm Mind"]}
-  ]
-};
-
-trainers["Cooltrainer Felix (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Kangaskhan Mega", level: 70, item: "Kangaskhanite", ability: "Parental Bond", moves: ["Return", "Earthquake", "Sucker Punch"]}
-  ]
-};
-
-trainers["Cooltrainer Owen (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Camerupt Mega", level: 70, item: "Cameruptite", ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Yawn"]}
-  ]
-};
-
-trainers["Cooltrainer Michelle (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Butterfree Mega", level: 70, item: "Butterfrenite", ability: "Tinted Lens", moves: ["Bug Buzz", "Quiver Dance", "Sleep Powder"]}
-  ]
-};
-
-trainers["Cooltrainer Mitchell (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Blaziken Mega", level: 70, item: "Blazikenite", ability: "Speed Boost", moves: ["Blaze Kick", "Sky Uppercut", "Swords Dance"]}
-  ]
-};
-
-trainers["Cooltrainer Halle (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Charizard Mega X", level: 70, item: "Charizardite X", ability: "Tough Claws", moves: ["Dragon Claw", "Flare Blitz", "Dragon Dance"]}
-  ]
-};
-
-trainers["Cooltrainer Quincy (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Beedrill Mega", level: 70, item: "Beedrillite", ability: "Adaptability", moves: ["X-Scissor", "Poison Jab", "Drill Run"]}
-  ]
-};
-
-trainers["Cooltrainer Katelynn (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Aggron Mega", level: 70, item: "Aggronite", ability: "Filter", moves: ["Heavy Slam", "Stone Edge", "Earthquake"]}
-  ]
-};
-
-trainers["Green (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Ninetales Kantonian", level: 70, item: null, ability: "Flash Fire", moves: ["Flamethrower", "Will-O-Wisp", "Hex"]},
-    {name: "Vaporeon", level: 70, item: null, ability: "Water Absorb", moves: ["Scald", "Ice Beam", "Wish"]},
-    {name: "Nidoqueen", level: 70, item: null, ability: "Sheer Force", moves: ["Earth Power", "Sludge Bomb", "Flamethrower"]},
-    {name: "Clefable", level: 70, item: null, ability: "Magic Guard", moves: ["Moonblast", "Moonlight", "Thunder Wave"]},
-    {name: "Gengar", level: 70, item: null, ability: "Cursed Body", moves: ["Shadow Ball", "Sludge Bomb", "Thunderbolt"]},
-    {name: "Venusaur Mega", level: 70, item: "Venusaurite", ability: "Chlorophyll", moves: ["Giga Drain", "Sludge Bomb", "Synthesis"]}
-  ]
-};
-
-trainers["Ash (Victory Road)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Torkoal", level: 70, item: null, ability: "Drought", moves: ["Flamethrower", "Body Press", "Protect"]},
-    {name: "Charizard", level: 70, item: null, ability: "Solar Power", moves: ["Flamethrower", "Air Slash", "Dragon Claw"]},
-    {name: "Sceptile", level: 70, item: null, ability: "Overgrow", moves: ["Leaf Blade", "Dragon Claw", "Swords Dance"]},
-    {name: "Lucario", level: 70, item: null, ability: "Justified", moves: ["Aura Sphere", "Flash Cannon", "Close Combat"]},
-    {name: "Greninja Mega", level: 70, item: "Greninjatite", ability: "Protean", moves: ["Hydro Pump", "Dark Pulse", "Ice Beam"]},
-    {name: "Pikachu Starter", level: 72, item: null, ability: "Static", moves: ["Thunderbolt", "Surf", "Quick Attack"]}
-  ]
-};
-
-trainers["Sidney (Elite Four)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Weavile", level: 75, item: "Life Orb", ability: "Pressure", moves: ["Icicle Crash", "Knock Off", "Low Kick", "Poison Jab"]},
-    {name: "Scrafty", level: 75, item: "Leftovers", ability: "Intimidate", moves: ["High Jump Kick", "Knock Off", "Iron Head", "Head Smash"]},
-    {name: "Bisharp", level: 75, item: "Focus Sash", ability: "Intimidate", moves: ["Sucker Punch", "Iron Head", "Stone Edge", "Thunder Wave"]},
-    {name: "Tyranitar", level: 75, item: "Assault Vest", ability: "Sand Stream", moves: ["Stone Edge", "Crunch", "Ice Punch", "Superpower"]},
-    {name: "Greninja", level: 75, item: "Expert Belt", ability: "Protean", moves: ["Dark Pulse", "Hydro Pump", "Ice Beam", "Gunk Shot"]},
-    {name: "Absol", level: 77, item: null, ability: "Super Luck", moves: ["Sucker Punch", "Play Rough", "Fire Blast", "Iron Tail"]}
-  ]
-};
-
-trainers["Phoebe (Elite Four)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Mismagius", level: 75, item: "Wise Glasses", ability: "Levitate", moves: ["Shadow Ball", "Moonblast", "Thunderbolt", "Thunder Wave"]},
-    {name: "Gengar", level: 75, item: "Expert Belt", ability: "Cursed Body", moves: ["Shadow Ball", "Sludge Wave", "Focus Blast", "Hypnosis"]},
-    {name: "Sableye", level: 75, item: "Assault Vest", ability: "Prankster", moves: ["Knock Off", "Recover", "Will-O-Wisp", "Metal Burst"]},
-    {name: "Chandelure", level: 75, item: "Choice Scarf", ability: "Flame Body", moves: ["Fire Blast", "Shadow Ball", "Energy Ball", "Trick"]},
-    {name: "Dusknoir", level: 75, item: "Life Orb", ability: "Levitate", moves: ["Shadow Force", "Earthquake", "Rock Slide", "Ice Punch"]},
-    {name: "Banette Mega", level: 75, item: "Banettite", ability: "Cursed Body", moves: ["Shadow Sneak", "Will-O-Wisp", "Gunk Shot", "Sucker Punch"]}
-  ]
-};
-
-trainers["Glacia (Elite Four)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Aurorus", level: 76, item: "Icy Rock", ability: "Snow Warning", moves: ["Blizzard", "Earth Power", "Freeze-Dry", "Thunderbolt"]},
-    {name: "Froslass", level: 76, item: null, ability: "Cursed Body", moves: ["Blizzard", "Shadow Ball", "Destiny Bond"]},
-    {name: "Jynx", level: 76, item: "Focus Sash", ability: "Dry Skin", moves: ["Lovely Kiss", "Blizzard", "Psychic", "Focus Blast"]},
-    {name: "Mamoswine", level: 76, item: "Choice Scarf", ability: "Thick Fat", moves: ["Icicle Crash", "Earthquake", "Stone Edge", "Superpower"]},
-    {name: "Walrein", level: 76, item: "Leftovers", ability: "Ice Body", moves: ["Surf", "Blizzard", "Hail", "Protect"]},
-    {name: "Glalie Mega", level: 78, item: "Glalitite", ability: "Moody", moves: ["Double-Edge", "Freeze-Dry", "Earthquake", "Ice Shard"]}
-  ]
-};
-
-trainers["Drake (Elite Four)"] = {
-  levelCap: 79,
-  team: [
-    {name: "Hydreigon", level: 77, item: "Life Orb", ability: "Levitate", moves: ["Draco Meteor", "Dark Pulse", "Flash Cannon", "Focus Blast"]},
-    {name: "Flygon", level: 77, item: "Choice Scarf", ability: "Levitate", moves: ["Outrage", "Earthquake", "U-turn", "Iron Tail"]},
-    {name: "Haxorus", level: 77, item: "Roseli Berry", ability: "Mold Breaker", moves: ["Dragon Dance", "Outrage", "Earthquake", "Poison Jab"]},
-    {name: "Kingdra", level: 77, item: "Scope Lens", ability: "Sniper", moves: ["Hydro Pump", "Ice Beam", "Draco Meteor", "Flash Cannon"]},
-    {name: "Dragalge", level: 77, item: "Choice Specs", ability: "Adaptability", moves: ["Sludge Wave", "Draco Meteor", "Focus Blast", "Thunder"]},
-    {name: "Salamence Mega", level: 79, item: "Salamencite", ability: "Intimidate", moves: ["Dragon Rush", "Body Slam", "Fire Blast", "Earthquake"]}
-  ]
-};
-
-trainers["Steven (Champion)"] = {
-  levelCap: 87,
-  team: [
-    {name: "Skarmory", level: 85, item: "Smooth Rock", ability: "Sturdy", moves: ["Sandstorm", "Stealth Rock", "Roost", "Toxic Spikes"]},
-    {name: "Aggron", level: 85, item: "Focus Sash", ability: "Sturdy", moves: ["Head Smash", "Heavy Slam", "Earthquake", "Thunder Wave"]},
-    {name: "Claydol", level: 85, item: "Light Clay", ability: "Levitate", moves: ["Reflect", "Light Screen", "Earthquake", "Psychic"]},
-    {name: "Aerodactyl", level: 85, item: "Life Orb", ability: "Rock Head", moves: ["Stone Edge", "Earthquake", "Aqua Tail", "Brave Bird"]},
-    {name: "Melmetal", level: 85, item: "Assault Vest", ability: "Iron Fist", moves: ["Thunder Punch", "Superpower", "Earthquake", "Flash Cannon"]},
-    {name: "Metagross Mega", level: 87, item: "Metagrossite", ability: "Clear Body", moves: ["Meteor Mash", "Earthquake", "Zen Headbutt", "Hammer Arm"]}
-  ]
-};
-
-trainers["Rival (Surprise Battle)"] = {
-  levelCap: 87,
-  teams: {
-    "Mudkip": [
+  },
+  trainers["Rival Ash #2"] = {
+    levelCap: 38,
+    team: [
+      {name: "Riolu", level: 23, item: "Expert Belt", ability: "Prankster", moves: ["Quick Attack", "Metal Claw", "Brick Break", "Feint"]},
+      {name: "Grovyle", level: 23, item: "Eviolite", ability: "Sharpness", moves: ["Fury Cutter", "Quick Attack", "Dragon Breath", "Bullet Seed"]},
+      {name: "Frogadier", level: 23, item: "Life Orb", ability: "Protean", moves: ["Water Pulse", "Pound", "Mud Shot", "Icy Wind"]},
+      {name: "Pikachu-Starter", level: 25, item: "Focus Sash", ability: "Analytic", moves: ["Quick Attack", "Thunder Wave", "Double Team", "Shock Wave"]}
+    ]
+  },
+  trainers["Rival Leaf #3"] = {
+    levelCap: 38,
+    team: [
+      {name: "Ninetales", level: 30, item: "Fire Gem", ability: "Flash Fire", moves: ["Spite", "Flamethrower", "Will-O-Wisp", "Hex"]},
+      {name: "Nidorina", level: 31, item: "Eviolite", ability: "Rivalry", moves: ["Double Kick", "Stomping Tantrum", "Poison Fang", "Bite"]},
+      {name: "Clefable", level: 32, item: "Sitrus Berry", ability: "Magic Guard", moves: ["Draining Kiss", "Body Slam", "Charge Beam", "Moonlight"]},
+      {name: "Haunter", level: 32, item: "Expert Belt", ability: "Levitate", moves: ["Hex", "Will-O-Wisp", "Venoshock", "Toxic"]},
+      {name: "Venusaur", level: 34, item: "Leftovers", ability: "Flash Fire", moves: ["Giga Drain", "Sleep Powder", "Venoshock", "Body Slam"]}
+    ]
+  },
+  trainers["Team Magma Tabitha"] = {
+    levelCap: 38,
+    team: [
+      {name: "Mightyena", level: 33, item: "Muscle Band", ability: "Intimidate", moves: ["Crunch", "Play Rough", "Fire Fang", "Thunder Fang"]},
+      {name: "Weezing", level: 33, item: "Wise Glasses", ability: "Levitate", moves: ["Sludge Bomb", "Flamethrower", "Thunderbolt", "Shadow Ball"]},
+      {name: "Snorlax", level: 33, item: "Sitrus Berry", ability: "Thick Fat", moves: ["Body Slam", "Rock Slide", "Rest", "Sleep Talk"]},
+      {name: "Darmanitan", level: 35, item: "Life Orb", ability: "Sheer Force", moves: ["Flare Blitz", "Hammer Arm", "Zen Headbutt", "Swagger"]}
+    ]
+  },
+  trainers["Team Magma Maxie"] = {
+    levelCap: 38,
+    team: [
+      {name: "Golbat", level: 34, item: "Flying Gem", ability: "Infiltrator", moves: ["Acrobatics", "Confuse Ray", "Sludge Bomb", "Torment"]},
+      {name: "Houndoom", level: 34, item: "Expert Belt", ability: "Flash Fire", moves: ["Dark Pulse", "Flamethrower", "Thunder Fang", "Will-O-Wisp"]},
+      {name: "Pupitar", level: 34, item: "Eviolite", ability: "Shed Skin", moves: ["Rock Slide", "Dig", "Dragon Dance", "Iron Head"]},
+      {name: "Lampent", level: 34, item: "Focus Sash", ability: "Flame Body", moves: ["Heat Wave", "Shadow Ball", "Will-O-Wisp", "Energy Ball"]},
+      {name: "Camerupt", level: 36, item: "Quick Claw", ability: "Solid Rock", moves: ["Earth Power", "Lava Plume", "Rock Slide", "Flash Cannon"]}
+    ]
+  },
+  trainers["Rival Wally #3"] = {
+    levelCap: 38,
+    team: [
+      {name: "Roselia", level: 37, item: "Eviolite", ability: "Technician", moves: ["Synthesis", "Giga Drain", "Venoshock", "Stun Spore"]},
+      {name: "Fletchinder", level: 37, item: "Flying Gem", ability: "Gale Wings", moves: ["Flare Blitz", "Acrobatics", "Roost", "Steel Wing"]},
+      {name: "Azumarill", level: 37, item: "Leftovers", ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Aqua Ring", "Aqua Jet"]},
+      {name: "Gabite", level: 37, item: "Rocky Helmet", ability: "Technician", moves: ["Sand Tomb", "Dual Chop", "Bulldoze", "Thunder Fang"]},
+      {name: "Gallade", level: 37, item: "Weakness Policy", ability: "Sharpness", moves: ["Psycho Cut", "Bulk Up", "Protect", "Drain Punch"]}
+    ]
+  },
+  trainers["Gym Leader Flannery"] = {
+    levelCap: 38,
+    team: [
+      {name: "Ninetales", level: 36, item: "Heat Rock", ability: "Drought", moves: ["Overheat", "Solar Beam", "Extrasensory", "Hypnosis"]},
+      {name: "Houndoom", level: 36, item: "White Herb", ability: "Flash Fire", moves: ["Overheat", "Dark Pulse", "Sludge Bomb", "Solar Beam"]},
+      {name: "Magmortar", level: 36, item: "White Herb", ability: "Flame Body", moves: ["Overheat", "Thunderbolt", "Psychic", "Focus Blast"]},
+      {name: "Magcargo", level: 36, item: "White Herb", ability: "Flame Body", moves: ["Overheat", "Earth Power", "Rock Slide", "Sunny Day"]},
+      {name: "Camerupt", level: 36, item: "White Herb", ability: "Solid Rock", moves: ["Overheat", "Earth Power", "Flash Cannon", "Rock Slide"]},
+      {name: "Torkoal", level: 38, item: "White Herb", ability: "White Smoke", moves: ["Overheat", "Earthquake", "Rock Slide", "Shell Smash"]}
+    ]
+  },
+  trainers["Gym Leader Norman"] = {
+    levelCap: 42,
+    team: [
+      {name: "Ambipom", level: 40, item: "Normal Gem", ability: "Technician", moves: ["Fake Out", "Double Hit", "Acrobatics", "Knock Off"]},
+      {name: "Exploud", level: 40, item: "Wise Glasses", ability: "Scrappy", moves: ["Boomburst", "Flamethrower", "Ice Beam", "Thunderbolt"]},
+      {name: "Staraptor", level: 40, item: "Power Herb", ability: "Intimidate", moves: ["Retaliate", "Close Combat", "U-turn", "Sky Attack"]},
+      {name: "Sawsbuck", level: 40, item: "Assault Vest", ability: "Sap Sipper", moves: ["Retaliate", "Horn Leech", "Jump Kick", "Megahorn"]},
+      {name: "Bouffalant", level: 40, item: "Silk Scarf", ability: "Sap Sipper", moves: ["Head Charge", "Zen Headbutt", "Megahorn", "Revenge"]},
+      {name: "Slaking", level: 42, item: "Sitrus Berry", ability: "Hyper Cutter", moves: ["Retaliate", "Rock Slide", "Play Rough", "Slack Off"]}
+    ]
+  },
+  trainers["Rival Ash #3"] = {
+    levelCap: 50,
+    team: [
+      {name: "Torkoal", level: 42, item: "Heat Rock", ability: "Drought", moves: ["Flamethrower", "Yawn", "Body Press", "Iron Defense"]},
+      {name: "Sceptile", level: 42, item: "Sceptilite", ability: "Sharpness", moves: ["Fury Cutter", "Leaf Blade", "Dual Chop", "Bullet Seed"]},
+      {name: "Lucario", level: 42, item: "Expert Belt", ability: "Justified", moves: ["Aura Sphere", "Metal Claw", "Vacuum Wave", "Bullet Punch"]},
+      {name: "Pikachu-Starter", level: 44, item: "Focus Sash", ability: "Static", moves: ["Quick Attack", "Nuzzle", "Double Team", "Thunderbolt"]}
+    ]
+  },
+  trainers["Team Aqua Shelly"] = {
+    levelCap: 50,
+    team: [
+      {name: "Liepard", level: 44, item: "Black Glasses", ability: "Prankster", moves: ["Dark Pulse", "Play Rough", "Thunder Wave", "Swagger"]},
+      {name: "Muk", level: 44, item: "Leftovers", ability: "Poison Touch", moves: ["Gunk Shot", "Earthquake", "Infestation", "Toxic"]},
+      {name: "Lapras", level: 44, item: "Leftovers", ability: "Shell Armor", moves: ["Blizzard", "Surf", "Thunderbolt", "Freeze-Dry"]},
+      {name: "Roserade", level: 44, item: "Expert Belt", ability: "Poison Point", moves: ["Giga Drain", "Sludge Bomb", "Dazzling Gleam", "Shadow Ball"]},
+      {name: "Sharpedo", level: 44, item: "Focus Sash", ability: "Speed Boost", moves: ["Hydro Pump", "Crunch", "Destiny Bond", "Earthquake"]},
+      {name: "Gyarados", level: 45, item: "Gyaradosite", ability: "Intimidate", moves: ["Crunch", "Outrage", "Dragon Dance", "Earthquake"]}
+    ]
+  },
+  trainers["Rival May #4"] = {
+    levelCap: 50,
+    team: [
+      {name: "Swellow", level: 45, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Facade", "Brave Bird", "Steel Wing"]},
+      {name: "Raichu", level: 45, item: "Expert Belt", ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast", "Nuzzle"]},
+      {name: "Rapidash", level: 45, item: "Wide Lens", ability: "Flame Body", moves: ["Flare Blitz", "Wild Charge", "Hypnosis", "Megahorn"]},
+      {name: "Wailord", level: 45, item: "Leftovers", ability: "Water Veil", moves: ["Aqua Ring", "Scald", "Ice Beam", "Earthquake"]},
+      {name: "Sceptile", level: 47, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Focus Blast", "Dragon Pulse", "Grass Whistle"]}
+    ]
+  },
+  trainers["Gym Leader Winona"] = {
+    levelCap: 50,
+    team: [
+      {name: "Skarmory", level: 48, item: "Sitrus Berry", ability: "Sturdy", moves: ["Iron Head", "Brave Bird", "Stealth Rock", "Roost"]},
+      {name: "Honchkrow", level: 48, item: "Scope Lens", ability: "Super Luck", moves: ["Night Slash", "Brave Bird", "Steel Wing", "Thunder Wave"]},
+      {name: "Sigilyph", level: 48, item: "Wise Glasses", ability: "Magic Guard", moves: ["Psychic", "Hurricane", "Dazzling Gleam", "Ice Beam"]},
+      {name: "Gyarados", level: 48, item: "Wacan Berry", ability: "Intimidate", moves: ["Dragon Dance", "Waterfall", "Bounce", "Earthquake"]},
+      {name: "Talonflame", level: 48, item: "Sharp Beak", ability: "Gale Wings", moves: ["Brave Bird", "Flare Blitz", "Will-O-Wisp", "Roost"]},
+      {name: "Altaria", level: 50, item: "Altarianite", ability: "Natural Cure", moves: ["Dragon Dance", "Body Slam", "Earthquake", "Roost"]}
+    ]
+  },
+  trainers["Rival Wally #4"] = {
+    levelCap: 62,
+    team: [
+      {name: "Roserade", level: 52, item: "Life Orb", ability: "Technician", moves: ["Synthesis", "Giga Drain", "Venoshock", "Stun Spore"]},
+      {name: "Talonflame", level: 52, item: "Flying Gem", ability: "Gale Wings", moves: ["Flare Blitz", "Acrobatics", "Roost", "Steel Wing"]},
+      {name: "Azumarill", level: 52, item: "Leftovers", ability: "Huge Power", moves: ["Liquidation", "Play Rough", "Aqua Ring", "Aqua Jet"]},
+      {name: "Magnezone", level: 52, item: "Assault Vest", ability: "Sturdy", moves: ["Discharge", "Flash Cannon", "Charge Beam", "Mirror Coat"]},
+      {name: "Garchomp", level: 52, item: "Rocky Helmet", ability: "Rough Skin", moves: ["Dragon Rush", "Fire Fang", "Stomping Tantrum", "Thunder Fang"]},
+      {name: "Gallade", level: 54, item: "Galladite", ability: "Sharpness", moves: ["Psycho Cut", "Bulk Up", "Aqua Cutter", "Drain Punch"]}
+    ]
+  },
+  trainers["Rival May #5"] = {
+    levelCap: 62,
+    team: [
+      {name: "Swellow", level: 53, item: "Toxic Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "Steel Wing"]},
+      {name: "Raichu", level: 53, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Nuzzle"]},
+      {name: "Sylveon", level: 53, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Reflect"]},
+      {name: "Rapidash", level: 53, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Megahorn", "Wild Charge"]},
+      {name: "Wailord", level: 53, item: "Leftovers", ability: "Water Veil", moves: ["Scald", "Protect", "Aqua Ring", "Blizzard"]},
+      {name: "Sceptile", level: 55, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Dragon Pulse", "Focus Blast", "Grass Whistle"]}
+    ]
+  },
+  trainers["Team Magma Tabitha #2"] = {
+    levelCap: 62,
+    team: [
+      {name: "Mightyena", level: 49, item: "Muscle Band", ability: "Intimidate", moves: ["Sucker Punch", "Play Rough", "Swagger", "Iron Tail"]},
+      {name: "Weezing", level: 49, item: "Expert Belt", ability: "Levitate", moves: ["Sludge Bomb", "Flamethrower", "Thunderbolt", "Toxic Spikes"]},
+      {name: "Snorlax", level: 49, item: "Leftovers", ability: "Thick Fat", moves: ["Body Slam", "Crunch", "Rest", "Sleep Talk"]},
+      {name: "Gigalith", level: 49, item: "Salac Berry", ability: "Sturdy", moves: ["Stone Edge", "Superpower", "Earthquake", "Heavy Slam"]},
+      {name: "Camerupt", level: 49, item: "Focus Sash", ability: "Solid Rock", moves: ["Flamethrower", "Earth Power", "Rock Slide", "Flash Cannon"]},
+      {name: "Darmanitan", level: 49, item: "Life Orb", ability: "Sheer Force", moves: ["Flare Blitz", "Rock Slide", "Zen Headbutt", "Earthquake"]}
+    ]
+  },
+  trainers["Team Magma Maxie #2"] = {
+    levelCap: 62,
+    team: [
+      {name: "Crobat", level: 50, item: "Heat Rock", ability: "Infiltrator", moves: ["Brave Bird", "U-turn", "Hypnosis", "Sunny Day"]},
+      {name: "Houndoom", level: 50, item: "White Herb", ability: "Flash Fire", moves: ["Overheat", "Dark Pulse", "Sludge Bomb", "Solar Beam"]},
+      {name: "Claydol", level: 50, item: "Leftovers", ability: "Levitate", moves: ["Trick Room", "Earthquake", "Psychic", "Ice Beam"]},
+      {name: "Tyranitar", level: 50, item: "Assault Vest", ability: "Sand Stream", moves: ["Stone Edge", "Crunch", "Iron Tail", "Blizzard"]},
+      {name: "Chandelure", level: 50, item: "Focus Sash", ability: "Flame Body", moves: ["Trick Room", "Fire Blast", "Shadow Ball", "Energy Ball"]},
+      {name: "Camerupt", level: 52, item: "Cameruptite", ability: "Solid Rock", moves: ["Fire Blast", "Earth Power", "Flash Cannon", "Rock Slide"]}
+    ]
+  },
+  trainers["Team Aqua Matt"] = {
+    levelCap: 62,
+    team: [
+      {name: "Golduck", level: 55, item: "Wide Lens", ability: "Cloud Nine", moves: ["Hydro Pump", "Blizzard", "Focus Blast", "Hypnosis"]},
+      {name: "Barbaracle", level: 55, item: "Rindo Berry", ability: "Sniper", moves: ["Razor Shell", "X-Scissor", "Cross Chop", "Stone Edge"]},
+      {name: "Ferrothorn", level: 55, item: "Rocky Helmet", ability: "Cloud Nine", moves: ["Thunder Wave", "Power Whip", "Poison Jab", "Gyro Ball"]},
+      {name: "Sharpedo", level: 55, item: "Focus Sash", ability: "Speed Boost", moves: ["Hydro Pump", "Crunch", "Blizzard", "Earthquake"]},
+      {name: "Nidoqueen", level: 55, item: "Life Orb", ability: "Sheer Force", moves: ["Sludge Wave", "Thunder", "Blizzard", "Earth Power"]},
+      {name: "Blastoise", level: 57, item: "Blastoisinite", ability: "Torrent", moves: ["Hydro Pump", "Dark Pulse", "Blizzard", "Aura Sphere"]}
+    ]
+  },
+  trainers["Rival Ash #4"] = {
+    levelCap: 62,
+    team: [
+      {name: "Torkoal", level: 56, item: "Heat Rock", ability: "Drought", moves: ["Flamethrower", "Yawn", "Body Press", "Iron Defense"]},
+      {name: "Charizard", level: 56, item: "Assault Vest", ability: "Solar Power", moves: ["Flamethrower", "Scorching Sands", "Air Slash", "Seismic Toss"]},
+      {name: "Sceptile", level: 56, item: "Expert Belt", ability: "Sharpness", moves: ["Leaf Blade", "Night Slash", "X-Scissor", "Dragon Dance"]},
+      {name: "Greninja", level: 56, item: "Life Orb", ability: "Protean", moves: ["Water Pledge", "Sludge Wave", "Water Shuriken", "Ice Beam"]},
+      {name: "Lucario", level: 56, item: "Lucarionite", ability: "Justified", moves: ["Aura Sphere", "Flash Cannon", "Vacuum Wave", "Shadow Ball"]},
+      {name: "Pikachu", level: 58, item: "Focus Sash", ability: "Static", moves: ["Thunderbolt", "Nuzzle", "Surf", "Quick Attack"]}
+    ]
+  },
+  trainers["Gym Leader Tate and Liza"] = {
+    levelCap: 62,
+    team: [
+      {name: "Lunatone", level: 60, item: "Focus Sash", ability: "Levitate", moves: ["Reflect", "Protect", "Psychic", "Moonblast"]},
+      {name: "Solrock", level: 60, item: "Focus Sash", ability: "Levitate", moves: ["Light Screen", "Protect", "Stone Edge", "Flare Blitz"]},
+      {name: "Bronzong", level: 60, item: "Sitrus Berry", ability: "Levitate", moves: ["Reflect", "Hypnosis", "Gyro Ball", "Earthquake"]},
+      {name: "Slowking", level: 60, item: "Assault Vest", ability: "Own Tempo", moves: ["Scald", "Focus Blast", "Psychic", "Fire Blast"]},
+      {name: "Gallade", level: 60, item: "Life Orb", ability: "Sharpness", moves: ["Close Combat", "Zen Headbutt", "Knock Off", "Leaf Blade"]},
+      {name: "Gardevoir", level: 62, item: "Gardevoirite", ability: "Trace", moves: ["Hyper Voice", "Psychic", "Thunderbolt", "Protect"]}
+    ]
+  },
+  trainers["Team Magma Maxie and Tabitha"] = {
+    levelCap: 62,
+    team: [
+      {name: "Crobat", level: 55, item: "Heat Rock", ability: "Infiltrator", moves: ["Brave Bird", "U-turn", "Hypnosis", "Sunny Day"]},
+      {name: "Houndoom", level: 55, item: "White Herb", ability: "Flash Fire", moves: ["Overheat", "Dark Pulse", "Sludge Bomb", "Solar Beam"]},
+      {name: "Camerupt", level: 55, item: "Cameruptite", ability: "Solid Rock", moves: ["Fire Blast", "Earth Power", "Flash Cannon", "Rock Slide"]},
+      {name: "Mightyena", level: 55, item: null, ability: "Intimidate", moves: []},
+      {name: "Weezing", level: 55, item: null, ability: "Levitate", moves: ["Flamethrower"]},
+      {name: "Darmanitan", level: 55, item: null, ability: "Sheer Force", moves: []}
+    ]
+  },
+  trainers["Team Aqua Shelly (Optional)"] = {
+    levelCap: 62,
+    team: [
+      {name: "Liepard", level: 57, item: "Black Glasses", ability: "Prankster", moves: ["Dark Pulse", "Play Rough", "Thunder Wave", "Swagger"]},
+      {name: "Muk", level: 57, item: "Leftovers", ability: "Poison Touch", moves: ["Gunk Shot", "Earthquake", "Infestation", "Toxic"]},
+      {name: "Lapras", level: 57, item: "Leftovers", ability: "Shell Armor", moves: ["Blizzard", "Surf", "Thunderbolt", "Freeze-Dry"]},
+      {name: "Roserade", level: 57, item: "Expert Belt", ability: "Poison Point", moves: ["Giga Drain", "Sludge Bomb", "Dazzling Gleam", "Shadow Ball"]},
+      {name: "Sharpedo", level: 57, item: "Focus Sash", ability: "Speed Boost", moves: ["Hydro Pump", "Crunch", "Destiny Bond", "Earthquake"]},
+      {name: "Gyarados", level: 59, item: "Gyaradosite", ability: "Intimidate", moves: ["Crunch", "Outrage", "Dragon Dance", "Earthquake"]}
+    ]
+  },
+  trainers["Team Aqua Archie"] = {
+    levelCap: 62,
+    team: [
+      {name: "Crowbat", level: 58, item: "Damp Rock", ability:"Infiltrator", moves: ["Brave Bird","U-turn","Hypnosis","Rain Dance"]},
+      {name: "Tentacruel", level: 58, item: "Leftovers", ability:"Rain Dish", moves: ["Rain Dance","Hydro Pump","Sludge Wave","Ice Beam"]},
+      {name: "Walrein", level: 58, item: "Leftovers", ability:"Thick Fat", moves: ["Toxic","Protect","Surf","Frost Breath"]},
+      {name: "Dragonite", level: 58, item: "Assult Vest", ability:"Multiscale", moves: ["Outrage","Extreme Speed","Earthquake","Fire Blast"]},
+      {name: "Elektross", level: 58, item: "Quick Claw", ability:"Levitate", moves: ["Thunder","Knock Off","Aqua Tail","Thunder"]},
+      {name: "Sharpedo", level: 60, item: "Sharpedonite", ability:"Speed Boost", moves: ["Protect","Crunch","Hydro Pump","Ice Fang"]},
+    ]
+  },
+  trainers["Gym Leader Wallace"] = {
+    levelCap: 68,
+    team: [
+      {name: "Politoed", level: 66, item: "Damp Rock", ability: "Drizzle", moves: ["Hydro Pump", "Ice Beam", "Focus Blast", "Hypnosis"]},
+      {name: "Ludicolo", level: 66, item: "Life Orb", ability: "Swift Swim", moves: ["Hydro Pump", "Giga Drain", "Ice Beam", "Rain Dance"]},
+      {name: "Kingdra", level: 66, item: "Mystic Water", ability: "Swift Swim", moves: ["Hydro Pump", "Ice Beam", "Dragon Pulse", "Rain Dance"]},
+      {name: "Starmie", level: 66, item: "Expert Belt", ability: "Natural Cure", moves: ["Hydro Pump", "Ice Beam", "Thunder", "Psychic"]},
+      {name: "Milotic", level: 68, item: "Leftovers", ability: "Marvel Scale", moves: ["Hydro Pump", "Ice Beam", "Recover", "Protect"]},
+      {name: "Gyarados", level: 68, item: "Gyaradosite", ability: "Intimidate", moves: ["Waterfall", "Ice Fang", "Earthquake", "Stone Edge"]}
+    ]
+  },
+  trainers["Rival Wally #5"] = {
+    levelCap: 79,
+    team: [
+      {name: "Roserade", level: 70, item: "Focus Sash", ability: "Technician", moves: ["Sleep Powder", "Petal Dance", "Sludge Bomb", "Dazzling Gleam"]},
+      {name: "Talonflame", level: 70, item: "Sharp Beak", ability: "Gale Wings", moves: ["Brave Bird", "Flare Blitz", "Swords Dance", "Roost"]},
+      {name: "Azumarill", level: 70, item: "Assault Vest", ability: "Huge Power", moves: ["Aqua Tail", "Play Rough", "Superpower", "Knock Off"]},
+      {name: "Magnezone", level: 70, item: "Air Balloon", ability: "Sturdy", moves: ["Thunderbolt", "Flash Cannon", "Signal Beam", "Thunder Wave"]},
+      {name: "Garchomp", level: 70, item: "Yache Berry", ability: "Rough Skin", moves: ["Outrage", "Earthquake", "Stone Edge", "Fire Blast"]},
+      {name: "Gallade", level: 70, item: "Galladite", ability: "Sharpness", moves: ["Close Combat", "Zen Headbutt", "Knock Off", "Protect"]}
+    ]
+  },
+  trainers["Rival Leaf #4"] = {
+    levelCap: 79,
+    team: [
+      {name: "Ninetales", level: 70, item: "Heat Rock", ability: "Drought", moves: ["Nasty Plot", "Flamethrower", "Solar Beam", "Will-O-Wisp"]},
+      {name: "Vaporeon", level: 70, item: "Shell Bell", ability: "Water Absorb", moves: ["Calm Mind", "Weather Ball", "Scald", "Wish"]},
+      {name: "Nidoqueen", level: 70, item: "Leftovers", ability: "Sheer Force", moves: ["Earth Power", "Sludge Bomb", "Surf", "Swagger"]},
+      {name: "Clefable", level: 70, item: "Leftovers", ability: "Magic Guard", moves: ["Moonblast", "Moonlight", "Calm Mind", "Thunder Wave"]},
+      {name: "Gengar", level: 70, item: "Expert Belt", ability: "Cursed Body", moves: ["Sludge Bomb", "Thunderbolt", "Shadow Ball", "Dazzling Gleam"]},
+      {name: "Venusaur", level: 70, item: "Venusaurite", ability: "Chlorophyll", moves: ["Giga Drain", "Synthesis", "Earth Power", "Sludge Bomb"]}
+    ]
+  },
+  trainers["Rival Ash #5"] = {
+    levelCap: 79,
+    team: [
+      {name: "Torkoal", level: 70, item: "Heat Rock", ability: "Drought", moves: ["Flamethrower", "Yawn", "Body Press", "Iron Defense"]},
+      {name: "Charizard", level: 70, item: "Assault Vest", ability: "Solar Power", moves: ["Flamethrower", "Scorching Sands", "Air Slash", "Seismic Toss"]},
+      {name: "Sceptile", level: 70, item: "Expert Belt", ability: "Sharpness", moves: ["Leaf Blade", "Night Slash", "X-Scissor", "Dragon Dance"]},
+      {name: "Lucario", level: 70, item: "Life Orb", ability: "Justified", moves: ["Aura Sphere", "Flash Cannon", "Calm Mind", "Shadow Ball"]},
+      {name: "Greninja", level: 70, item: "Greninjatite", ability: "Protean", moves: ["Surf", "Sludge Wave", "Water Shuriken", "Ice Beam"]},
+      {name: "Pikachu-Starter", level: 72, item: "Focus Sash", ability: "Static", moves: ["Thunderbolt", "Nuzzle", "Surf", "Quick Attack"]}
+    ]
+  },
+  trainers["Elite Four Sidney"] = {
+    levelCap: 79,
+    team: [
+      {name: "Weavile", level: 75, item: "Life Orb", ability: "Pressure", moves: ["Icicle Crash", "Knock Off", "Low Kick", "Poison Jab"]},
+      {name: "Scrafty", level: 75, item: "Leftovers", ability: "Intimidate", moves: ["High Jump Kick", "Knock Off", "Iron Head", "Head Smash"]},
+      {name: "Bisharp", level: 75, item: "Focus Sash", ability: "Intimidate", moves: ["Sucker Punch", "Iron Head", "Stone Edge", "Thunder Wave"]},
+      {name: "Tyranitar", level: 75, item: "Assault Vest", ability: "Sand Stream", moves: ["Stone Edge", "Crunch", "Ice Punch", "Superpower"]},
+      {name: "Greninja", level: 75, item: "Expert Belt", ability: "Protean", moves: ["Dark Pulse", "Hydro Pump", "Ice Beam", "Gunk Shot"]},
+      {name: "Absol", level: 77, item: null, ability: "Super Luck", moves: ["Sucker Punch", "Play Rough", "Fire Blast", "Iron Tail"]}
+    ]
+  },
+  trainers["Elite Four Phoebe"] = {
+    levelCap: 79,
+    team: [
+      {name: "Mismagius", level: 75, item: "Wise Glasses", ability: "Levitate", moves: ["Shadow Ball", "Moonblast", "Thunderbolt", "Thunder Wave"]},
+      {name: "Gengar", level: 75, item: "Expert Belt", ability: "Cursed Body", moves: ["Shadow Ball", "Sludge Wave", "Focus Blast", "Hypnosis"]},
+      {name: "Sableye", level: 75, item: "Assault Vest", ability: "Prankster", moves: ["Knock Off", "Recover", "Will-O-Wisp", "Metal Burst"]},
+      {name: "Chandelure", level: 75, item: "Choice Scarf", ability: "Flame Body", moves: ["Fire Blast", "Shadow Ball", "Energy Ball", "Trick"]},
+      {name: "Dusknoir", level: 75, item: "Life Orb", ability: "Levitate", moves: ["Shadow Force", "Earthquake", "Rock Slide", "Ice Punch"]},
+      {name: "Banette", level: 75, item: "Banettite", ability: "Cursed Body", moves: ["Shadow Sneak", "Will-O-Wisp", "Gunk Shot", "Sucker Punch"]}
+    ]
+  },
+  trainers["Elite Four Glacia"] = {
+    levelCap: 79,
+    team: [
+      {name: "Aurorus", level: 76, item: "Icy Rock", ability: "Snow Warning", moves: ["Blizzard", "Earth Power", "Freeze-Dry", "Thunderbolt"]},
+      {name: "Jynx", level: 76, item: "Focus Sash", ability: "Dry Skin", moves: ["Lovely Kiss", "Blizzard", "Psychic", "Focus Blast"]},
+      {name: "Mamoswine", level: 76, item: "Choice Scarf", ability: "Thick Fat", moves: ["Icicle Crash", "Earthquake", "Stone Edge", "Superpower"]},
+      {name: "Walrein", level: 76, item: "Leftovers", ability: "Ice Body", moves: ["Surf", "Blizzard", "Hail", "Protect"]},
+      {name: "Glalie", level: 78, item: "Glalitite", ability: "Moody", moves: ["Double-Edge", "Freeze-Dry", "Earthquake", "Ice Shard"]}
+    ]
+  },
+  trainers["Elite Four Drake"] = {
+    levelCap: 79,
+    team: [
+      {name: "Hydreigon", level: 77, item: "Life Orb", ability: "Levitate", moves: ["Draco Meteor", "Dark Pulse", "Flash Cannon", "Focus Blast"]},
+      {name: "Flygon", level: 77, item: "Choice Scarf", ability: "Levitate", moves: ["Outrage", "Earthquake", "U-turn", "Iron Tail"]},
+      {name: "Haxorus", level: 77, item: "Roseli Berry", ability: "Mold Breaker", moves: ["Dragon Dance", "Outrage", "Earthquake", "Poison Jab"]},
+      {name: "Kingdra", level: 77, item: "Scope Lens", ability: "Sniper", moves: ["Hydro Pump", "Ice Beam", "Draco Meteor", "Flash Cannon"]},
+      {name: "Dragalge", level: 77, item: "Choice Specs", ability: "Adaptability", moves: ["Sludge Wave", "Draco Meteor", "Focus Blast", "Thunder"]},
+      {name: "Salamence", level: 79, item: "Salamencite", ability: "Intimidate", moves: ["Dragon Rush", "Body Slam", "Fire Blast", "Earthquake"]}
+    ]
+  },
+  trainers["Champion Steven"] = {
+    levelCap: 87,
+    team: [
+      {name: "Skarmory", level: 85, item: "Smooth Rock", ability: "Sturdy", moves: ["Sandstorm", "Stealth Rock", "Roost", "Toxic Spikes"]},
+      {name: "Aggron", level: 85, item: "Focus Sash", ability: "Sturdy", moves: ["Head Smash", "Heavy Slam", "Earthquake", "Thunder Wave"]},
+      {name: "Claydol", level: 85, item: "Light Clay", ability: "Levitate", moves: ["Reflect", "Light Screen", "Earthquake", "Psychic"]},
+      {name: "Aerodactyl", level: 85, item: "Life Orb", ability: "Rock Head", moves: ["Stone Edge", "Earthquake", "Aqua Tail", "Brave Bird"]},
+      {name: "Melmetal", level: 85, item: "Assault Vest", ability: "Iron Fist", moves: ["Thunder Punch", "Superpower", "Earthquake", "Flash Cannon"]},
+      {name: "Metagross", level: 87, item: "Metagrossite", ability: "Clear Body", moves: ["Meteor Mash", "Earthquake", "Zen Headbutt", "Hammer Arm"]}
+    ]
+  },
+  trainers["Rival May #6"] = {
+    levelCap: 87,
+    team: [
       {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
       {name: "Raichu", level: 85, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Light Screen"]},
       {name: "Sylveon", level: 85, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Double Team"]},
       {name: "Rapidash", level: 85, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Megahorn", "Poison Jab"]},
       {name: "Wailord", level: 85, item: "Leftovers", ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam", "Earthquake"]},
-      {name: "Sceptile Mega", level: 87, item: "Sceptilite", ability: "Lightning Rod", moves: ["Leaf Storm", "Dragon Pulse", "Focus Blast", "Protect"]}
-    ],
-    "Torchic": [
-      {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 85, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Light Screen"]},
-      {name: "Sylveon", level: 85, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Double Team"]},
-      {name: "Breloom", level: 85, item: null, ability: "Technician", moves: ["Sky Uppercut", "Giga Drain", "Rock Tomb"]},
-      {name: "Rapidash", level: 85, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Megahorn", "Poison Jab"]},
-      {name: "Swampert Mega", level: 87, item: "Swampertite", ability: "Damp", moves: ["Earthquake", "Waterfall", "Ice Punch"]}
-    ],
-    "Treecko": [
-      {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
-      {name: "Raichu", level: 85, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Light Screen"]},
-      {name: "Sylveon", level: 85, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Double Team"]},
-      {name: "Wailord", level: 85, item: "Leftovers", ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam", "Earthquake"]},
-      {name: "Breloom", level: 85, item: null, ability: "Technician", moves: ["Sky Uppercut", "Giga Drain", "Rock Tomb"]},
-      {name: "Blaziken Mega", level: 87, item: "Blazikenite", ability: "Speed Boost", moves: ["Blaze Kick", "Sky Uppercut", "Swords Dance"]}
+      {name: "Sceptile", level: 87, item: "Sceptilite", ability: "Overgrow", moves: ["Leaf Storm", "Dragon Pulse", "Focus Blast", "Protect"]}
     ]
-  }
-};
-
+  },
 trainers["Sidney (Elite Four Rematch)"] = {
   levelCap: 88,
   team: [
@@ -2896,5 +2655,6 @@ trainers["Dawn (Spear Pillar)"] = {
 </script>
 </body>
 </html>
+
 
 
