@@ -2426,12 +2426,22 @@ const evolutions = {
       {name: "Nosepass", level: 16, item: "Sitrus Berry", ability: "Sand Force", moves: ["Rock Tomb", "Magnitude", "Zap Cannon", "Lock-On"]}
     ]
   },
-  trainers["Rival May #2"] = {
+    trainers["Rival May #2"] = {
     levelCap: 20,
-    team: [
+    teams: {
+      "Mudkip":[
       {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
       {name: "Treecko", level: 16, item: null, ability: "Overgrow", moves: ["Leer", "Absorb", "Quick Attack", "Mega Drain"]}
+    ],
+    "Treecko": [
+      { name: "Taillow", level: 16, item: null, ability: "?", moves: ["?"] },
+      { name: "Torchic", level: 16, item: null, ability: "?", moves: ["?"] }
+    ],
+    "Torchic": [
+      { name: "Taillow", level: 16, item: null, ability: "?", moves: ["?"] },
+      { name: "Mudkip", level: 16, item: null, ability: "?", moves: ["?"] }
     ]
+    }
   },
   trainers["Gym Leader Brawly"] = {
     levelCap: 20,
@@ -2455,12 +2465,25 @@ const evolutions = {
   },
   trainers["Rival May #3"] = {
     levelCap: 28,
-    team: [
+    teams: {
+      "Mudkip": [
       {name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double Team"]},
       {name: "Ponyta", level: 22, item: "Charcoal", ability: "Flame Body", moves: ["Flame Charge", "Double Kick", "Hypnosis", "Stomp"]},
       {name: "Wailmer", level: 22, item: "Mystic Water", ability: "Water Veil", moves: ["Water Pulse", "Rollout", "Body Slam", "Fissure"]},
       {name: "Grovyle", level: 24, item: "Sitrus Berry", ability: "Overgrow", moves: ["Grass Pledge", "Aerial Ace", "Dragon Breath", "Grass Whistle"]}
+    ],"Torchic": [
+      { name: "Swellow", level: 22, item: "?", ability: "?", moves: ["?"] },
+      { name: "Shroomish", level: 22, item: "?", ability: "?", moves: ["?"] },
+      { name: "Ponyta", level: 22, item: "?", ability: "?", moves: ["?"] },
+      { name: "Marshtomp", level: 24, item: "?", ability: "?", moves: ["?"] }
+    ],
+    "Treecko": [
+      { name: "Swellow", level: 22, item: "?", ability: "?", moves: ["?"] },
+      { name: "Wailmer", level: 22, item: "?", ability: "?", moves: ["?"] },
+      { name: "Shroomish", level: 22, item: "?", ability: "?", moves: ["?"] },
+      { name: "Combusken", level: 24, item: "?", ability: "?", moves: ["?"] }
     ]
+    }
   },
   trainers["Rival Wally #2"] = {
     levelCap: 28,
@@ -2575,13 +2598,28 @@ const evolutions = {
   },
   trainers["Rival May #4"] = {
     levelCap: 50,
-    team: [
+    teams: {
+      "Mudkip": [
       {name: "Swellow", level: 45, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Facade", "Brave Bird", "Steel Wing"]},
       {name: "Raichu", level: 45, item: "Expert Belt", ability: "Static", moves: ["Thunderbolt", "Surf", "Focus Blast", "Nuzzle"]},
       {name: "Rapidash", level: 45, item: "Wide Lens", ability: "Flame Body", moves: ["Flare Blitz", "Wild Charge", "Hypnosis", "Megahorn"]},
       {name: "Wailord", level: 45, item: "Leftovers", ability: "Water Veil", moves: ["Aqua Ring", "Scald", "Ice Beam", "Earthquake"]},
-      {name: "Sceptile", level: 47, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Focus Blast", "Dragon Pulse", "Grass Whistle"]}
+      {name: "Sceptile (Mega)", level: 47, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Focus Blast", "Dragon Pulse", "Grass Whistle"]}
+    ],"Torchic": [
+      { name: "Swellow", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Raichu", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Breloom", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Rapidash", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Swampert (Mega)", level: 47, item: "?", ability: "?", moves: ["?"] }
+    ],
+    "Treecko": [
+      { name: "Swellow", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Raichu", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Wailord", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Breloom", level: 45, item: "?", ability: "?", moves: ["?"] },
+      { name: "Blaziken (Mega)", level: 47, item: "?", ability: "?", moves: ["?"] }
     ]
+    }
   },
   trainers["Gym Leader Winona"] = {
     levelCap: 50,
@@ -2607,14 +2645,31 @@ const evolutions = {
   },
   trainers["Rival May #5"] = {
     levelCap: 62,
-    team: [
+    teams: {
+      "Mudkip":[
       {name: "Swellow", level: 53, item: "Toxic Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "Steel Wing"]},
       {name: "Raichu", level: 53, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Nuzzle"]},
       {name: "Sylveon", level: 53, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Reflect"]},
       {name: "Rapidash", level: 53, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Megahorn", "Wild Charge"]},
       {name: "Wailord", level: 53, item: "Leftovers", ability: "Water Veil", moves: ["Scald", "Protect", "Aqua Ring", "Blizzard"]},
-      {name: "Sceptile", level: 55, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Dragon Pulse", "Focus Blast", "Grass Whistle"]}
+      {name: "Sceptile (Mega)", level: 55, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Dragon Pulse", "Focus Blast", "Grass Whistle"]}
+    ],"Torchic": [
+      { name: "Swellow", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Raichu", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Sylveon", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Breloom", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Rapidash", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Swampert (Mega)", level: 55, item: "?", ability: "?", moves: ["?"] }
+    ],
+    "Treecko": [
+      { name: "Swellow", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Raichu", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Sylveon", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Wailord", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Breloom", level: 53, item: "?", ability: "?", moves: ["?"] },
+      { name: "Blaziken (Mega)", level: 55, item: "?", ability: "?", moves: ["?"] }
     ]
+    }
   },
   trainers["Team Magma Tabitha #2"] = {
     levelCap: 62,
@@ -2805,14 +2860,31 @@ const evolutions = {
   },
   trainers["Rival May #6"] = {
     levelCap: 87,
-    team: [
+    teams: {
+      "Mudkip":[
       {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
       {name: "Raichu", level: 85, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Light Screen"]},
       {name: "Sylveon", level: 85, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Double Team"]},
       {name: "Rapidash", level: 85, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Megahorn", "Poison Jab"]},
       {name: "Wailord", level: 85, item: "Leftovers", ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam", "Earthquake"]},
       {name: "Sceptile", level: 87, item: "Sceptilite", ability: "Overgrow", moves: ["Leaf Storm", "Dragon Pulse", "Focus Blast", "Protect"]}
+    ],"Torchic": [
+      { name: "Swellow", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Raichu", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Sylveon", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Breloom", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Rapidash", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Swampert (Mega)", level: 87, item: "?", ability: "?", moves: ["?"] }
+    ],
+    "Treecko": [
+      { name: "Swellow", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Raichu", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Sylveon", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Wailord", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Breloom", level: 85, item: "?", ability: "?", moves: ["?"] },
+      { name: "Blaziken (Mega)", level: 87, item: "?", ability: "?", moves: ["?"] }
     ]
+  }
   },
 trainers["Sidney (Elite Four Rematch)"] = {
   levelCap: 88,
@@ -3132,6 +3204,7 @@ function addEvolutions(pokemon, set) {
 </script>
 </body>
 </html>
+
 
 
 
