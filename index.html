@@ -2436,8 +2436,9 @@ const evolutions = {
 };
     const trainers = {};
     
-  trainers["Rival Leaf #1"] = {
+  trainers["Green"] = {
     levelCap: 16,
+    location: "Route 102 - Ambushes you at the rock after beating Bug Catcher Rick",
     team: [
       {name: "Vulpix", level: 8, item: null, ability: "Drought", moves: ["Ember", "Tail Whip", "Disable", "Quick Attack"]},
       {name: "Nidoran-F", level: 8, item: null, ability: "Rivalry", moves: ["Growl", "Poison Sting", "Disable", "Quick Attack"]},
@@ -2446,6 +2447,7 @@ const evolutions = {
   },
   trainers["Rival Wally #1"] = {
     levelCap: 16,
+    location: "Petalburg Woods - Ambushes at the rock near the Shrine and before the two cut trees",
     team: [
       {name: "Fletchling", level: 8, item: "Oran Berry", ability: "Gale Wings", moves: ["Tackle", "Growl", "Quick Attack"]},
       {name: "Azurill", level: 8, item: "Oran Berry", ability: "Huge Power", moves: ["Water Gun", "Tail Whip", "Bubble"]},
@@ -2454,6 +2456,7 @@ const evolutions = {
   },
   trainers["Rival Ash #1"] = {
     levelCap: 16,
+    location: "Route 115 - Ambushes you right before entering Ferroshore Cave",
     team: [
       {name: "Riolu", level: 11, item: "Expert Belt", ability: "Prankster", moves: ["Quick Attack", "Metal Claw", "Vacuum Wave", "Feint"]},
       {name: "Treecko", level: 11, item: "Eviolite", ability: "Overgrow", moves: ["Mega Drain", "Quick Attack", "Dragon Breath", "Bullet Seed"]},
@@ -2462,6 +2465,7 @@ const evolutions = {
   },
   trainers["Gym Leader Roxanne"] = {
     levelCap: 16,
+    location: "Rustboro City Gym Leader",
     team: [
       {name: "Archen", level: 14, item: "Sharp Beak", ability: "Defeatist", moves: ["Rock Tomb", "Wing Attack", "Double Team", "Quick Attack"]},
       {name: "Omanyte", level: 14, item: "Mystic Water", ability: "Weak Armor", moves: ["Ancient Power", "Bubble Beam", "Icy Wind", "Tickle"]},
@@ -2473,6 +2477,7 @@ const evolutions = {
   },
     trainers["Rival May #2"] = {
     levelCap: 20,
+    location: "Rustboro City",
     teams: {
       "Mudkip":[
       {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
@@ -2490,6 +2495,7 @@ const evolutions = {
   },
   trainers["Gym Leader Brawly"] = {
     levelCap: 20,
+    location: "Dewford City Gym Leader",
     team: [
       {name: "Machop", level: 17, item: "Berry Juice", ability: "No Guard", moves: ["Bulk Up", "Low Sweep", "Bullet Punch", "Rock Tomb"]},
       {name: "Meditite", level: 17, item: "Black Belt", ability: "Pure Power", moves: ["Bullet Punch", "Force Palm", "Psyshock", "Shadow Ball"]},
@@ -2501,6 +2507,7 @@ const evolutions = {
   },
   trainers["Rival Leaf #2"] = {
     levelCap: 28,
+    location: "Slateport City - Ambushes you at Stern's Shipyard entrance",
     team: [
       {name: "Vulpix", level: 21, item: "Fire Gem", ability: "Flash Fire", moves: ["Spite", "Flamethrower", "Will-O-Wisp", "Hex"]},
       {name: "Nidorina", level: 22, item: "Eviolite", ability: "Rivalry", moves: ["Double Kick", "Stomping Tantrum", "Poison Fang", "Toxic Spikes"]},
@@ -2510,6 +2517,7 @@ const evolutions = {
   },
   trainers["Rival May #3"] = {
     levelCap: 28,
+    location: "Route 110",
     teams: {
       "Mudkip": [
       {name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double Team"]},
@@ -2532,6 +2540,7 @@ const evolutions = {
   },
   trainers["Rival Wally #2"] = {
     levelCap: 28,
+    location: "Mauville City",
     team: [
       {name: "Fletchinder", level: 23, item: "Flying Gem", ability: "Gale Wings", moves: ["Flame Charge", "Acrobatics", "Roost", "Return"]},
       {name: "Gible", level: 23, item: "Rocky Helmet", ability: "Rough Skin", moves: ["Dragon Rage", "Slash", "Dig", "Shadow Claw"]},
@@ -2541,6 +2550,7 @@ const evolutions = {
   },
   trainers["Gym Leader Wattson"] = {
     levelCap: 28,
+    location: "Mauville City Gym Leader",
     team: [
       {name: "Electrode", level: 26, item: "Magnet", ability: "Aftermath", moves: ["Volt Switch", "Electro Ball", "Explosion", "Light Screen"]},
       {name: "Magneton", level: 26, item: "Air Balloon", ability: "Analytic", moves: ["Volt Switch", "Mirror Shot", "Double Team", "Supersonic"]},
@@ -2552,6 +2562,7 @@ const evolutions = {
   },
   trainers["Rival Ash #2"] = {
     levelCap: 38,
+    location: "Ambyshes you at the bike shop",
     team: [
       {name: "Riolu", level: 23, item: "Expert Belt", ability: "Prankster", moves: ["Quick Attack", "Metal Claw", "Brick Break", "Feint"]},
       {name: "Grovyle", level: 23, item: "Eviolite", ability: "Sharpness", moves: ["Fury Cutter", "Quick Attack", "Dragon Breath", "Bullet Seed"]},
@@ -2561,6 +2572,7 @@ const evolutions = {
   },
   trainers["Rival Leaf #3"] = {
     levelCap: 38,
+    location: "Route 113 - Ambushes you on the steps",
     team: [
       {name: "Ninetales", level: 30, item: "Fire Gem", ability: "Flash Fire", moves: ["Spite", "Flamethrower", "Will-O-Wisp", "Hex"]},
       {name: "Nidorina", level: 31, item: "Eviolite", ability: "Rivalry", moves: ["Double Kick", "Stomping Tantrum", "Poison Fang", "Bite"]},
@@ -2571,6 +2583,7 @@ const evolutions = {
   },
   trainers["Team Magma Tabitha"] = {
     levelCap: 38,
+    location: "Mt. Chimney",
     team: [
       {name: "Mightyena", level: 33, item: "Muscle Band", ability: "Intimidate", moves: ["Crunch", "Play Rough", "Fire Fang", "Thunder Fang"]},
       {name: "Weezing", level: 33, item: "Wise Glasses", ability: "Levitate", moves: ["Sludge Bomb", "Flamethrower", "Thunderbolt", "Shadow Ball"]},
@@ -2580,6 +2593,7 @@ const evolutions = {
   },
   trainers["Team Magma Maxie"] = {
     levelCap: 38,
+    location: "Mt. Chimney",
     team: [
       {name: "Golbat", level: 34, item: "Flying Gem", ability: "Infiltrator", moves: ["Acrobatics", "Confuse Ray", "Sludge Bomb", "Torment"]},
       {name: "Houndoom", level: 34, item: "Expert Belt", ability: "Flash Fire", moves: ["Dark Pulse", "Flamethrower", "Thunder Fang", "Will-O-Wisp"]},
@@ -2590,6 +2604,7 @@ const evolutions = {
   },
   trainers["Rival Wally #3"] = {
     levelCap: 38,
+    location: "Route 112 - He'll battle you after walking a single tile after exiting Jagged Pass",
     team: [
       {name: "Roselia", level: 37, item: "Eviolite", ability: "Technician", moves: ["Synthesis", "Giga Drain", "Venoshock", "Stun Spore"]},
       {name: "Fletchinder", level: 37, item: "Flying Gem", ability: "Gale Wings", moves: ["Flare Blitz", "Acrobatics", "Roost", "Steel Wing"]},
@@ -2600,6 +2615,7 @@ const evolutions = {
   },
   trainers["Gym Leader Flannery"] = {
     levelCap: 38,
+    location: "Lavaridge City Gym Leader",
     team: [
       {name: "Ninetales", level: 36, item: "Heat Rock", ability: "Drought", moves: ["Overheat", "Solar Beam", "Extrasensory", "Hypnosis"]},
       {name: "Houndoom", level: 36, item: "White Herb", ability: "Flash Fire", moves: ["Overheat", "Dark Pulse", "Sludge Bomb", "Solar Beam"]},
@@ -2611,6 +2627,7 @@ const evolutions = {
   },
   trainers["Gym Leader Norman"] = {
     levelCap: 42,
+    location: "Petalburg City Gym Leader",
     team: [
       {name: "Ambipom", level: 40, item: "Normal Gem", ability: "Technician", moves: ["Fake Out", "Double Hit", "Acrobatics", "Knock Off"]},
       {name: "Exploud", level: 40, item: "Wise Glasses", ability: "Scrappy", moves: ["Boomburst", "Flamethrower", "Ice Beam", "Thunderbolt"]},
@@ -2622,6 +2639,7 @@ const evolutions = {
   },
   trainers["Rival Ash #3"] = {
     levelCap: 50,
+    location: "Route 119 - He'll ambush you as you're going up the stairs",
     team: [
       {name: "Torkoal", level: 42, item: "Heat Rock", ability: "Drought", moves: ["Flamethrower", "Yawn", "Body Press", "Iron Defense"]},
       {name: "Sceptile", level: 42, item: "Sceptilite", ability: "Sharpness", moves: ["Fury Cutter", "Leaf Blade", "Dual Chop", "Bullet Seed"]},
@@ -2632,6 +2650,7 @@ const evolutions = {
   },
   trainers["Team Aqua Shelly"] = {
     levelCap: 50,
+    location: "Weather Institute",
     team: [
       {name: "Liepard", level: 44, item: "Black Glasses", ability: "Prankster", moves: ["Dark Pulse", "Play Rough", "Thunder Wave", "Swagger"]},
       {name: "Muk", level: 44, item: "Leftovers", ability: "Poison Touch", moves: ["Gunk Shot", "Earthquake", "Infestation", "Toxic"]},
@@ -2643,6 +2662,7 @@ const evolutions = {
   },
   trainers["Rival May #4"] = {
     levelCap: 50,
+    location: "Route 119",
     teams: {
       "Mudkip": [
       {name: "Swellow", level: 45, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Facade", "Brave Bird", "Steel Wing"]},
@@ -2668,6 +2688,7 @@ const evolutions = {
   },
   trainers["Gym Leader Winona"] = {
     levelCap: 50,
+    location: "Fortree City Gym Leader",
     team: [
       {name: "Skarmory", level: 48, item: "Sitrus Berry", ability: "Sturdy", moves: ["Iron Head", "Brave Bird", "Stealth Rock", "Roost"]},
       {name: "Honchkrow", level: 48, item: "Scope Lens", ability: "Super Luck", moves: ["Night Slash", "Brave Bird", "Steel Wing", "Thunder Wave"]},
@@ -2679,6 +2700,7 @@ const evolutions = {
   },
   trainers["Rival Wally #4"] = {
     levelCap: 62,
+    location: "Route 120 - He'll ambush you at the end of the bridge where the rain stops",
     team: [
       {name: "Roserade", level: 52, item: "Life Orb", ability: "Technician", moves: ["Synthesis", "Giga Drain", "Venoshock", "Stun Spore"]},
       {name: "Talonflame", level: 52, item: "Flying Gem", ability: "Gale Wings", moves: ["Flare Blitz", "Acrobatics", "Roost", "Steel Wing"]},
@@ -2690,6 +2712,7 @@ const evolutions = {
   },
   trainers["Rival May #5"] = {
     levelCap: 62,
+    location: "Lilycove City",
     teams: {
       "Mudkip":[
       {name: "Swellow", level: 53, item: "Toxic Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "Steel Wing"]},
@@ -2718,6 +2741,7 @@ const evolutions = {
   },
   trainers["Team Magma Tabitha #2"] = {
     levelCap: 62,
+    location: "Magma Hideout",
     team: [
       {name: "Mightyena", level: 49, item: "Muscle Band", ability: "Intimidate", moves: ["Sucker Punch", "Play Rough", "Swagger", "Iron Tail"]},
       {name: "Weezing", level: 49, item: "Expert Belt", ability: "Levitate", moves: ["Sludge Bomb", "Flamethrower", "Thunderbolt", "Toxic Spikes"]},
@@ -2729,6 +2753,7 @@ const evolutions = {
   },
   trainers["Team Magma Maxie #2"] = {
     levelCap: 62,
+    location: "Magma Hideout",
     team: [
       {name: "Crobat", level: 50, item: "Heat Rock", ability: "Infiltrator", moves: ["Brave Bird", "U-turn", "Hypnosis", "Sunny Day"]},
       {name: "Houndoom", level: 50, item: "White Herb", ability: "Flash Fire", moves: ["Overheat", "Dark Pulse", "Sludge Bomb", "Solar Beam"]},
@@ -2740,6 +2765,7 @@ const evolutions = {
   },
   trainers["Team Aqua Matt"] = {
     levelCap: 62,
+    location: "Aqua Hideout",
     team: [
       {name: "Golduck", level: 55, item: "Wide Lens", ability: "Cloud Nine", moves: ["Hydro Pump", "Blizzard", "Focus Blast", "Hypnosis"]},
       {name: "Barbaracle", level: 55, item: "Rindo Berry", ability: "Sniper", moves: ["Razor Shell", "X-Scissor", "Cross Chop", "Stone Edge"]},
@@ -2751,6 +2777,7 @@ const evolutions = {
   },
   trainers["Rival Ash #4"] = {
     levelCap: 62,
+    location: "Mossdeep City - He'll ambush you right before you enter the Gym",
     team: [
       {name: "Torkoal", level: 56, item: "Heat Rock", ability: "Drought", moves: ["Flamethrower", "Yawn", "Body Press", "Iron Defense"]},
       {name: "Charizard", level: 56, item: "Assault Vest", ability: "Solar Power", moves: ["Flamethrower", "Scorching Sands", "Air Slash", "Seismic Toss"]},
@@ -2762,6 +2789,7 @@ const evolutions = {
   },
   trainers["Gym Leader Tate and Liza"] = {
     levelCap: 62,
+    location: "Mossdeep City Gym Leaders - Double Battle",
     team: [
       {name: "Lunatone", level: 60, item: "Focus Sash", ability: "Levitate", moves: ["Reflect", "Protect", "Psychic", "Moonblast"]},
       {name: "Solrock", level: 60, item: "Focus Sash", ability: "Levitate", moves: ["Light Screen", "Protect", "Stone Edge", "Flare Blitz"]},
@@ -2773,6 +2801,7 @@ const evolutions = {
   },
   trainers["Team Magma Maxie and Tabitha"] = {
     levelCap: 62,
+    location: "Mossdeep Space Center",
     team: [
       {name: "Crobat", level: 55, item: "Heat Rock", ability: "Infiltrator", moves: ["Brave Bird", "U-turn", "Hypnosis", "Sunny Day"]},
       {name: "Houndoom", level: 55, item: "White Herb", ability: "Flash Fire", moves: ["Overheat", "Dark Pulse", "Sludge Bomb", "Solar Beam"]},
@@ -2784,6 +2813,7 @@ const evolutions = {
   },
   trainers["Team Aqua Shelly (Optional)"] = {
     levelCap: 62,
+    location: "Mossdeep Space Center I think...",
     team: [
       {name: "Liepard", level: 57, item: "Black Glasses", ability: "Prankster", moves: ["Dark Pulse", "Play Rough", "Thunder Wave", "Swagger"]},
       {name: "Muk", level: 57, item: "Leftovers", ability: "Poison Touch", moves: ["Gunk Shot", "Earthquake", "Infestation", "Toxic"]},
@@ -2795,6 +2825,7 @@ const evolutions = {
   },
   trainers["Team Aqua Archie"] = {
     levelCap: 62,
+    location: "Pfff... Idk maybe Sootopolis",
     team: [
       {name: "Crowbat", level: 58, item: "Damp Rock", ability:"Infiltrator", moves: ["Brave Bird","U-turn","Hypnosis","Rain Dance"]},
       {name: "Tentacruel", level: 58, item: "Leftovers", ability:"Rain Dish", moves: ["Rain Dance","Hydro Pump","Sludge Wave","Ice Beam"]},
@@ -2806,6 +2837,7 @@ const evolutions = {
   },
   trainers["Gym Leader Wallace"] = {
     levelCap: 68,
+    location: "Sootopolis City Gym Leader",
     team: [
       {name: "Politoed", level: 66, item: "Damp Rock", ability: "Drizzle", moves: ["Hydro Pump", "Ice Beam", "Focus Blast", "Hypnosis"]},
       {name: "Ludicolo", level: 66, item: "Life Orb", ability: "Swift Swim", moves: ["Hydro Pump", "Giga Drain", "Ice Beam", "Rain Dance"]},
@@ -2817,6 +2849,7 @@ const evolutions = {
   },
   trainers["Rival Wally #5"] = {
     levelCap: 79,
+    location: "Victory Road",
     team: [
       {name: "Roserade", level: 70, item: "Focus Sash", ability: "Technician", moves: ["Sleep Powder", "Petal Dance", "Sludge Bomb", "Dazzling Gleam"]},
       {name: "Talonflame", level: 70, item: "Sharp Beak", ability: "Gale Wings", moves: ["Brave Bird", "Flare Blitz", "Swords Dance", "Roost"]},
@@ -2828,6 +2861,7 @@ const evolutions = {
   },
   trainers["Rival Leaf #4"] = {
     levelCap: 79,
+    location: "Victory Road - She'll ambush you at the stairs near the exit",
     team: [
       {name: "Ninetales", level: 70, item: "Heat Rock", ability: "Drought", moves: ["Nasty Plot", "Flamethrower", "Solar Beam", "Will-O-Wisp"]},
       {name: "Vaporeon", level: 70, item: "Shell Bell", ability: "Water Absorb", moves: ["Calm Mind", "Weather Ball", "Scald", "Wish"]},
@@ -2839,6 +2873,7 @@ const evolutions = {
   },
   trainers["Rival Ash #5"] = {
     levelCap: 79,
+    location: "Victory Road - He'll ambush you right as you're exiting Victory Road",
     team: [
       {name: "Torkoal", level: 70, item: "Heat Rock", ability: "Drought", moves: ["Flamethrower", "Yawn", "Body Press", "Iron Defense"]},
       {name: "Charizard", level: 70, item: "Assault Vest", ability: "Solar Power", moves: ["Flamethrower", "Scorching Sands", "Air Slash", "Seismic Toss"]},
@@ -2850,6 +2885,7 @@ const evolutions = {
   },
   trainers["Elite Four Sidney"] = {
     levelCap: 79,
+    location: "",
     team: [
       {name: "Weavile", level: 75, item: "Life Orb", ability: "Pressure", moves: ["Icicle Crash", "Knock Off", "Low Kick", "Poison Jab"]},
       {name: "Scrafty", level: 75, item: "Leftovers", ability: "Intimidate", moves: ["High Jump Kick", "Knock Off", "Iron Head", "Head Smash"]},
@@ -2861,6 +2897,7 @@ const evolutions = {
   },
   trainers["Elite Four Phoebe"] = {
     levelCap: 79,
+    location: "",
     team: [
       {name: "Mismagius", level: 75, item: "Wise Glasses", ability: "Levitate", moves: ["Shadow Ball", "Moonblast", "Thunderbolt", "Thunder Wave"]},
       {name: "Gengar", level: 75, item: "Expert Belt", ability: "Cursed Body", moves: ["Shadow Ball", "Sludge Wave", "Focus Blast", "Hypnosis"]},
@@ -2872,6 +2909,7 @@ const evolutions = {
   },
   trainers["Elite Four Glacia"] = {
     levelCap: 79,
+    location: "",
     team: [
       {name: "Aurorus", level: 76, item: "Icy Rock", ability: "Snow Warning", moves: ["Blizzard", "Earth Power", "Freeze-Dry", "Thunderbolt"]},
       {name: "Froslass", level: 76, item: "Life Orb", ability: "Snow Cloak", moves: ["Shadow Ball", "Thunderbolt", "Blizzard", "Destiny Bond"]},
@@ -2883,6 +2921,7 @@ const evolutions = {
   },
   trainers["Elite Four Drake"] = {
     levelCap: 79,
+    location: "",
     team: [
       {name: "Hydreigon", level: 77, item: "Life Orb", ability: "Levitate", moves: ["Draco Meteor", "Dark Pulse", "Flash Cannon", "Focus Blast"]},
       {name: "Flygon", level: 77, item: "Choice Scarf", ability: "Levitate", moves: ["Outrage", "Earthquake", "U-turn", "Iron Tail"]},
@@ -2894,6 +2933,7 @@ const evolutions = {
   },
   trainers["Champion Steven"] = {
     levelCap: 87,
+    location: "",
     team: [
       {name: "Skarmory", level: 85, item: "Smooth Rock", ability: "Sturdy", moves: ["Sandstorm", "Stealth Rock", "Roost", "Toxic Spikes"]},
       {name: "Aggron", level: 85, item: "Focus Sash", ability: "Sturdy", moves: ["Head Smash", "Heavy Slam", "Earthquake", "Thunder Wave"]},
@@ -2905,6 +2945,7 @@ const evolutions = {
   },
   trainers["Rival May #6"] = {
     levelCap: 87,
+    location: "",
     teams: {
       "Mudkip":[
       {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
@@ -3040,7 +3081,6 @@ trainers["Dawn (Spear Pillar)"] = {
 };
   let selectedStarter = document.getElementById("starterChoice").value;
 
-// ===== LOAD TRACKER =====
 function loadTracker(show="encounters") {
   const container = document.getElementById("tracker");
   container.innerHTML = "";
@@ -3144,12 +3184,23 @@ function loadTracker(show="encounters") {
       const content = document.createElement("div");
       content.className = "dropdown-content";
 
-      // Determine the team: either fixed or starter-dependent
+      // --- Trainer info box (reuses missed-encounter style so it appears above the name) ---
+      const infoDiv = document.createElement("div");
+      infoDiv.className = "missed-encounter"; // same visual placement as encounters
+      if (trainers[trainer].location) {
+        infoDiv.textContent = trainers[trainer].location;
+        infoDiv.style.display = ""; // ensure visible
+      } else {
+        infoDiv.style.display = "none"; // hide if no location provided
+      }
+      content.appendChild(infoDiv);
+      // --- end trainer info box ---
+
       let team = [];
       if(trainers[trainer].teams) {
         team = trainers[trainer].teams[selectedStarter] || [];
-      } else if(trainers[trainer].team) {
-        team = trainers[trainer].team;
+      } else {
+        team = trainers[trainer].team || [];
       }
 
       const table = document.createElement("table");
@@ -3165,7 +3216,7 @@ function loadTracker(show="encounters") {
         const row = document.createElement("tr");
         row.innerHTML = `<td>${p.name}</td>
                          <td>${p.level}</td>
-                         <td>${p.item || "-"}</td>
+                         <td>${p.item || p.heldItem || "-"}</td>
                          <td>${p.ability || "-"}</td>
                          <td>${p.moves ? p.moves.join(", ") : "-"}</td>`;
         table.appendChild(row);
@@ -3193,7 +3244,7 @@ function loadTracker(show="encounters") {
   updateStats();
   markDuplicates();
 }
-// ===== UPDATE LOCATION HIGHLIGHT =====
+
 function updateLocationHighlight(location) {
   const div = [...document.querySelectorAll(".location")]
     .find(d => d.querySelector(".dropdown-header").textContent === location);
@@ -3214,11 +3265,10 @@ function updateLocationHighlight(location) {
   }
 }
 
-// ===== MARK DUPLICATES & EVOLUTIONS =====
 function markDuplicates() {
   const caughtSet = new Set();
 
-  // First collect all caught Pokémon
+  // Step 1: Collect all caught Pokémon and their evolutions
   document.querySelectorAll(".location table tr").forEach(row => {
     const nameCell = row.querySelector("td:first-child");
     const checkbox = row.querySelector("input[type=checkbox]");
@@ -3226,82 +3276,58 @@ function markDuplicates() {
     if (checkbox.closest(".missed-encounter")) return;
 
     if (checkbox.checked) {
-      addAllEvolutions(nameCell.textContent, caughtSet);
+      caughtSet.add(nameCell.textContent); // <-- add Pokémon first
+      addEvolutions(nameCell.textContent, caughtSet);
     }
   });
 
-  // Then grey out any row whose Pokémon is caught elsewhere or is an evolution
+  // Step 2: Grey out rows that are caught elsewhere or are evolutions
   document.querySelectorAll(".location table tr").forEach(row => {
     const nameCell = row.querySelector("td:first-child");
     const checkbox = row.querySelector("input[type=checkbox]");
     if (!nameCell || !checkbox) return;
     if (checkbox.closest(".missed-encounter")) return;
 
-    row.classList.toggle("duplicate", caughtSet.has(nameCell.textContent) && !checkbox.checked);
+    const pokeName = nameCell.textContent;
+    row.classList.toggle("duplicate", caughtSet.has(pokeName) && !checkbox.checked);
   });
 }
 
-// Recursively add Pokémon and all its evolutions
-function addAllEvolutions(pokemon, set) {
-  if (set.has(pokemon)) return;
-  set.add(pokemon);
+function addEvolutions(pokemon, set) {
   if (!evolutions[pokemon]) return;
-  evolutions[pokemon].forEach(evo => addAllEvolutions(evo, set));
-}
-
-// ===== UPDATE STATS =====
-function updateStats() {
-  const allPokemon = document.querySelectorAll(".location table tr td:first-child");
-  const allCheckboxes = document.querySelectorAll(".location table tr td input[type=checkbox]");
-  let total = 0, caught = 0;
-
-  allPokemon.forEach((td, idx) => {
-    const checkbox = allCheckboxes[idx];
-    if (!checkbox.closest(".missed-encounter")) {
-      total++;
-      if (checkbox.checked) caught++;
+  evolutions[pokemon].forEach(evo => {
+    if (!set.has(evo)) {
+      set.add(evo);
+      addEvolutions(evo, set);
     }
   });
-
-  document.getElementById("totalPokemon").textContent = total;
-  document.getElementById("caughtPokemon").textContent = caught;
-  document.getElementById("progressPercent").textContent = total ? Math.round((caught / total) * 100) + "%" : "0%";
 }
 
-// ===== SEARCH =====
-function setupSearch() {
-  document.getElementById("searchBox").addEventListener("input", (e) => {
-    const term = e.target.value.toLowerCase();
-    document.querySelectorAll(".location,.trainer").forEach(item => {
-      item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(term));
-    });
+function setupSearch(){
+  document.getElementById("searchBox").addEventListener("input",(e)=>{
+    const term=e.target.value.toLowerCase();
+    const items=document.querySelectorAll(".location,.trainer");
+    items.forEach(item=>{ const text=item.textContent.toLowerCase(); item.classList.toggle("hidden", !text.includes(term)); });
   });
 }
 
-// ===== RESET =====
-function resetTracker() {
-  localStorage.clear();
-  loadTracker(document.getElementById("encounterTab").classList.contains("active") ? "encounters" : "trainers");
+function resetTracker(){ 
+  localStorage.clear(); 
+  loadTracker(document.getElementById("encounterTab").classList.contains("active")?"encounters":"trainers"); 
 }
 
-// ===== EVENT LISTENERS =====
-document.getElementById("starterChoice").addEventListener("change", e => { 
-  selectedStarter = e.target.value; 
-  loadTracker("trainers"); 
-});
-document.getElementById("encounterTab").addEventListener("click", () => { 
-  document.getElementById("encounterTab").classList.add("active"); 
-  document.getElementById("trainerTab").classList.remove("active"); 
-  loadTracker("encounters"); 
-});
-document.getElementById("trainerTab").addEventListener("click", () => { 
-  document.getElementById("trainerTab").classList.add("active"); 
-  document.getElementById("encounterTab").classList.remove("active"); 
-  loadTracker("trainers"); 
-});
-document.getElementById("resetButton").addEventListener("click", resetTracker);
+document.getElementById("starterChoice").addEventListener("change", e=>{ selectedStarter=e.target.value; loadTracker("trainers"); });
+document.getElementById("encounterTab").addEventListener("click",()=>{ document.getElementById("encounterTab").classList.add("active"); document.getElementById("trainerTab").classList.remove("active"); loadTracker("encounters"); });
+document.getElementById("trainerTab").addEventListener("click",()=>{ document.getElementById("trainerTab").classList.add("active"); document.getElementById("encounterTab").classList.remove("active"); loadTracker("trainers"); });
+document.getElementById("resetButton").addEventListener("click",resetTracker);
 
-// ===== INITIALIZE =====
 loadTracker();
 setupSearch();
 </script>
+</body>
+</html>
+
+
+
+
+
