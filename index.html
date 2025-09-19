@@ -1,71 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Moemon Tracker</title>
+<meta charset="UTF-8">
+<title>Moemon Tracker</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: #e0e0e0;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-    }
-    header {
-      background: linear-gradient(45deg, #1f1f1f, #2a2a2a);
-      color: #fff;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-    }
-    h1 { margin:0; font-size:2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-    .container { padding:1rem; max-width:1200px; margin:auto; }
-    .search-container { margin-bottom:1rem; text-align:center; }
-    .search-box {
-      padding:12px 20px; font-size:16px; border:none; border-radius:25px;
-      width:300px; background:#1f1f1f; color:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.4);
-      outline:none;
-    }
-    .location, .trainer {
-      background:#1e1e1e; border-radius:15px; margin-bottom:1.5rem;
-      border:2px solid #333; box-shadow:0 8px 25px rgba(0,0,0,0.4);
-      transition:all 0.3s ease;
-    }
-    .caught { background: linear-gradient(135deg, #1b3a1b, #264d26); border-color: #28a745; }
-    .dropdown-header {
-      cursor:pointer; padding:1rem; font-size:1.5em; text-align:center;
-      border-bottom:3px solid #444; background:#2b2b2b; color:#fff;
-    }
-    .dropdown-content { display:none; padding:1rem; background:#222; }
-    .dropdown-content.show { display:block; }
-    h3 {
-      color:#ddd; margin-bottom:0.5rem; font-size:1.2em;
-      background: linear-gradient(90deg, #444, #555); padding:8px 15px;
-      border-radius:8px; display:inline-block;
-    }
-    table { width:100%; border-collapse:collapse; margin-top:0.5rem; border-radius:10px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
-    th, td { border:1px solid #333; padding:12px; text-align:left; }
-    th { background:#333; color:#fff; font-weight:bold; }
-    td { background:#2a2a2a; color:#eee; }
-    tr:nth-child(even) td { background:#242424; }
-    tr:hover td { background:#333; }
-    input[type="checkbox"] { transform: scale(1.2); margin-left:10px; }
-    .stats { background:#1f1f1f; border-radius:15px; padding:1rem; margin-bottom:1rem; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
-    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1rem; }
-    .stat-item { background:linear-gradient(135deg, #333, #444); color:#fff; padding:1rem; border-radius:10px; font-weight:bold; }
-    .hidden { display:none; }
-    .tab-buttons { text-align:center; margin-bottom:1rem; }
-    .tab-buttons button {
-      padding:10px 20px; margin:0 5px; border:none; border-radius:10px;
-      background:#444; color:white; cursor:pointer; font-size:16px; transition: background 0.3s ease;
-    }
-    .tab-buttons button:hover { background:#666; }
-    .tab-buttons button.active { background:#28a745; }
-    select, button#resetButton { background:#333; color:#fff; border:1px solid #555; padding:8px 12px; border-radius:8px; font-size:14px; }
-    select:focus, button#resetButton:hover { background:#444; }
-    /* Duplicate styling */
-    .duplicate td { background:#555 !important; color:#aaa; }
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(45deg, #1f1f1f, #2a2a2a);
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  h1 { margin:0; font-size:2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+  .container { padding:1rem; max-width:1200px; margin:auto; }
+
+  .search-container { margin-bottom:1rem; text-align:center; }
+
+  .search-box {
+    padding:12px 20px; font-size:16px; border:none; border-radius:25px;
+    width:300px; background:#1f1f1f; color:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.4);
+    outline:none;
+  }
+
+  .location, .trainer {
+    background:#1e1e1e; border-radius:15px; margin-bottom:1.5rem;
+    border:2px solid #333; box-shadow:0 8px 25px rgba(0,0,0,0.4);
+    transition:all 0.3s ease;
+    position: relative;
+    padding-top: 2.5rem; /* space for missed checkbox */
+  }
+
+  .caught { background: linear-gradient(135deg, #1b3a1b, #264d26); border-color: #28a745; }
+
+  .location.missed {
+    background: linear-gradient(135deg, #3a1b1b, #4d2626);
+    border-color: #a72828;
+  }
+
+  .missed-encounter {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .missed-encounter input[type="checkbox"] {
+    margin-left: 0.5rem;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+
+  .dropdown-header {
+    cursor:pointer; padding:1rem; font-size:1.5em; text-align:center;
+    border-bottom:3px solid #444; background:#2b2b2b; color:#fff;
+  }
+
+  .dropdown-content { display:none; padding:1rem; background:#222; border-radius:0 0 15px 15px; }
+
+  .dropdown-content.show { display:block; }
+
+  h3 {
+    color:#ddd; margin-bottom:0.5rem; font-size:1.2em;
+    background: linear-gradient(90deg, #444, #555); padding:8px 15px;
+    border-radius:8px; display:inline-block;
+  }
+
+  table { width:100%; border-collapse:collapse; margin-top:0.5rem; border-radius:10px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
+
+  th, td { border:1px solid #333; padding:12px; text-align:left; }
+  th { background:#333; color:#fff; font-weight:bold; }
+  td { background:#2a2a2a; color:#eee; }
+  tr:nth-child(even) td { background:#242424; }
+  tr:hover td { background:#333; }
+
+  input[type="checkbox"] { transform: scale(1.2); margin-left:10px; }
+
+  .stats { background:#1f1f1f; border-radius:15px; padding:1rem; margin-bottom:1rem; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); }
+
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1rem; }
+
+  .stat-item { background:linear-gradient(135deg, #333, #444); color:#fff; padding:1rem; border-radius:10px; font-weight:bold; }
+
+  .hidden { display:none; }
+
+  .tab-buttons { text-align:center; margin-bottom:1rem; }
+
+  .tab-buttons button {
+    padding:10px 20px; margin:0 5px; border:none; border-radius:10px;
+    background:#444; color:white; cursor:pointer; font-size:16px; transition: background 0.3s ease;
+  }
+
+  .tab-buttons button:hover { background:#666; }
+  .tab-buttons button.active { background:#28a745; }
+
+  select, button#resetButton { background:#333; color:#fff; border:1px solid #555; padding:8px 12px; border-radius:8px; font-size:14px; }
+  select:focus, button#resetButton:hover { background:#444; }
+
+  .duplicate td { background:#555 !important; color:#aaa; }
   </style>
 </head>
 <body>
@@ -2995,7 +3040,8 @@ trainers["Dawn (Spear Pillar)"] = {
 };
   let selectedStarter = document.getElementById("starterChoice").value;
 
-  function loadTracker(show="encounters") {
+// ===== LOAD TRACKER =====
+function loadTracker(show="encounters") {
   const container = document.getElementById("tracker");
   container.innerHTML = "";
 
@@ -3011,6 +3057,31 @@ trainers["Dawn (Spear Pillar)"] = {
       const content = document.createElement("div");
       content.className = "dropdown-content";
 
+      // Missed Encounter at top
+      const missedDiv = document.createElement("div");
+      missedDiv.className = "missed-encounter";
+      const missedKey = `${location}-missed`;
+      const missedSaved = localStorage.getItem(missedKey) === "true";
+
+      missedDiv.innerHTML = `
+        <label>
+          <input type="checkbox" id="${missedKey}" ${missedSaved ? "checked" : ""}> Missed Encounter
+        </label>
+      `;
+      const missedCheckbox = missedDiv.querySelector("input");
+      missedCheckbox.addEventListener("change", () => {
+        localStorage.setItem(missedKey, missedCheckbox.checked);
+        if(missedCheckbox.checked) {
+          div.classList.remove("caught");
+          div.classList.add("missed");
+        } else {
+          updateLocationHighlight(location);
+        }
+      });
+
+      content.appendChild(missedDiv);
+
+      // All encounter methods
       for(const method in encounters[location]) {
         const section = document.createElement("div");
         section.className="encounter-section";
@@ -3029,7 +3100,7 @@ trainers["Dawn (Spear Pillar)"] = {
 
           row.innerHTML = `<td>${p.name}</td>
                            <td><input type="checkbox" ${saved ? "checked" : ""}></td>`;
-          
+
           const checkbox = row.querySelector("input");
           checkbox.addEventListener("change", () => {
             localStorage.setItem(key, checkbox.checked);
@@ -3049,7 +3120,12 @@ trainers["Dawn (Spear Pillar)"] = {
       div.appendChild(header);
       div.appendChild(content);
       container.appendChild(div);
-      updateLocationHighlight(location);
+
+      if(missedSaved) {
+        div.classList.add("missed");
+      } else {
+        updateLocationHighlight(location);
+      }
     }
   } else if(show === "trainers") {
     for(const trainer in trainers) {
@@ -3068,12 +3144,12 @@ trainers["Dawn (Spear Pillar)"] = {
       const content = document.createElement("div");
       content.className = "dropdown-content";
 
-      // Pick the correct team (starter-based if available)
+      // Determine the team: either fixed or starter-dependent
       let team = [];
       if(trainers[trainer].teams) {
         team = trainers[trainer].teams[selectedStarter] || [];
-      } else {
-        team = trainers[trainer].team || [];
+      } else if(trainers[trainer].team) {
+        team = trainers[trainer].team;
       }
 
       const table = document.createElement("table");
@@ -3089,7 +3165,7 @@ trainers["Dawn (Spear Pillar)"] = {
         const row = document.createElement("tr");
         row.innerHTML = `<td>${p.name}</td>
                          <td>${p.level}</td>
-                         <td>${p.item || p.heldItem || "-"}</td>
+                         <td>${p.item || "-"}</td>
                          <td>${p.ability || "-"}</td>
                          <td>${p.moves ? p.moves.join(", ") : "-"}</td>`;
         table.appendChild(row);
@@ -3117,96 +3193,115 @@ trainers["Dawn (Spear Pillar)"] = {
   updateStats();
   markDuplicates();
 }
+// ===== UPDATE LOCATION HIGHLIGHT =====
+function updateLocationHighlight(location) {
+  const div = [...document.querySelectorAll(".location")]
+    .find(d => d.querySelector(".dropdown-header").textContent === location);
+  if (!div) return;
 
-  function updateLocationHighlight(location){
-    const div=[...document.querySelectorAll(".location")].find(d=>d.querySelector(".dropdown-header").textContent===location);
-    if(!div) return;
-    const checkboxes=div.querySelectorAll("input[type=checkbox]");
-    let anyChecked=Array.from(checkboxes).some(cb=>cb.checked);
+  const checkboxes = div.querySelectorAll("input[type=checkbox]");
+  const missedCheckbox = document.getElementById(`${location}-missed`);
+
+  div.classList.remove("caught", "missed");
+
+  if (missedCheckbox && missedCheckbox.checked) {
+    div.classList.add("missed");
+  } else {
+    let anyChecked = Array.from(checkboxes)
+      .filter(cb => cb !== missedCheckbox)
+      .some(cb => cb.checked);
     div.classList.toggle("caught", anyChecked);
   }
+}
 
-  function updateStats(){
-    let total=0, caught=0, locCaught=0;
-    for(const loc in encounters){
-      let locHas=false;
-      for(const method in encounters[loc]){
-        encounters[loc][method].forEach(p=>{
-          total++;
-          if(localStorage.getItem(`${loc}-${method}-${p.name}`)==="true"){ caught++; locHas=true; }
-        });
-      }
-      if(locHas) locCaught++;
-    }
-    document.getElementById("totalPokemon").textContent=total;
-    document.getElementById("caughtPokemon").textContent=caught;
-    document.getElementById("progressPercent").textContent=total>0?Math.round((caught/total)*100)+"%":"0%";
-    document.getElementById("locationsCompleted").textContent=locCaught+"/"+Object.keys(encounters).length;
-  }
-
-  function markDuplicates() {
+// ===== MARK DUPLICATES & EVOLUTIONS =====
+function markDuplicates() {
   const caughtSet = new Set();
 
-  // First pass: add all caught Pokémon to the set
-  const allRows = document.querySelectorAll(".location table tr");
-  allRows.forEach(row => {
+  // First collect all caught Pokémon
+  document.querySelectorAll(".location table tr").forEach(row => {
     const nameCell = row.querySelector("td:first-child");
-    if (!nameCell) return;
     const checkbox = row.querySelector("input[type=checkbox]");
+    if (!nameCell || !checkbox) return;
+    if (checkbox.closest(".missed-encounter")) return;
+
     if (checkbox.checked) {
-      caughtSet.add(nameCell.textContent);
-      // Also add all evolutions
-      addEvolutions(nameCell.textContent, caughtSet);
+      addAllEvolutions(nameCell.textContent, caughtSet);
     }
   });
 
-  // Second pass: mark duplicates or dim uncaught evolutions
-  allRows.forEach(row => {
+  // Then grey out any row whose Pokémon is caught elsewhere or is an evolution
+  document.querySelectorAll(".location table tr").forEach(row => {
     const nameCell = row.querySelector("td:first-child");
-    if (!nameCell) return;
     const checkbox = row.querySelector("input[type=checkbox]");
-    const pokeName = nameCell.textContent;
+    if (!nameCell || !checkbox) return;
+    if (checkbox.closest(".missed-encounter")) return;
 
-    // If this Pokémon or any related evolution is caught, mark as duplicate
-    let isDuplicate = caughtSet.has(pokeName) && !checkbox.checked;
-    row.classList.toggle("duplicate", isDuplicate);
+    row.classList.toggle("duplicate", caughtSet.has(nameCell.textContent) && !checkbox.checked);
   });
 }
 
-// Recursive helper to add all evolutions
-function addEvolutions(pokemon, set) {
+// Recursively add Pokémon and all its evolutions
+function addAllEvolutions(pokemon, set) {
+  if (set.has(pokemon)) return;
+  set.add(pokemon);
   if (!evolutions[pokemon]) return;
-  evolutions[pokemon].forEach(evo => {
-    if (!set.has(evo)) {
-      set.add(evo);
-      addEvolutions(evo, set); // recursively add further evolutions
+  evolutions[pokemon].forEach(evo => addAllEvolutions(evo, set));
+}
+
+// ===== UPDATE STATS =====
+function updateStats() {
+  const allPokemon = document.querySelectorAll(".location table tr td:first-child");
+  const allCheckboxes = document.querySelectorAll(".location table tr td input[type=checkbox]");
+  let total = 0, caught = 0;
+
+  allPokemon.forEach((td, idx) => {
+    const checkbox = allCheckboxes[idx];
+    if (!checkbox.closest(".missed-encounter")) {
+      total++;
+      if (checkbox.checked) caught++;
     }
   });
+
+  document.getElementById("totalPokemon").textContent = total;
+  document.getElementById("caughtPokemon").textContent = caught;
+  document.getElementById("progressPercent").textContent = total ? Math.round((caught / total) * 100) + "%" : "0%";
 }
 
-  function setupSearch(){
-    document.getElementById("searchBox").addEventListener("input",(e)=>{
-      const term=e.target.value.toLowerCase();
-      const items=document.querySelectorAll(".location,.trainer");
-      items.forEach(item=>{ const text=item.textContent.toLowerCase(); item.classList.toggle("hidden", !text.includes(term)); });
+// ===== SEARCH =====
+function setupSearch() {
+  document.getElementById("searchBox").addEventListener("input", (e) => {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll(".location,.trainer").forEach(item => {
+      item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(term));
     });
-  }
+  });
+}
 
-  function resetTracker(){ localStorage.clear(); loadTracker(document.getElementById("encounterTab").classList.contains("active")?"encounters":"trainers"); }
+// ===== RESET =====
+function resetTracker() {
+  localStorage.clear();
+  loadTracker(document.getElementById("encounterTab").classList.contains("active") ? "encounters" : "trainers");
+}
 
-  document.getElementById("starterChoice").addEventListener("change", e=>{ selectedStarter=e.target.value; loadTracker("trainers"); });
-  document.getElementById("encounterTab").addEventListener("click",()=>{ document.getElementById("encounterTab").classList.add("active"); document.getElementById("trainerTab").classList.remove("active"); loadTracker("encounters"); });
-  document.getElementById("trainerTab").addEventListener("click",()=>{ document.getElementById("trainerTab").classList.add("active"); document.getElementById("encounterTab").classList.remove("active"); loadTracker("trainers"); });
-  document.getElementById("resetButton").addEventListener("click",resetTracker);
+// ===== EVENT LISTENERS =====
+document.getElementById("starterChoice").addEventListener("change", e => { 
+  selectedStarter = e.target.value; 
+  loadTracker("trainers"); 
+});
+document.getElementById("encounterTab").addEventListener("click", () => { 
+  document.getElementById("encounterTab").classList.add("active"); 
+  document.getElementById("trainerTab").classList.remove("active"); 
+  loadTracker("encounters"); 
+});
+document.getElementById("trainerTab").addEventListener("click", () => { 
+  document.getElementById("trainerTab").classList.add("active"); 
+  document.getElementById("encounterTab").classList.remove("active"); 
+  loadTracker("trainers"); 
+});
+document.getElementById("resetButton").addEventListener("click", resetTracker);
 
-  loadTracker();
-  setupSearch();
+// ===== INITIALIZE =====
+loadTracker();
+setupSearch();
 </script>
-</body>
-</html>
-
-
-
-
-
-
