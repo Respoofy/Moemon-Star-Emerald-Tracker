@@ -63,7 +63,12 @@
     transform: scale(1.2);
     cursor: pointer;
   }
-
+  .trainer-location {
+  color: #aaa;
+  font-size: 0.9em;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
   .dropdown-header {
     cursor:pointer; padding:1rem; font-size:1.5em; text-align:center;
     border-bottom:3px solid #444; background:#2b2b2b; color:#fff;
@@ -3081,23 +3086,25 @@ trainers["Dawn (Spear Pillar)"] = {
 };
   let selectedStarter = document.getElementById("starterChoice").value;
 
-function loadTracker(show="encounters") {
+function loadTracker(show = "encounters") {
   const container = document.getElementById("tracker");
   container.innerHTML = "";
 
-  if(show === "encounters") {
-    for(const location in encounters) {
+  if (show === "encounters") {
+    for (const location in encounters) {
       const div = document.createElement("div");
       div.className = "location";
 
+      // Header for location
       const header = document.createElement("div");
       header.className = "dropdown-header";
       header.textContent = location;
 
+      // Content container
       const content = document.createElement("div");
       content.className = "dropdown-content";
 
-      // Missed Encounter at top
+      // Missed Encounter checkbox at top
       const missedDiv = document.createElement("div");
       missedDiv.className = "missed-encounter";
       const missedKey = `${location}-missed`;
@@ -3108,10 +3115,11 @@ function loadTracker(show="encounters") {
           <input type="checkbox" id="${missedKey}" ${missedSaved ? "checked" : ""}> Missed Encounter
         </label>
       `;
+
       const missedCheckbox = missedDiv.querySelector("input");
       missedCheckbox.addEventListener("change", () => {
         localStorage.setItem(missedKey, missedCheckbox.checked);
-        if(missedCheckbox.checked) {
+        if (missedCheckbox.checked) {
           div.classList.remove("caught");
           div.classList.add("missed");
         } else {
@@ -3122,9 +3130,9 @@ function loadTracker(show="encounters") {
       content.appendChild(missedDiv);
 
       // All encounter methods
-      for(const method in encounters[location]) {
+      for (const method in encounters[location]) {
         const section = document.createElement("div");
-        section.className="encounter-section";
+        section.className = "encounter-section";
 
         const methodTitle = document.createElement("h3");
         methodTitle.textContent = method;
@@ -3156,95 +3164,96 @@ function loadTracker(show="encounters") {
         content.appendChild(section);
       }
 
+      // Toggle dropdown
       header.addEventListener("click", () => content.classList.toggle("show"));
+
       div.appendChild(header);
       div.appendChild(content);
       container.appendChild(div);
 
-      if(missedSaved) {
+      // Apply missed/caught styling
+      if (missedSaved) {
         div.classList.add("missed");
       } else {
         updateLocationHighlight(location);
       }
     }
-  } else if(show === "trainers") {
-    for(const trainer in trainers) {
-      const div = document.createElement("div");
-      div.className = "trainer";
+  }  else if (show === "trainers") {
+  for (const trainer in trainers) {
+    const div = document.createElement("div");
+    div.className = "trainer";
 
-      const header = document.createElement("div");
-      header.className = "dropdown-header";
-
-      const checkboxId = `chk-${trainer.replace(/\s+/g,'-')}`;
-      const saved = localStorage.getItem(checkboxId) === "true";
-
-      header.innerHTML = `<input type="checkbox" id="${checkboxId}" ${saved ? "checked" : ""}> 
-                          ${trainer} - Level Cap: ${trainers[trainer].levelCap || "N/A"}`;
-
-      const content = document.createElement("div");
-      content.className = "dropdown-content";
-
-      // --- Trainer info box (reuses missed-encounter style so it appears above the name) ---
-      const infoDiv = document.createElement("div");
-      infoDiv.className = "missed-encounter"; // same visual placement as encounters
-      if (trainers[trainer].location) {
-        infoDiv.textContent = trainers[trainer].location;
-        infoDiv.style.display = ""; // ensure visible
-      } else {
-        infoDiv.style.display = "none"; // hide if no location provided
-      }
-      content.appendChild(infoDiv);
-      // --- end trainer info box ---
-
-      let team = [];
-      if(trainers[trainer].teams) {
-        team = trainers[trainer].teams[selectedStarter] || [];
-      } else {
-        team = trainers[trainer].team || [];
-      }
-
-      const table = document.createElement("table");
-      table.innerHTML = `<tr>
-                           <th>Pokémon</th>
-                           <th>Level</th>
-                           <th>Held Item</th>
-                           <th>Ability</th>
-                           <th>Moves</th>
-                         </tr>`;
-
-      team.forEach(p => {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td>${p.name}</td>
-                         <td>${p.level}</td>
-                         <td>${p.item || p.heldItem || "-"}</td>
-                         <td>${p.ability || "-"}</td>
-                         <td>${p.moves ? p.moves.join(", ") : "-"}</td>`;
-        table.appendChild(row);
-      });
-
-      content.appendChild(table);
-
-      header.addEventListener("click", (event) => {
-        if(event.target.tagName !== "INPUT") content.classList.toggle("show");
-      });
-
-      div.appendChild(header);
-      div.appendChild(content);
-      container.appendChild(div);
-
-      const checkbox = document.getElementById(checkboxId);
-      checkbox.addEventListener("change", () => {
-        localStorage.setItem(checkboxId, checkbox.checked);
-        div.classList.toggle("caught", checkbox.checked);
-      });
-      div.classList.toggle("caught", saved);
+    // Trainer location above name
+    if (trainers[trainer].location) {
+      const locationDiv = document.createElement("div");
+      locationDiv.className = "trainer-location";
+      locationDiv.textContent = trainers[trainer].location;
+      div.appendChild(locationDiv);
     }
+
+    const header = document.createElement("div");
+    header.className = "dropdown-header";
+
+    const checkboxId = `chk-${trainer.replace(/\s+/g, "-")}`;
+    const saved = localStorage.getItem(checkboxId) === "true";
+
+    header.innerHTML = `<input type="checkbox" id="${checkboxId}" ${saved ? "checked" : ""}> 
+                        ${trainer} - Level Cap: ${trainers[trainer].levelCap || "N/A"}`;
+
+    div.appendChild(header);
+
+    const content = document.createElement("div");
+    content.className = "dropdown-content";
+
+    let team = [];
+    if (trainers[trainer].teams) {
+      team = trainers[trainer].teams[selectedStarter] || [];
+    } else {
+      team = trainers[trainer].team || [];
+    }
+
+    const table = document.createElement("table");
+    table.innerHTML = `<tr>
+                         <th>Pokémon</th>
+                         <th>Level</th>
+                         <th>Held Item</th>
+                         <th>Ability</th>
+                         <th>Moves</th>
+                       </tr>`;
+
+    team.forEach(p => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${p.name}</td>
+                       <td>${p.level}</td>
+                       <td>${p.item || p.heldItem || "-"}</td>
+                       <td>${p.ability || "-"}</td>
+                       <td>${p.moves ? p.moves.join(", ") : "-"}</td>`;
+      table.appendChild(row);
+    });
+
+    content.appendChild(table);
+    div.appendChild(content);
+    container.appendChild(div);
+
+    // Dropdown toggle for trainer
+    header.addEventListener("click", event => {
+      if (event.target.tagName !== "INPUT") content.classList.toggle("show");
+    });
+
+    const checkbox = document.getElementById(checkboxId);
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem(checkboxId, checkbox.checked);
+      div.classList.toggle("caught", checkbox.checked);
+    });
+    div.classList.toggle("caught", saved);
   }
+}
 
   updateStats();
   markDuplicates();
 }
 
+// Highlight location based on caught/missed
 function updateLocationHighlight(location) {
   const div = [...document.querySelectorAll(".location")]
     .find(d => d.querySelector(".dropdown-header").textContent === location);
@@ -3258,17 +3267,17 @@ function updateLocationHighlight(location) {
   if (missedCheckbox && missedCheckbox.checked) {
     div.classList.add("missed");
   } else {
-    let anyChecked = Array.from(checkboxes)
+    const anyChecked = Array.from(checkboxes)
       .filter(cb => cb !== missedCheckbox)
       .some(cb => cb.checked);
     div.classList.toggle("caught", anyChecked);
   }
 }
 
+// Grey out duplicates
 function markDuplicates() {
   const caughtSet = new Set();
 
-  // Step 1: Collect all caught Pokémon and their evolutions
   document.querySelectorAll(".location table tr").forEach(row => {
     const nameCell = row.querySelector("td:first-child");
     const checkbox = row.querySelector("input[type=checkbox]");
@@ -3276,12 +3285,11 @@ function markDuplicates() {
     if (checkbox.closest(".missed-encounter")) return;
 
     if (checkbox.checked) {
-      caughtSet.add(nameCell.textContent); // <-- add Pokémon first
+      caughtSet.add(nameCell.textContent);
       addEvolutions(nameCell.textContent, caughtSet);
     }
   });
 
-  // Step 2: Grey out rows that are caught elsewhere or are evolutions
   document.querySelectorAll(".location table tr").forEach(row => {
     const nameCell = row.querySelector("td:first-child");
     const checkbox = row.querySelector("input[type=checkbox]");
@@ -3303,11 +3311,131 @@ function addEvolutions(pokemon, set) {
   });
 }
 
-function setupSearch(){
-  document.getElementById("searchBox").addEventListener("input",(e)=>{
-    const term=e.target.value.toLowerCase();
-    const items=document.querySelectorAll(".location,.trainer");
-    items.forEach(item=>{ const text=item.textContent.toLowerCase(); item.classList.toggle("hidden", !text.includes(term)); });
+function updateStats() {
+  const allPokemon = [];
+  const caughtPokemon = new Set();
+
+  // Loop through all encounter tables
+  document.querySelectorAll(".location table").forEach(table => {
+    table.querySelectorAll("tr").forEach((row, index) => {
+      if (index === 0) return; // Skip header
+      const nameCell = row.querySelector("td:first-child");
+      const checkbox = row.querySelector("input[type=checkbox]");
+      if (!nameCell || !checkbox) return;
+
+      allPokemon.push(nameCell.textContent);
+
+      if (checkbox.checked) {
+        caughtPokemon.add(nameCell.textContent);
+        // Include evolutions too
+        if (evolutions[nameCell.textContent]) {
+          addEvolutions(nameCell.textContent, caughtPokemon);
+        }
+      }
+    });
+  });
+
+  // Count completed locations
+  let locationsCompleted = 0;
+  document.querySelectorAll(".location").forEach(div => {
+    const checkboxes = div.querySelectorAll("input[type=checkbox]");
+    const missedCheckbox = div.querySelector(".missed-encounter input");
+    const allCaught = Array.from(checkboxes)
+      .filter(cb => cb !== missedCheckbox)
+      .every(cb => cb.checked);
+
+    if (allCaught || (missedCheckbox && missedCheckbox.checked)) {
+      locationsCompleted++;
+    }
+  });
+
+  document.getElementById("totalPokemon").textContent = allPokemon.length;
+  document.getElementById("caughtPokemon").textContent = caughtPokemon.size;
+  document.getElementById("progressPercent").textContent = 
+    allPokemon.length === 0 ? "0%" : Math.round(caughtPokemon.size / allPokemon.length * 100) + "%";
+  document.getElementById("locationsCompleted").textContent = locationsCompleted;
+}
+
+// Search Pokémon & routes
+function setupSearch() {
+  const searchBox = document.getElementById("searchBox");
+
+  searchBox.addEventListener("input", (e) => {
+    const term = e.target.value.toLowerCase().trim();
+
+    // --- Handle locations & encounters ---
+    document.querySelectorAll(".location").forEach(locationDiv => {
+      const content = locationDiv.querySelector(".dropdown-content");
+      const locationName = locationDiv.querySelector(".dropdown-header").textContent.toLowerCase();
+
+      if (term === "") {
+        // Reset all locations to visible but collapsed
+        locationDiv.classList.remove("hidden");
+        content.classList.remove("show");
+        locationDiv.querySelectorAll(".encounter-section").forEach(section => {
+          section.classList.remove("hidden");
+          section.querySelectorAll("table tr").forEach((row, index) => {
+            if (index === 0) return;
+            row.classList.remove("hidden");
+          });
+        });
+        return;
+      }
+
+      let anyPokemonMatches = false;
+
+      locationDiv.querySelectorAll(".encounter-section").forEach(section => {
+        let sectionMatches = false;
+
+        section.querySelectorAll("table tr").forEach((row, index) => {
+          if (index === 0) return; // skip header
+          const nameCell = row.querySelector("td:first-child");
+          if (!nameCell) return;
+
+          const pokemonName = nameCell.textContent.toLowerCase();
+          const matches = pokemonName.includes(term);
+
+          row.classList.toggle("hidden", !matches);
+          if (matches) sectionMatches = true;
+        });
+
+        section.classList.toggle("hidden", !sectionMatches);
+        if (sectionMatches) anyPokemonMatches = true;
+      });
+
+      const locationMatches = locationName.includes(term);
+      const shouldShowLocation = locationMatches || anyPokemonMatches;
+
+      locationDiv.classList.toggle("hidden", !shouldShowLocation);
+
+      if (shouldShowLocation) {
+        content.classList.add("show");
+      } else {
+        content.classList.remove("show");
+      }
+    });
+
+    // --- Handle trainers ---
+    document.querySelectorAll(".trainer").forEach(trainerDiv => {
+      const content = trainerDiv.querySelector(".dropdown-content");
+      const headerText = trainerDiv.querySelector(".dropdown-header").textContent.toLowerCase();
+
+      if (term === "") {
+        trainerDiv.classList.remove("hidden");
+        content.classList.remove("show");
+        return;
+      }
+
+      const matches = headerText.includes(term);
+
+      trainerDiv.classList.toggle("hidden", !matches);
+
+      if (matches) {
+        content.classList.add("show");
+      } else {
+        content.classList.remove("show");
+      }
+    });
   });
 }
 
@@ -3316,10 +3444,22 @@ function resetTracker(){
   loadTracker(document.getElementById("encounterTab").classList.contains("active")?"encounters":"trainers"); 
 }
 
-document.getElementById("starterChoice").addEventListener("change", e=>{ selectedStarter=e.target.value; loadTracker("trainers"); });
-document.getElementById("encounterTab").addEventListener("click",()=>{ document.getElementById("encounterTab").classList.add("active"); document.getElementById("trainerTab").classList.remove("active"); loadTracker("encounters"); });
-document.getElementById("trainerTab").addEventListener("click",()=>{ document.getElementById("trainerTab").classList.add("active"); document.getElementById("encounterTab").classList.remove("active"); loadTracker("trainers"); });
-document.getElementById("resetButton").addEventListener("click",resetTracker);
+// Event listeners
+document.getElementById("starterChoice").addEventListener("change", e => {
+  selectedStarter = e.target.value;
+  loadTracker("trainers");
+});
+document.getElementById("encounterTab").addEventListener("click", () => {
+  document.getElementById("encounterTab").classList.add("active");
+  document.getElementById("trainerTab").classList.remove("active");
+  loadTracker("encounters");
+});
+document.getElementById("trainerTab").addEventListener("click", () => {
+  document.getElementById("trainerTab").classList.add("active");
+  document.getElementById("encounterTab").classList.remove("active");
+  loadTracker("trainers");
+});
+document.getElementById("resetButton").addEventListener("click", resetTracker);
 
 loadTracker();
 setupSearch();
