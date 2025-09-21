@@ -1276,18 +1276,6 @@ encounters["Ferroshore Cave (Top Floor)"] = {
     {name: "Smoochum"},
     {name: "Mawile"},
     {name: "Carbink"}
-  ]
-};
-
-encounters["Ferroshore Cave (Bottom Floor)"] = {
-  "Walking": [
-    {name: "Ferroseed"},
-    {name: "Shellos"},
-    {name: "Smoochum"},
-    {name: "Woobat"},
-    {name: "Cubone"},
-    {name: "Vanillite"},
-    {name: "Drilbur"}
   ],
   "Surf": [
     {name: "Shellder"},
@@ -1304,6 +1292,18 @@ encounters["Ferroshore Cave (Bottom Floor)"] = {
     {name: "Shellder"},
     {name: "Tynamo"},
     {name: "Cloyster"}
+  ]
+};
+
+encounters["Ferroshore Cave (Bottom Floor)"] = {
+  "Walking": [
+    {name: "Ferroseed"},
+    {name: "Shellos"},
+    {name: "Smoochum"},
+    {name: "Woobat"},
+    {name: "Cubone"},
+    {name: "Vanillite"},
+    {name: "Drilbur"}
   ]
 };
 
@@ -2489,11 +2489,11 @@ const evolutions = {
       {name: "Treecko", level: 16, item: null, ability: "Overgrow", moves: ["Leer", "Absorb", "Quick Attack", "Mega Drain"]}
     ],
     "Treecko": [
-      { name: "Taillow", level: 16, item: null, ability: "?", moves: ["?"] },
+      {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
       { name: "Torchic", level: 16, item: null, ability: "?", moves: ["?"] }
     ],
     "Torchic": [
-      { name: "Taillow", level: 16, item: null, ability: "?", moves: ["?"] },
+      {name: "Taillow", level: 16, item: null, ability: "Guts", moves: ["Growl", "Focus Energy", "Quick Attack", "Wing Attack"]},
       { name: "Mudkip", level: 16, item: null, ability: "?", moves: ["?"] }
     ]
     }
@@ -2530,16 +2530,16 @@ const evolutions = {
       {name: "Wailmer", level: 22, item: "Mystic Water", ability: "Water Veil", moves: ["Water Pulse", "Rollout", "Body Slam", "Fissure"]},
       {name: "Grovyle", level: 24, item: "Sitrus Berry", ability: "Overgrow", moves: ["Grass Pledge", "Aerial Ace", "Dragon Breath", "Grass Whistle"]}
     ],"Torchic": [
-      { name: "Swellow", level: 22, item: "?", ability: "?", moves: ["?"] },
-      { name: "Shroomish", level: 22, item: "?", ability: "?", moves: ["?"] },
-      { name: "Ponyta", level: 22, item: "?", ability: "?", moves: ["?"] },
-      { name: "Marshtomp", level: 24, item: "?", ability: "?", moves: ["?"] }
+      { name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double team"] },
+      { name: "Shroomish", level: 22, item: "Miracle Seed", ability: "Quick Feet", moves: ["Bullet Seed", "Toxic", "Headbutt", "Leech Seed"] },
+      { name: "Ponyta", level: 22, item: "Charcoal", ability: "Flame Body", moves: ["Flame Charge", "Double Kick", "Stomp", "Hypnosis"] },
+      { name: "Marshtomp", level: 24, item: "Sitrus Berry", ability: "Torrent", moves: ["Water Pledge", "Dig", "Rock Tomb", "Curse"] }
     ],
     "Treecko": [
-      { name: "Swellow", level: 22, item: "?", ability: "?", moves: ["?"] },
-      { name: "Wailmer", level: 22, item: "?", ability: "?", moves: ["?"] },
-      { name: "Shroomish", level: 22, item: "?", ability: "?", moves: ["?"] },
-      { name: "Combusken", level: 24, item: "?", ability: "?", moves: ["?"] }
+      { name: "Swellow", level: 22, item: "Silk Scarf", ability: "Guts", moves: ["Brave Bird", "Quick Attack", "Focus Energy", "Double team"] },
+      { name: "Wailmer", level: 22, item: "Mystic Water", ability: "Water Veil", moves: ["Water Pulse", "Rollout", "Body Slam", "Fissure"]},
+      { name: "Shroomish", level: 22, item: "Miracle Seed", ability: "Quick Feet", moves: ["Bullet Seed", "Toxic", "Headbutt", "Leech Seed"] },
+      { name: "Combusken", level: 24, item: "Sitrus Berry", ability: "Blaze", moves: ["Fire Pledge", "Double Kick", "Aerial Ace", "Feather Dance"] }
     ]
     }
   },
@@ -2676,18 +2676,18 @@ const evolutions = {
       {name: "Wailord", level: 45, item: "Leftovers", ability: "Water Veil", moves: ["Aqua Ring", "Scald", "Ice Beam", "Earthquake"]},
       {name: "Sceptile (Mega)", level: 47, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Focus Blast", "Dragon Pulse", "Grass Whistle"]}
     ],"Torchic": [
-      { name: "Swellow", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Raichu", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Breloom", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Rapidash", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Swampert (Mega)", level: 47, item: "?", ability: "?", moves: ["?"] }
+      { name: "Swellow", level: 45, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Facade", "Brave Bird", "Steel Wing"] },
+      { name: "Raichu", level: 45, item: "Expert Belt", ability: "Static", moves: ["Thunder Bolt", "Surf", "Focus Blast", "Nuzzle"] },
+      { name: "Breloom", level: 45, item: "Bright Powder", ability: "Technician", moves: ["Spore", "Bullet Seed", "Mach Punch", "Rock Tomb"] },
+      { name: "Rapidash", level: 45, item: "Wide Lens", ability: "Flame Body", moves: ["Flare Blitz", "Wild Charge", "Hypnosis", "Megahorn"] },
+      { name: "Swampert (Mega)", level: 47, item: "Swampertite", ability: "Torrent", moves: ["Aqua Tail", "Earthquake", "Sludge Wave", "Yawn"] }
     ],
     "Treecko": [
-      { name: "Swellow", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Raichu", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Wailord", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Breloom", level: 45, item: "?", ability: "?", moves: ["?"] },
-      { name: "Blaziken (Mega)", level: 47, item: "?", ability: "?", moves: ["?"] }
+      { name: "Swellow", level: 45, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Facade", "Brave Bird", "Steel Wing"] },
+      { name: "Raichu", level: 45, item: "Expert Belt", ability: "Static", moves: ["Thunder Bolt", "Surf", "Focus Blast", "Nuzzle"] },
+      { name: "Wailord", level: 45, item: "Leftovers", ability: "Water Veil", moves: ["Aqua Ring", "Scald", "Ice Beam", "Earthquake"]},
+      { name: "Breloom", level: 45, item: "Bright Powder", ability: "Technician", moves: ["Spore", "Bullet Seed", "Mach Punch", "Rock Tomb"] },
+      { name: "Blaziken (Mega)", level: 47, item: "Blazikenite", ability: "Blaze", moves: ["Blaze Kick", "Focus Blast", "Thunder Punch", "Will-O-Wisp"] }
     ]
     }
   },
@@ -2727,20 +2727,20 @@ const evolutions = {
       {name: "Wailord", level: 53, item: "Leftovers", ability: "Water Veil", moves: ["Scald", "Protect", "Aqua Ring", "Blizzard"]},
       {name: "Sceptile (Mega)", level: 55, item: "Sceptilite", ability: "Overgrow", moves: ["Energy Ball", "Dragon Pulse", "Focus Blast", "Grass Whistle"]}
     ],"Torchic": [
-      { name: "Swellow", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Raichu", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Sylveon", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Breloom", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Rapidash", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Swampert (Mega)", level: 55, item: "?", ability: "?", moves: ["?"] }
+      { name: "Swellow", level: 53, item: "Toxic Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "Steel Wing"] },
+      { name: "Raichu", level: 53, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Nuzzle"] },
+      { name: "Sylveon", level: 53, item: "Fairy Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Reflect"] },
+      { name: "Breloom", level: 53, item: "Life Orb", ability: "Technician", moves: ["Spore", "Bullet Seed", "Mach Punch", "Rock Tomb"] },
+      { name: "Rapidash", level: 53, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blit", "Drill Run", "Megahorn", "Wild charge"] },
+      { name: "Swampert (Mega)", level: 55, item: "Swampertite", ability: "Torrent", moves: ["Earthquake", "Aqua Tail", "Rock Slide", "Yawn"] }
     ],
     "Treecko": [
-      { name: "Swellow", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Raichu", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Sylveon", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Wailord", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Breloom", level: 53, item: "?", ability: "?", moves: ["?"] },
-      { name: "Blaziken (Mega)", level: 55, item: "?", ability: "?", moves: ["?"] }
+      { name: "Swellow", level: 53, item: "Toxic Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "Steel Wing"] },
+      { name: "Raichu", level: 53, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Nuzzle"] },
+      { name: "Sylveon", level: 53, item: "Fairy Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Reflect"] },
+      { name: "Wailord", level: 53, item: "Leftovers", ability: "Water Veil", moves: ["Scald", "Protect", "Aqua Ring", "Blizzard"]},
+      { name: "Breloom", level: 53, item: "Life Orb", ability: "Technician", moves: ["Spore", "Bullet Seed", "Mach Punch", "Rock Tomb"] },
+      { name: "Blaziken (Mega)", level: 55, item: "Blazikenite", ability: "Blaze", moves: ["High Jump Kick", "Blaze Kick", "Thunder Punch", "Earthquake"] }
     ]
     }
   },
@@ -2960,18 +2960,18 @@ const evolutions = {
       {name: "Wailord", level: 85, item: "Leftovers", ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam", "Earthquake"]},
       {name: "Sceptile", level: 87, item: "Sceptilite", ability: "Overgrow", moves: ["Leaf Storm", "Dragon Pulse", "Focus Blast", "Protect"]}
     ],"Torchic": [
-      { name: "Swellow", level: 85, item: "?", ability: "?", moves: ["?"] },
-      { name: "Raichu", level: 85, item: "?", ability: "?", moves: ["?"] },
-      { name: "Sylveon", level: 85, item: "?", ability: "?", moves: ["?"] },
+      {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
+      {name: "Raichu", level: 85, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Light Screen"]},
+      {name: "Sylveon", level: 85, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Double Team"]},
+      {name: "Rapidash", level: 85, item: "Shell Bell", ability: "Flame Body", moves: ["Flare Blitz", "Drill Run", "Megahorn", "Poison Jab"]},
       { name: "Breloom", level: 85, item: "?", ability: "?", moves: ["?"] },
-      { name: "Rapidash", level: 85, item: "?", ability: "?", moves: ["?"] },
       { name: "Swampert (Mega)", level: 87, item: "?", ability: "?", moves: ["?"] }
     ],
     "Treecko": [
-      { name: "Swellow", level: 85, item: "?", ability: "?", moves: ["?"] },
-      { name: "Raichu", level: 85, item: "?", ability: "?", moves: ["?"] },
-      { name: "Sylveon", level: 85, item: "?", ability: "?", moves: ["?"] },
-      { name: "Wailord", level: 85, item: "?", ability: "?", moves: ["?"] },
+      {name: "Swellow", level: 85, item: "Flame Orb", ability: "Guts", moves: ["Protect", "Brave Bird", "Facade", "U-turn"]},
+      {name: "Raichu", level: 85, item: "Expert Belt", ability: "Static", moves: ["Thunder", "Surf", "Focus Blast", "Light Screen"]},
+      {name: "Sylveon", level: 85, item: "Pixie Plate", ability: "Pixilate", moves: ["Hyper Voice", "Psyshock", "Shadow Ball", "Double Team"]},
+      {name: "Wailord", level: 85, item: "Leftovers", ability: "Water Veil", moves: ["Hydro Pump", "Heavy Slam", "Ice Beam", "Earthquake"]},
       { name: "Breloom", level: 85, item: "?", ability: "?", moves: ["?"] },
       { name: "Blaziken (Mega)", level: 87, item: "?", ability: "?", moves: ["?"] }
     ]
@@ -3466,8 +3466,6 @@ setupSearch();
 </script>
 </body>
 </html>
-
-
 
 
 
